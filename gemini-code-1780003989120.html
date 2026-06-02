@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <!-- STREAMING_CHUNK:Konfigurieren des Dokumentenkopfs und der Meta-Tags... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTS - Funkturmservice GmbH | Telekommunikationsinfrastruktur</title>
+    <meta name="description" content="Professioneller Mobilfunkausbau, Stahlbau, Wartung und Planung für Telekommunikationsinfrastruktur.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        mint: {
+                            400: '#33ebb1',
+                            500: '#00d28a', // Active Accent
+                            600: '#00b377',
+                        },
+                        ui: {
+                            white: '#ffffff',
+                            light: '#f8f9fa',
+                            gray: '#e5e7eb',
+                            darkgray: '#4b5563',
+                            dark: '#111827',
+                            black: '#030712',
+                        }
+                    },
+                    transitionTimingFunction: {
+                        'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- STREAMING_CHUNK:Erstellen der benutzerdefinierten Premium-Styles und Animationen... -->
+    <style>
+        :root {
+            --mint: #00d28a;
+            --black: #030712;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #111827;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Strict geometry - Sharp corners for industrial tech feel */
+        * { border-radius: 0 !important; }
+
+        ::selection {
+            background-color: var(--mint);
+            color: var(--black);
+        }
+
+        .focus-outline:focus-visible {
+            outline: 2px solid var(--mint);
+            outline-offset: 2px;
+        }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* --- Hero Section & Parallax --- */
+        .hero-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            min-height: 800px;
+            overflow: hidden;
+            background-color: var(--black);
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: -5%; left: -5%;
+            width: 110%; height: 110%;
+            will-change: transform;
+        }
+
+        .layer-bg {
+            background-image: url('https://raw.githubusercontent.com/christianslw/FTS/refs/heads/main/res/BG_BG.jpg');
+            background-size: cover;
+            background-position: center center;
+            z-index: 1;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .layer-fg {
+            background-image: url('https://raw.githubusercontent.com/christianslw/FTS/refs/heads/main/res/BG_FG.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            left: 20%;
+            z-index: 3;
+        }
+
+        .layer-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(3, 7, 18, 0.8) 0%, rgba(3, 7, 18, 0.3) 100%);
+            z-index: 2;
+        }
+
+        .layer-content {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- Navigation --- */
+        .nav-scrolled {
+            background-color: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-transparent {
+            background-color: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link { position: relative; overflow: hidden; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 2px;
+            background-color: var(--mint);
+            transform: translateX(-101%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after { transform: translateX(0); }
+
+        /* --- UI Elements --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metro-tile {
+            background-color: var(--ui-white);
+            border: 1px solid var(--ui-gray);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
+        }
+        .metro-tile::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -1px;
+            width: 3px; height: 100%;
+            background-color: var(--mint);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+        }
+        .metro-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+            border-color: transparent;
+        }
+        .metro-tile:hover::before { transform: scaleY(1); }
+
+        /* Buttons & Inputs */
+        .btn-primary {
+            background-color: var(--mint);
+            color: var(--black);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ffffff;
+            z-index: -1;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-primary:hover { color: var(--black); }
+        .btn-primary:hover::before { transform: scaleY(1); }
+
+        .flat-input {
+            width: 100%;
+            background-color: #f0f2f5;
+            border: 1px solid transparent;
+            color: var(--ui-dark);
+            padding: 1rem 1.25rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .flat-input:focus {
+            outline: none;
+            background-color: var(--ui-white);
+            border-color: var(--mint);
+            box-shadow: 0 0 0 4px rgba(0, 210, 138, 0.1);
+        }
+
+        .logo-svg path, .logo-svg polygon, .logo-svg rect, .logo-svg text {
+            fill: currentColor !important;
+            transition: fill 0.3s ease;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            animation: bounce 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Success Message Form */
+        #form-success { display: none; }
+        #form-success.active { display: flex; animation: fade-in 0.5s ease forwards; }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="antialiased selection:bg-mint-500 selection:text-black">
+
+    <!-- STREAMING_CHUNK:Aufbau der Header-Navigation... -->
+    <header id="main-nav" class="fixed top-0 w-full z-50 nav-transparent transition-all duration-500 py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="text-white hover:text-mint-400 transition-colors z-50 focus-outline flex-shrink-0" id="nav-logo" aria-label="Home">
+                    <svg id="Logo_H" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 164.43" class="h-8 md:h-10 w-auto logo-svg">
+                        <style>.cls-1{letter-spacing:.03em}.cls-2{letter-spacing:.01em}.cls-3{letter-spacing:-.02em}.cls-4{letter-spacing:.04em}.cls-5{font-family:Inter-Medium,Inter;font-size:32px;font-weight:500}.cls-7{letter-spacing:.01em}</style>
+                        <g>
+                            <text class="cls-5" transform="translate(194.23 144.67)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="18.01" y="0">unkturmse</tspan><tspan class="cls-1" x="184.55" y="0">r</tspan><tspan class="cls-4" x="197.75" y="0">v</tspan><tspan class="cls-7" x="217.13" y="0">ice</tspan></text>
+                            <g>
+                                <path d="M220.14,59.18h55.91v17.96h-55.91v30.51h-23.72v-61.02c0-5.71,2.31-10.87,6.05-14.61,3.73-3.74,8.9-6.05,14.6-6.05h64.22l-10.53,20.66h-47.29c-1.84,0-3.33,1.49-3.33,3.33v9.22Z"/>
+                                <polygon points="368.98 25.97 358.46 46.63 279.5 46.63 290.02 25.97 368.98 25.97"/>
+                                <path d="M451.12,77.14v9.86c0,5.7-2.31,10.86-6.05,14.6s-8.9,6.05-14.6,6.05h-61.96v-20.65h55.56c1.84,0,3.33-1.49,3.33-3.33v-3.19c0-1.84-1.49-3.33-3.33-3.33h-34.91c-11.41,0-20.65-9.25-20.65-20.65v-9.86c0-5.71,2.31-10.87,6.05-14.61,3.74-3.74,8.91-6.05,14.61-6.05h59.53v20.66h-53.14c-1.84,0-3.33,1.49-3.33,3.33v3.19c0,1.84,1.49,3.33,3.33,3.33h34.91c11.4,0,20.65,9.24,20.65,20.65Z"/>
+                                <rect x="310.42" y="87" width="23.72" height="20.65"/>
+                                <rect x="310.42" y="46.63" width="23.72" height="61.02"/>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M80.92,45.38c-7.81,0-15.06,2.54-20.93,6.83l6.73,7.28c4.07-2.7,8.96-4.28,14.2-4.28s10.13,1.58,14.2,4.28l6.73-7.28c-5.87-4.29-13.11-6.83-20.93-6.83ZM107.86,57.77l-6.72,7.28h0c3.43,4.38,5.49,9.89,5.49,15.87,0,6.91-2.74,13.19-7.18,17.81l7.1,6.78c6.14-6.39,9.91-15.06,9.91-24.59,0-8.84-3.24-16.93-8.6-23.16ZM55.21,80.92c0-5.99,2.06-11.49,5.49-15.87h0s-6.72-7.29-6.72-7.29c-5.36,6.23-8.6,14.32-8.6,23.16,0,9.53,3.78,18.2,9.91,24.59l7.1-6.79c-4.45-4.62-7.18-10.9-7.18-17.8Z"/>
+                                    <path d="M80.92,22.41c-13.82,0-26.54,4.82-36.57,12.86l6.69,7.25c8.25-6.44,18.62-10.28,29.87-10.28s21.63,3.84,29.87,10.28l6.69-7.25c-10.03-8.04-22.75-12.86-36.57-12.86ZM123.5,40.83l-6.68,7.25c7.95,8.67,12.79,20.2,12.79,32.85s-5.16,24.91-13.56,33.67l7.1,6.78c10.08-10.52,16.28-24.77,16.28-40.45s-6.06-29.61-15.93-40.1ZM32.24,80.92c0-12.65,4.84-24.18,12.79-32.85l-6.68-7.25c-9.87,10.48-15.93,24.59-15.93,40.1s6.2,29.93,16.28,40.45l7.1-6.79c-8.4-8.75-13.56-20.61-13.56-33.66Z"/>
+                                    <path d="M80.92,0c-19.68,0-37.74,7.06-51.78,18.79l6.67,7.22c12.28-10.11,28-16.19,45.11-16.19s32.83,6.08,45.11,16.19l6.67-7.22C118.66,7.06,100.6,0,80.92,0ZM138.72,24.34l-6.68,7.23c12.35,12.79,19.97,30.19,19.97,49.34s-7.53,36.37-19.77,49.14l7.1,6.78c13.93-14.54,22.5-34.25,22.5-55.92s-8.82-41.98-23.12-56.58ZM29.8,31.58l-6.68-7.23C8.82,38.94,0,58.92,0,80.92s8.57,41.38,22.49,55.92l7.11-6.78c-12.25-12.77-19.77-30.09-19.77-49.14s7.62-36.56,19.97-49.34Z"/>
+                                </g>
+                                <path d="M104.38,164.43h-46.93l1.57-5.6,2.66-9.47,3.4-12.11h0l2.65-9.47,3.56-12.66,2.66-9.46,4.09-14.56c-1.38-.39-2.65-1.05-3.75-1.92-.35-.28-.68-.58-.99-.9-1.85-1.91-2.98-4.5-2.98-7.36,0-1.57.34-3.06.96-4.4,1.17-2.57,3.34-4.59,6.02-5.55,1.12-.42,2.34-.64,3.61-.64s2.49.22,3.61.64c2.68.97,4.85,2.98,6.02,5.55.61,1.34.96,2.83.96,4.4,0,2.87-1.14,5.46-2.99,7.36-.31.32-.64.61-.98.89-1.1.88-2.37,1.55-3.76,1.93l4.1,14.56,2.65,9.46,3.56,12.66,2.66,9.47,3.4,12.11,2.66,9.47,1.57,5.6Z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-10" id="nav-links">
+                    <a href="#kompetenzen" class="nav-link text-white text-xs font-bold uppercase tracking-[0.15em] py-2 focus-outline">Leistungen</a>
+                    <a href="#unternehmen" class="nav-link text-white text-xs font-bold uppercase tracking-[0.15em] py-2 focus-outline">Unternehmen</a>
+                    <a href="#referenzen" class="nav-link text-white text-xs font-bold uppercase tracking-[0.15em] py-2 focus-outline">Referenzen</a>
+                    <a href="#karriere" class="nav-link text-white text-xs font-bold uppercase tracking-[0.15em] py-2 focus-outline">Karriere</a>
+                    <div class="flex items-center gap-3 border-l border-white/20 pl-8 ml-2">
+                        <a href="#" class="text-mint-500 text-xs font-bold uppercase tracking-widest focus-outline">DE</a>
+                        <a href="#" class="text-white/50 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors focus-outline">EN</a>
+                    </div>
+                    <a href="#kontakt" class="btn-primary px-8 py-3.5 text-xs font-bold uppercase tracking-[0.15em] focus-outline ml-4">
+                        Kontakt
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white focus-outline p-2 hover:text-mint-500 transition-colors" id="mobile-btn" aria-label="Menü">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-ui-dark border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl">
+            <div class="flex flex-col px-6 py-8 space-y-6">
+                <a href="#kompetenzen" class="text-white text-sm font-bold uppercase tracking-widest pb-4 border-b border-gray-800 hover:text-mint-500 transition-colors">Leistungen</a>
+                <a href="#unternehmen" class="text-white text-sm font-bold uppercase tracking-widest pb-4 border-b border-gray-800 hover:text-mint-500 transition-colors">Unternehmen</a>
+                <a href="#referenzen" class="text-white text-sm font-bold uppercase tracking-widest pb-4 border-b border-gray-800 hover:text-mint-500 transition-colors">Referenzen</a>
+                <a href="#karriere" class="text-white text-sm font-bold uppercase tracking-widest pb-4 border-b border-gray-800 hover:text-mint-500 transition-colors">Karriere</a>
+                <div class="flex items-center gap-6 pb-4 border-b border-gray-800 pt-2">
+                    <a href="#" class="text-mint-500 text-sm font-bold uppercase tracking-widest focus-outline">DE</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm font-bold uppercase tracking-widest transition-colors focus-outline">EN</a>
+                </div>
+                <a href="#kontakt" class="btn-primary inline-block text-center py-4 text-sm font-bold uppercase tracking-widest mt-4">Kontakt aufnehmen</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- STREAMING_CHUNK:Rendern der Parallax-Hero-Sektion... -->
+    <section class="hero-container" id="hero">
+        <!-- Background Layers -->
+        <div class="parallax-layer layer-bg" data-speed="0.02"></div>
+        <div class="layer-overlay"></div>
+        <div class="parallax-layer layer-fg" data-speed="0.05"></div>
+
+        <!-- Content Layer -->
+        <div class="parallax-layer layer-content" data-speed="-0.015">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 md:mt-24">
+                
+                <!-- Premium Glass Block -->
+                <div class="glass-panel p-8 md:p-14 max-w-2xl relative border-l-4 border-l-mint-500 reveal">
+                    <span class="inline-block px-3 py-1 bg-mint-500/10 text-mint-400 font-mono text-xs font-bold uppercase tracking-widest mb-6">
+                        System & Infrastruktur
+                    </span>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
+                        Präzision <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">in jeder Höhe.</span>
+                    </h1>
+                    
+                    <p class="text-gray-300 text-base md:text-lg mb-10 leading-relaxed font-light max-w-xl">
+                        Ihr branchenerfahrener Partner für Stahlbau, Elektrotechnik und Steigwege. Wir realisieren komplexe Projekte – bundesweit. Sicher und zuverlässig nach höchsten Industriestandards.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-5">
+                        <a href="#kontakt" class="btn-primary px-8 py-4 text-center text-sm font-bold uppercase tracking-[0.15em] focus-outline shadow-lg shadow-mint-500/20">
+                            Projekt anfragen
+                        </a>
+                        <a href="#kompetenzen" class="bg-transparent border border-white/30 text-white hover:bg-white hover:text-black px-8 py-4 text-center text-sm font-bold uppercase tracking-[0.15em] focus-outline transition-all duration-300">
+                            Leistungen
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center opacity-70">
+            <span class="font-mono text-[10px] text-white uppercase tracking-[0.2em] mb-3">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-mint-500 to-transparent scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Hinzufügen des Referenzen-Banners (Marquee)... -->
+    <section id="referenzen" class="relative z-20 bg-ui-black border-y border-white/5 py-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center font-mono text-xs text-gray-500 uppercase tracking-widest mb-8">Vertrauen von führenden Netzbetreibern</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="flex justify-center transition-transform hover:scale-105"><img src="res/partner/BR.svg" alt="BR" class="h-8 md:h-10 invert"></div>
+                <div class="flex justify-center transition-transform hover:scale-105"><img src="res/partner/DFMG.svg" alt="DFMG" class="h-8 md:h-10 invert"></div>
+                <div class="flex justify-center transition-transform hover:scale-105"><img src="res/partner/HR.svg" alt="HR" class="h-8 md:h-10 invert"></div>
+                <div class="flex justify-center transition-transform hover:scale-105"><img src="res/partner/SWR.svg" alt="SWR" class="h-8 md:h-10 invert"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Erstellen der animierten Statistik-Sektion... -->
+    <section class="bg-ui-dark relative z-20 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-800 border-l border-r border-gray-800">
+                
+                <div class="p-8 md:p-12 flex flex-col justify-center reveal">
+                    <span class="font-mono text-mint-500 text-xs tracking-widest mb-4">[ 01 ]</span>
+                    <p class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-target="10">0</span>+</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest font-mono">Jahre Erfahrung</p>
+                </div>
+                
+                <div class="p-8 md:p-12 flex flex-col justify-center reveal reveal-delay-1">
+                    <span class="font-mono text-mint-500 text-xs tracking-widest mb-4">[ 02 ]</span>
+                    <p class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-target="2500">0</span></p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest font-mono">Projekte realisiert</p>
+                </div>
+                
+                <div class="p-8 md:p-12 flex flex-col justify-center reveal reveal-delay-2">
+                    <span class="font-mono text-mint-500 text-xs tracking-widest mb-4">[ 03 ]</span>
+                    <p class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-target="100">0</span>%</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest font-mono">SCC Zertifiziert</p>
+                </div>
+                
+                <div class="p-8 md:p-12 flex flex-col justify-center bg-mint-500 group transition-all duration-300 hover:bg-white reveal reveal-delay-3 cursor-pointer">
+                    <span class="font-mono text-ui-dark group-hover:text-mint-500 text-xs tracking-widest mb-4 transition-colors">[ 04 ]</span>
+                    <p class="text-4xl md:text-5xl font-bold text-ui-black group-hover:text-ui-black mb-2 transition-colors">365</p>
+                    <p class="text-xs text-ui-dark group-hover:text-gray-500 uppercase tracking-widest font-mono transition-colors">Tage Service & Support</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Gestaltung der Leistungen/Kompetenzen-Kacheln... -->
+    <section id="kompetenzen" class="py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+                <div class="max-w-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-[2px] bg-mint-500"></div>
+                        <p class="font-mono text-mint-600 text-xs font-bold uppercase tracking-[0.2em]">
+                            Matrix // Leistungsspektrum
+                        </p>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-ui-black leading-[1.1] tracking-tight">
+                        Architektur für kritische <br />Netzwerkinfrastruktur.
+                    </h2>
+                </div>
+                <p class="text-ui-darkgray max-w-md text-sm md:text-base leading-relaxed">
+                    Wir bieten das komplette Spektrum an Dienstleistungen für den Auf- und Ausbau moderner Telekommunikationsnetze aus einer Hand.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                
+                <!-- Service Block 1 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_01</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Mobilfunk & 5G</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Fachgerechte Integration aktueller Systemtechnik (Ericsson, Huawei, Nokia). Wir realisieren Netzerweiterungen, Swaps und komplette Neubauten unter strengsten Herstellervorgaben.
+                    </p>
+                </div>
+
+                <!-- Service Block 2 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal reveal-delay-1">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_02</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Stahl- & Mastbau</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Montage massiver Tragwerke und Antennenträger. Wir übernehmen Mastverstärkungen und Sonderkonstruktionen basierend auf geprüften statischen Berechnungen.
+                    </p>
+                </div>
+
+                <!-- Service Block 3 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal reveal-delay-2">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_03</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Elektrotechnik</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Sichere Energieversorgung der Infrastruktur. Ausführung von AC/DC Unterverteilungen, Zuleitungen sowie normgerechten Erdungs- und Blitzschutzanlagen.
+                    </p>
+                </div>
+
+                <!-- Service Block 4 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_04</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Richtfunk</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Zuverlässige Line-of-Sight (LoS) Analysen, fachgerechte Montage und präzise Feineinmessung von Richtfunkstrecken zur Gewährleistung stabiler Verbindungen.
+                    </p>
+                </div>
+
+                <!-- Service Block 5 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal reveal-delay-1">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_05</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Wartung & Service</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Minimierung von Ausfallzeiten durch zyklische Präventivwartungen, DGUV V3 Prüfungen und kompetentes Troubleshooting direkt an der Anlage.
+                    </p>
+                </div>
+
+                <!-- Service Block 6 -->
+                <div class="metro-tile p-10 flex flex-col h-full group reveal reveal-delay-2">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="p-3 bg-gray-50 group-hover:bg-mint-500/10 transition-colors">
+                            <svg class="w-8 h-8 text-ui-dark group-hover:text-mint-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                        </div>
+                        <span class="font-mono text-gray-400 group-hover:text-mint-500 text-xs transition-colors">SYS_06</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-ui-black mb-4">Engineering</h3>
+                    <p class="text-ui-darkgray text-sm leading-relaxed mb-6 flex-grow">
+                        Fundierte technische Vorbereitung. Erstellung detaillierter CAD-Zeichnungen, Unterstützung bei Bauanträgen und saubere As-Built Dokumentation.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Aufbau der Unternehmens- und Qualitätssektion... -->
+    <section id="unternehmen" class="bg-ui-white relative z-10 border-t border-gray-200">
+        <div class="flex flex-col lg:flex-row min-h-[600px]">
+            
+            <!-- Left Side: Content -->
+            <div class="w-full lg:w-1/2 p-8 sm:p-16 lg:p-24 flex items-center justify-end relative">
+                <div class="absolute inset-0 bg-gray-50 w-1/2 left-0 z-0 hidden lg:block"></div>
+                <div class="max-w-xl relative z-10 lg:pr-8 reveal">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-8 h-[2px] bg-mint-500"></div>
+                        <p class="font-mono text-mint-600 text-xs font-bold uppercase tracking-[0.2em]">
+                            Unternehmensprofil
+                        </p>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold text-ui-black mb-8 leading-tight tracking-tight">
+                        Zertifizierte Sicherheit für kritische Strukturen.
+                    </h2>
+                    <p class="text-ui-darkgray mb-6 leading-relaxed text-lg">
+                        Die Funkturmservice GmbH ist seit über 15 Jahren ein etablierter Dienstleister für Netzbetreiber und Systemtechnik-Anbieter in Deutschland. Wir verstehen die technischen und sicherheitsrelevanten Anforderungen beim Bau und Betrieb von Industrieanlagen.
+                    </p>
+                    <p class="text-ui-darkgray mb-12 leading-relaxed">
+                        Unser fest angestelltes Team aus Technikern, Monteuren und Industriekletterern arbeitet strikt nach Vorgaben des SCC-Regelwerks. Qualität, Termintreue und absolute Arbeitssicherheit stehen bei jedem unserer Projekte im Vordergrund.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 font-mono text-xs uppercase tracking-wider text-ui-black">
+                        <div class="border border-gray-200 bg-white p-4 flex items-center gap-3 transition-colors hover:border-mint-500">
+                            <div class="w-2 h-2 bg-mint-500"></div> SCC Geprüft
+                        </div>
+                        <div class="border border-gray-200 bg-white p-4 flex items-center gap-3 transition-colors hover:border-mint-500">
+                            <div class="w-2 h-2 bg-mint-500"></div> FISAT Kletterer
+                        </div>
+                        <div class="border border-gray-200 bg-white p-4 flex items-center gap-3 transition-colors hover:border-mint-500">
+                            <div class="w-2 h-2 bg-mint-500"></div> VDE Normgerecht
+                        </div>
+                        <div class="border border-gray-200 bg-white p-4 flex items-center gap-3 transition-colors hover:border-mint-500">
+                            <div class="w-2 h-2 bg-mint-500"></div> DGUV V3
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Dark Abstract Trust Element -->
+            <div class="w-full lg:w-1/2 bg-ui-black p-8 sm:p-16 lg:p-24 flex items-center relative overflow-hidden text-white">
+                <!-- Architectural grid pattern -->
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
+                
+                <div class="relative z-10 border border-white/10 bg-gray-900/50 backdrop-blur-sm p-10 md:p-16 w-full max-w-xl mx-auto lg:ml-8 reveal reveal-delay-2">
+                    <svg class="w-16 h-16 text-mint-500 mb-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                    <h3 class="text-3xl font-bold mb-6 text-white">Qualitätsversprechen</h3>
+                    <p class="text-gray-400 font-light leading-relaxed text-lg">
+                        Wir gewährleisten höchste Standards durch kontinuierliche Weiterbildung unserer Mitarbeiter und strikte Einhaltung aktueller DIN- und Herstellervorgaben. Ihr Projekt ist bei uns in sicheren Händen – von der Planung bis zur finalen Abnahme.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Erstellen des Kontaktformulars und der Kontaktinfos... -->
+    <section id="kontakt" class="py-24 md:py-32 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-0 shadow-2xl reveal">
+                
+                <!-- Info Column -->
+                <div class="lg:col-span-5 bg-ui-black text-white p-10 md:p-16 flex flex-col justify-between relative overflow-hidden">
+                    <!-- Accent background element -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-mint-500 rounded-full blur-[150px] opacity-20 transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-8 h-[2px] bg-mint-500"></div>
+                            <p class="font-mono text-mint-500 text-xs font-bold uppercase tracking-[0.2em]">
+                                Kommunikation
+                            </p>
+                        </div>
+                        <h2 class="text-4xl font-bold mb-6">Senden Sie uns Ihr Anliegen.</h2>
+                        <p class="text-gray-400 text-base leading-relaxed mb-16">
+                            Ob projektbezogene Beratung, Anfragen oder Karriere-Interesse: Unser Team in Neustadt an der Weinstraße meldet sich umgehend bei Ihnen zurück.
+                        </p>
+                        
+                        <div class="space-y-10 font-mono text-sm">
+                            <div class="group">
+                                <p class="text-mint-500 mb-2 tracking-widest text-xs uppercase transition-colors group-hover:text-mint-400">Hauptsitz</p>
+                                <p class="text-gray-200 leading-relaxed">FTS GmbH<br>Theodor-Heuss-Straße 79a<br>67435 Neustadt a.d.W.</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="group">
+                                    <p class="text-mint-500 mb-2 tracking-widest text-xs uppercase transition-colors group-hover:text-mint-400">Telefon</p>
+                                    <a href="tel:+4963279794027" class="text-gray-200 hover:text-white transition-colors">06327 979 40 27</a>
+                                </div>
+                                <div class="group">
+                                    <p class="text-mint-500 mb-2 tracking-widest text-xs uppercase transition-colors group-hover:text-mint-400">Telefax</p>
+                                    <p class="text-gray-200">06327 979 38 27</p>                                
+                                </div>
+                            </div>
+                            <div class="group">
+                                <p class="text-mint-500 mb-2 tracking-widest text-xs uppercase transition-colors group-hover:text-mint-400">E-Mail</p>
+                                <a href="mailto:info@funkturmservice.de" class="text-gray-200 hover:text-white transition-colors border-b border-gray-700 pb-1 hover:border-mint-500">info@funkturmservice.de</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="lg:col-span-7 bg-white p-10 md:p-16 border border-gray-200 border-l-0 relative">
+                    
+                    <!-- Success Message Overlay -->
+                    <div id="form-success" class="absolute inset-0 bg-white z-20 flex-col items-center justify-center p-12 text-center border border-mint-500 hidden">
+                        <div class="w-16 h-16 bg-mint-500/20 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-mint-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ui-black mb-2">Vielen Dank!</h3>
+                        <p class="text-ui-darkgray mb-8">Ihre Anfrage wurde erfolgreich übermittelt. Wir melden uns in Kürze bei Ihnen.</p>
+                        <button onclick="resetForm()" class="btn-primary px-8 py-3 text-sm font-bold uppercase tracking-widest focus-outline">
+                            Neue Anfrage
+                        </button>
+                    </div>
+
+                    <form id="contact-form" class="space-y-8" onsubmit="handleFormSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Vorname *</label>
+                                <input type="text" class="flat-input" required placeholder="Max">
+                            </div>
+                            <div>
+                                <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Nachname *</label>
+                                <input type="text" class="flat-input" required placeholder="Mustermann">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Firma / Organisation</label>
+                            <input type="text" class="flat-input" placeholder="Unternehmen GmbH">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Geschäftliche E-Mail *</label>
+                            <input type="email" class="flat-input" required placeholder="mail@unternehmen.de">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Betreff / Anliegen *</label>
+                            <div class="relative">
+                                <select class="flat-input appearance-none cursor-pointer" required>
+                                    <option value="" disabled selected>Bitte wählen Sie ein Thema...</option>
+                                    <option>Ausschreibung / Projekt</option>
+                                    <option>Wartungsanfrage</option>
+                                    <option>Karriere / Bewerbung</option>
+                                    <option>Allgemeine Anfrage</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Nachricht *</label>
+                            <textarea rows="5" class="flat-input resize-none" required placeholder="Ihre Nachricht an uns..."></textarea>
+                        </div>
+                        
+                        <div class="pt-2">
+                            <button type="submit" class="btn-primary w-full py-4 text-sm font-bold uppercase tracking-[0.2em] focus-outline flex justify-center items-center gap-3">
+                                <span>Anfrage sicher übermitteln</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="square" stroke-linejoin="miter" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Finalisierung mit dem Footer-Bereich... -->
+    <footer class="bg-ui-black pt-20 pb-8 text-gray-400 border-t-4 border-mint-500 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                
+                <!-- Logo block -->
+                <div class="md:col-span-5 lg:col-span-4 pr-4">
+                    <a href="#" class="block mb-8 text-white hover:text-mint-500 transition-colors focus-outline inline-block">
+                        <svg id="Logo_V" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262.77 354.61" class="h-28 w-auto logo-svg">
+                            <style>.cls-v1{letter-spacing:.03em}.cls-v2{letter-spacing:.01em}.cls-v3{letter-spacing:-.02em}.cls-v4{letter-spacing:.04em}.cls-v5{font-family:Inter-Medium,Inter;font-size:32px;font-weight:500}.cls-v7{letter-spacing:.01em}</style>
+                            <g>
+                                <text class="cls-v5" transform="translate(0 342.04)"><tspan class="cls-v3" x="0" y="0">F</tspan><tspan class="cls-v2" x="18.01" y="0">unkturmse</tspan><tspan class="cls-v1" x="184.55" y="0">r</tspan><tspan class="cls-v4" x="197.75" y="0">v</tspan><tspan class="cls-v7" x="217.13" y="0">ice</tspan></text>
+                                <g>
+                                    <path d="M25.91,256.55h55.91v17.96H25.91v30.51H2.19v-61.02c0-5.71,2.31-10.87,6.05-14.61,3.73-3.74,8.9-6.05,14.6-6.05h64.22l-10.53,20.66H29.24c-1.84,0-3.33,1.49-3.33,3.33v9.22Z"/>
+                                    <polygon points="174.75 223.34 164.23 244 85.27 244 95.79 223.34 174.75 223.34"/>
+                                    <path d="M256.89,274.51v9.86c0,5.7-2.31,10.86-6.05,14.6s-8.9,6.05-14.6,6.05h-61.96v-20.65h55.56c1.84,0,3.33-1.49,3.33-3.33v-3.19c0-1.84-1.49-3.33-3.33-3.33h-34.91c-11.41,0-20.65-9.25-20.65-20.65v-9.86c0-5.71,2.31-10.87,6.05-14.61,3.74-3.74,8.91-6.05,14.61-6.05h59.53v20.66h-53.14c-1.84,0-3.33,1.49-3.33,3.33v3.19c0,1.84,1.49,3.33,3.33,3.33h34.91c11.4,0,20.65,9.24,20.65,20.65Z"/>
+                                    <rect x="116.19" y="284.37" width="23.72" height="20.65"/>
+                                    <rect x="116.19" y="244" width="23.72" height="61.02"/>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M130.01,55.4c-9.54,0-18.38,3.1-25.55,8.34l8.21,8.89c4.97-3.3,10.94-5.23,17.34-5.23s12.37,1.93,17.34,5.23l8.21-8.89c-7.17-5.24-16.01-8.34-25.55-8.34ZM162.9,70.52l-8.2,8.89h0c4.19,5.35,6.7,12.07,6.7,19.38,0,8.43-3.34,16.1-8.77,21.74l8.67,8.28c7.49-7.8,12.1-18.38,12.1-30.02,0-10.79-3.96-20.67-10.5-28.27ZM98.62,98.79c0-7.31,2.51-14.03,6.7-19.37h0s-8.2-8.9-8.2-8.9c-6.54,7.6-10.5,17.48-10.5,28.27,0,11.64,4.61,22.22,12.1,30.02l8.67-8.29c-5.43-5.64-8.77-13.31-8.77-21.73Z"/>
+                                        <path d="M130.01,27.36c-16.87,0-32.4,5.88-44.64,15.7l8.17,8.85c10.07-7.86,22.73-12.55,36.47-12.55s26.4,4.69,36.47,12.55l8.17-8.85c-12.24-9.82-27.77-15.7-44.64-15.7ZM181.99,49.84l-8.16,8.85c9.7,10.58,15.61,24.66,15.61,40.1s-6.3,30.41-16.55,41.1l8.67,8.28c12.31-12.84,19.88-30.24,19.88-49.38s-7.4-36.15-19.45-48.95ZM70.58,98.79c0-15.44,5.91-29.52,15.61-40.1l-8.16-8.85c-12.05,12.8-19.45,30.02-19.45,48.95s7.57,36.54,19.88,49.38l8.67-8.29c-10.25-10.68-16.55-25.16-16.55-41.09Z"/>
+                                        <path d="M130.01,0c-24.02,0-46.07,8.62-63.21,22.94l8.14,8.82c14.99-12.34,34.18-19.76,55.07-19.76s40.08,7.42,55.07,19.76l8.14-8.82C176.08,8.62,154.03,0,130.01,0ZM200.57,29.72l-8.15,8.83c15.08,15.61,24.38,36.86,24.38,60.24s-9.19,44.4-24.14,59.99l8.67,8.28c17.01-17.75,27.47-41.81,27.47-68.27s-10.77-51.25-28.23-69.07ZM67.6,38.55l-8.15-8.83c-17.46,17.82-28.23,42.21-28.23,69.07s10.46,50.52,27.46,68.27l8.68-8.28c-14.95-15.59-24.14-36.74-24.14-59.99s9.3-44.63,24.38-60.24Z"/>
+                                    </g>
+                                    <path d="M158.65,200.74h-57.29l1.92-6.84,3.25-11.56,4.15-14.78h.01l3.24-11.56,4.34-15.45,3.25-11.55,4.99-17.77c-1.69-.47-3.24-1.28-4.58-2.35-.43-.34-.83-.71-1.21-1.1-2.26-2.33-3.64-5.49-3.64-8.99,0-1.92.42-3.74,1.17-5.37,1.43-3.14,4.08-5.6,7.35-6.78,1.37-.51,2.86-.78,4.41-.78s3.04.27,4.41.78c3.27,1.18,5.92,3.64,7.35,6.78.75,1.63,1.17,3.45,1.17,5.37,0,3.5-1.39,6.67-3.65,8.99-.38.39-.78.75-1.2,1.09-1.34,1.07-2.89,1.89-4.59,2.36l5,17.77,3.24,11.55,4.34,15.45,3.25,11.56,4.15,14.78,3.25,11.56,1.92,6.84Z"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-2 h-2 rounded-full bg-mint-500 animate-pulse"></div>
+                        <p class="font-mono text-xs uppercase tracking-widest text-gray-500">System Online</p>
+                    </div>
+                    <p class="text-sm font-light text-gray-400 leading-relaxed max-w-sm">
+                        Ihr Premium-Infrastruktur-Dienstleister für Telekommunikationsnetze. Zertifiziert, sicher und bundesweit im Einsatz.
+                    </p>
+                </div>
+                
+                <!-- Links -->
+                <div class="md:col-span-3 lg:col-span-2 lg:col-start-7">
+                    <h4 class="text-white font-mono font-bold mb-6 uppercase text-xs tracking-widest border-b border-gray-800 pb-4">Verzeichnis</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#kompetenzen" class="hover:text-mint-500 hover:translate-x-1 inline-block transition-all focus-outline">Leistungen</a></li>
+                        <li><a href="#unternehmen" class="hover:text-mint-500 hover:translate-x-1 inline-block transition-all focus-outline">Unternehmensprofil</a></li>
+                        <li><a href="#kontakt" class="hover:text-mint-500 hover:translate-x-1 inline-block transition-all focus-outline">Kontakt aufnehmen</a></li>
+                        <li><a href="#karriere" class="hover:text-mint-500 hover:translate-x-1 inline-block transition-all focus-outline flex items-center gap-2">Karriere <span class="bg-mint-500 text-black text-[9px] font-bold px-1.5 py-0.5 uppercase">Hiring</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-4 lg:col-span-3 lg:col-start-10">
+                    <h4 class="text-white font-mono font-bold mb-6 uppercase text-xs tracking-widest border-b border-gray-800 pb-4">Rechtliches</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors focus-outline">Impressum</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors focus-outline">Datenschutzrichtlinien</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors focus-outline">Allgemeine Geschäftsbedingungen</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-xs font-mono tracking-widest text-gray-600">
+                <p>COPYRIGHT &copy; <span id="year"></span> FUNKTURMSERVICE GMBH</p>
+                <div class="mt-4 md:mt-0 flex gap-6">
+                    <a href="#" class="hover:text-mint-500 transition-colors focus-outline">LINKEDIN</a>
+                    <a href="#" class="hover:text-mint-500 transition-colors focus-outline">XING</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STREAMING_CHUNK:Initialisieren der JavaScript-Logik (Animationen, Parallax, Formulare)... -->
+    <script>
+        // Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Navigation Scroll Logic (Glassmorphism) ---
+        const nav = document.getElementById('main-nav');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+                nav.classList.remove('nav-transparent', 'py-2');
+                nav.classList.add('py-0');
+            } else {
+                nav.classList.remove('nav-scrolled', 'py-0');
+                nav.classList.add('nav-transparent', 'py-2');
+            }
+        });
+
+        // --- Mobile Menu ---
+        const btn = document.getElementById('mobile-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // --- Smooth Parallax Effect ---
+        const parallaxLayers = document.querySelectorAll('.parallax-layer');
+        let currentMouseX = window.innerWidth / 2;
+        let currentMouseY = window.innerHeight / 2;
+        let targetMouseX = window.innerWidth / 2;
+        let targetMouseY = window.innerHeight / 2;
+        
+        document.addEventListener('mousemove', (e) => {
+            targetMouseX = e.clientX;
+            targetMouseY = e.clientY;
+        });
+
+        function animateParallax() {
+            // Lerp smoothing
+            currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+            currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+            
+            const scrollY = window.scrollY;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            parallaxLayers.forEach(layer => {
+                const speed = parseFloat(layer.getAttribute('data-speed'));
+                // X based mostly on mouse, Y based on mouse AND scroll
+                const xOffset = (currentMouseX - centerX) * speed;
+                const yOffset = ((currentMouseY - centerY) * speed) + (scrollY * speed * 2.5);
+
+                layer.style.transform = `scale(1.05) translate3d(${xOffset}px, ${yOffset}px, 0)`;
+            });
+
+            requestAnimationFrame(animateParallax);
+        }
+        animateParallax();
+
+        // --- Scroll Reveal & Counter Animations (Intersection Observer) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Run counter if it has counters inside
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; // 2 seconds
+                        const increment = target / (duration / 16); // 60fps
+                        
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCounter();
+                        // Remove class so it doesn't animate again
+                        counter.classList.remove('counter');
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // --- Form Handling (Replace Alert) ---
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('form-success');
+            
+            // Here you would normally send the data via fetch/XHR
+            
+            form.style.display = 'none';
+            successMsg.classList.add('active');
+        }
+
+        function resetForm() {
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('form-success');
+            
+            form.reset();
+            form.style.display = 'block';
+            successMsg.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+```eof
+
+### Was sich geändert hat ("Das perfekte Upgrade"):
+*   **Ästhetik & Tiefe:** Der Metro-Look wurde bewahrt (scharfe Kanten), aber durch elegante Glassmorphism-Elemente (Milchglas-Effekt beim Scrollen der Navigation und im Hero-Textfeld) massiv aufgewertet.
+*   **Motion Design:** Elemente "fließen" sanft in die Seite ein, wenn man nach unten scrollt. Das gibt der Seite ein extrem hochwertiges Anwendungsgefühl. Die Statistiken zählen lebhaft hoch.
+*   **Farbschema:** Das helle Layout wurde durch ein tiefes, dunkles UI in den relevanten Bereichen ergänzt (`bg-ui-dark`, `bg-ui-black`), um den "Critical Infrastructure" / "Cyber"-Vibe zu verstärken. Der Mint-Ton (`#00d28a`) kommt dadurch drastisch besser zur Geltung.
+*   **UX (Nutzererfahrung):** Das harte `alert()` beim Formular wurde durch ein flüssig eingeblendetes Success-Overlay ersetzt, das dem Nutzer direkt in der Box ein professionelles Feedback gibt. Das Parallax-Script wurde durch `translate3d` und `requestAnimationFrame` für 60fps-Hardwarebeschleunigung optimiert.
