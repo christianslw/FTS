@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,6 +38,9 @@
             }
         }
     </script>
+
+    <!-- PixiJS für hochperformantes WebGL (Gitterverzerrung & Layer) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
     
     <style>
         :root {
@@ -82,93 +86,49 @@
             padding-right: var(--layout-gutter) !important;
         }
 
-        /* --- Neue Parallax-Klassen --- */
-        .parallax-layer {
+        /* --- Pixi Wrapper für den globalen CSS Tilt --- */
+        #pixi-wrapper {
             position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 120%; /* Übergröße, damit Ränder beim Wackeln nicht sichtbar werden */
-            height: 120%;
+            top: -3%;  
+            left: -3%; 
+            width: 106%; 
+            height: 106%;
             will-change: transform;
-            transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .layer-4-wald {
-            background-image: url('res/karriere/4_BASE.webp');
-            background-size: cover;
-            background-position: center;
+            pointer-events: none; /* Klicks an den Button durchlassen */
             z-index: 1;
         }
 
-        .layer-3-wolken {
-            background-image: url('res/karriere/3_CLOUDS.png');
-            background-size: cover;
-            background-position: center center;
-            mix-blend-mode: screen; /* Entspricht 'Negativ multiplizieren' */
-            opacity: 1;
-            z-index: 3;
+        #pixi-canvas-container {
+            width: 100%;
+            height: 100%;
         }
 
-        .layer-2-nebel {
-            background-image: url('res/karriere/2_FOG.webp');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            left: -35%;
-            width: 170%;
-            mix-blend-mode: screen;
-            --fog-max-opacity: 0.95;
-            opacity: 0;
-            z-index: 2;
-            will-change: transform;
-            animation: fog-drift-loop 18s linear infinite, fog-fade-loop 18s ease-in-out infinite;
-        }
-
-        .layer-2-nebel.layer-2-nebel-b {
-            --fog-max-opacity: 0.72;
-            animation-delay: -9s, -9s;
-        }
-
-        .layer-2-nebel-feather {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2;
-            background: linear-gradient(
-                to right,
-                rgba(0, 0, 0, 0.55) 0%,
-                rgba(0, 0, 0, 0) 16%,
-                rgba(0, 0, 0, 0) 84%,
-                rgba(0, 0, 0, 0.55) 100%
-            );
-        }
-
-        @keyframes fog-drift-loop {
-            from { transform: scale(1.18) translate3d(0%, 0, 0); }
-            to { transform: scale(1.18) translate3d(-18%, 0, 0); }
-        }
-
-        @keyframes fog-fade-loop {
-            0%, 8% { opacity: 0; }
-            22%, 78% { opacity: var(--fog-max-opacity); }
-            92%, 100% { opacity: 0; }
+        #pixi-canvas-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
         .layer-overlay-dark {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5); /* Verdunkelt die Hintergründe leicht für lesbaren Text */
+            background: rgba(0, 0, 0, 0.45);
             z-index: 4;
+            pointer-events: none;
         }
 
         .layer-content {
+            position: absolute;
+            inset: 0;
             z-index: 7;
             display: flex;
             align-items: center;
+            pointer-events: none; /* Klicks auf Links/Buttons drunter/drüber durchlassen */
         }
 
+        /* Fallback falls WebGL nicht geladen werden kann */
         .layer-1-turm {
-            background-image: url('res/karriere/1_TOWER.png');
+            background-image: url('https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png');
             background-size: cover;
             background-position: 44% center;
             opacity: 1;
@@ -220,7 +180,6 @@
             transform-origin: left;
         }
 
-        /* Metro style Tiles */
         .metro-tile {
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
@@ -247,7 +206,6 @@
             transform: scaleY(1);
         }
 
-        /* Job Accordion / Box */
         .job-box {
             border: 1px solid #e0e0e0;
             background-color: #ffffff;
@@ -315,10 +273,6 @@
             .hero-container {
                 min-height: 520px;
             }
-
-            .layer-1-turm {
-                background-position: 50% center;
-            }
         }
 
         @media (max-width: 1023px) {
@@ -326,26 +280,12 @@
                 height: auto;
                 min-height: 520px;
             }
-
-            .parallax-layer {
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-
             .layer-content {
                 align-items: flex-end;
             }
-
             .layer-content .max-w-7xl {
                 margin-top: 0;
                 margin-bottom: 3rem;
-            }
-
-            .layer-1-turm {
-                background-position: center bottom;
-                background-size: auto 82%;
             }
         }
 
@@ -354,15 +294,12 @@
                 padding-left: 1rem !important;
                 padding-right: 1rem !important;
             }
-
             .hero-container {
                 display: none;
             }
-
             #mobile-menu {
                 top: 4.5rem;
             }
-
             .mobile-quickstart {
                 display: block;
             }
@@ -466,44 +403,36 @@
         </div>
     </section>
 
+    <!-- === HERO SECTION MIT INTEGRIERTEM PIXIJS & CSS TILT === -->
     <section class="hero-container" id="hero">
-        <!-- Parallax Layer 4: Wald (Hintergrund) -->
-        <div class="parallax-layer layer-4-wald" data-speed="-0.015" data-scroll="0.15"></div>
         
-        <!-- Parallax Layer 3: Wolken (Negativ multipliziert) -->
-        <div class="parallax-layer layer-3-wolken" data-speed="-0.022" data-scroll="0.25"></div>
-        
-        <!-- Parallax Layer 2: Nebel (Negativ multipliziert) -->
-        <div class="parallax-layer layer-2-nebel" data-speed="0.002" data-scroll="0.4"></div>
-        <div class="parallax-layer layer-2-nebel layer-2-nebel-b" data-speed="0.002" data-scroll="0.4" aria-hidden="true"></div>
-        <div class="layer-2-nebel-feather" aria-hidden="true"></div>
+        <!-- Dieser Container erhält die CSS Skew/Tilt Neigung und Translations, die früher der Wald hatte -->
+        <div id="pixi-wrapper">
+            <div id="pixi-canvas-container"></div>
+        </div>
 
-        <!-- Overlay für Text-Lesbarkeit (Hinter dem Turm und Text) -->
-        <div class="parallax-layer layer-overlay-dark" data-speed="0.006" data-scroll="0.15"></div>
+        <!-- Dunkles Overlay für besseren Kontrast der Texte -->
+        <div class="layer-overlay-dark"></div>
 
-        <!-- Content Layer (Text zwischen Nebel und Turm) -->
-        <div class="parallax-layer layer-content" data-speed="0.012" data-scroll="0.3">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 relative z-10">
+        <!-- Text Content -->
+        <div class="layer-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 relative z-10 pointer-events-auto">
                 <div class="max-w-3xl">
-                    <p class="font-mono text-mint-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
+                    <p class="font-mono text-mint-500 text-sm font-bold uppercase tracking-[0.2em] mb-4 drop-shadow-md">
                         Werde Teil des Teams
                     </p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight drop-shadow-lg">
                         Bereit für deinen Aufstieg?
                     </h1>
-                    <p class="text-flat-gray text-lg md:text-xl mb-10 leading-relaxed font-light max-w-2xl">
-                        
+                    <p class="text-flat-gray text-lg md:text-xl mb-10 leading-relaxed font-light max-w-2xl drop-shadow-md">
+                        Dein Job ganz oben. Wir suchen Profis, die hoch hinaus wollen.
                     </p>
-                    <!-- pointer-events-auto stellt sicher, dass der Button klickbar bleibt, auch wenn der Turm ihn visuell leicht überlappt -->
                     <a href="#stellen" class="inline-block btn-primary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline shadow-[0_0_20px_rgba(0,210,138,0.3)] pointer-events-auto relative z-20">
                         Offene Stellen ansehen
                     </a>
                 </div>
             </div>
         </div>
-
-        <!-- Parallax Layer 1: Turm (Vordergrund, verdeckt ggf. den Text leicht für enorme Tiefe) -->
-        <div class="parallax-layer layer-1-turm pointer-events-none" data-speed="0.07" data-scroll="0.6"></div>
     </section>
 
     <!-- Why FTS Section -->
@@ -742,6 +671,7 @@
         </div>
     </footer>
 
+    <!-- Logik für Navbar & Page Transition -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -807,146 +737,6 @@
             });
         });
 
-        // --- Advanced Parallax & Camera Sway Effect ---
-        const parallaxLayers = document.querySelectorAll('.parallax-layer');
-        const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
-        let currentMouseX = window.innerWidth / 2;
-        let currentMouseY = window.innerHeight / 2;
-        let targetMouseX = window.innerWidth / 2;
-        let targetMouseY = window.innerHeight / 2;
-
-        if (!compactMotionQuery.matches) {
-            // Tracke Mausposition
-            document.addEventListener('mousemove', (e) => {
-                targetMouseX = e.clientX;
-                targetMouseY = e.clientY;
-            });
-        } else {
-            parallaxLayers.forEach((layer) => {
-                layer.style.transform = 'none';
-            });
-        }
-
-        function setBackgroundWithFallback(selector, localUrl, fallbackUrl) {
-            const probe = new Image();
-            probe.onload = () => {
-                document.querySelectorAll(selector).forEach((el) => {
-                    el.style.backgroundImage = `url('${localUrl}')`;
-                });
-            };
-            probe.onerror = () => {
-                document.querySelectorAll(selector).forEach((el) => {
-                    el.style.backgroundImage = `url('${fallbackUrl}')`;
-                });
-            };
-            probe.src = localUrl;
-        }
-
-        setBackgroundWithFallback('.layer-4-wald', 'res/karriere/4_BASE.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp');
-        setBackgroundWithFallback('.layer-3-wolken', 'res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
-        setBackgroundWithFallback('.layer-2-nebel', 'res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
-        setBackgroundWithFallback('.layer-1-turm', 'res/karriere/1_TOWER.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png');
-
-        function animateParallax() {
-            // Smoothe Maus-Interpolation
-            currentMouseX += (targetMouseX - currentMouseX) * 0.05;
-            currentMouseY += (targetMouseY - currentMouseY) * 0.05;
-
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            const time = Date.now() * 0.001; // Zeitstempel für den "Atmungs"-Effekt (Sway)
-            const compactMotion = compactMotionQuery.matches;
-            const towerBaseShift = compactMotion ? 0 : Math.min(window.innerWidth * 0.06, 84);
-            const motionScale = compactMotion ? 0.15 : 1;
-            const waldLayer = document.querySelector('.layer-4-wald');
-            const waldSpeed = waldLayer ? parseFloat(waldLayer.getAttribute('data-speed')) : -0.015;
-
-            parallaxLayers.forEach((layer, index) => {
-                const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
-                const isTowerLayer = layer.classList.contains('layer-1-turm');
-                const isCloudLayer = layer.classList.contains('layer-3-wolken');
-                const isFogLayer = layer.classList.contains('layer-2-nebel');
-                const isUnderTowerLayer = layer.classList.contains('layer-4-wald')
-                    || layer.classList.contains('layer-3-wolken')
-                    || layer.classList.contains('layer-2-nebel')
-                    || layer.classList.contains('layer-overlay-dark')
-                    || layer.classList.contains('layer-content');
-                
-                const movementScale = isTowerLayer ? 1 : (isCloudLayer ? 0.4 : (isFogLayer ? 0.02 : (isUnderTowerLayer ? 0.12 : 0.25)));
-
-                // 1. Sway wie davor wiederherstellen (Translations-Schwingen, ohne an den Wald gebunden zu sein)
-                const swayForceX = isTowerLayer ? 12 : 5;
-                const swayForceY = isTowerLayer ? 8 : 3.5;
-                const swayDirection = Math.sign(speed) || 1;
-
-                const swayX = Math.sin(time * 0.5 + index) * swayForceX * swayDirection * motionScale;
-                const swayY = Math.cos(time * 0.4 + index) * swayForceY * swayDirection * motionScale;
-
-                // 2. Maus-Translation: Turm ist hier im Wald verankert, damit er bei Mausbewegungen nicht wegrutscht,
-                // andere Layer verschieben sich ganz normal.
-                const mouseTransSpeed = isTowerLayer ? waldSpeed * 0.12 : speed * movementScale;
-                const mouseTransX = (currentMouseX - centerX) * mouseTransSpeed * motionScale;
-                const mouseTransY = (currentMouseY - centerY) * mouseTransSpeed * motionScale;
-
-                const baseXOffset = isTowerLayer ? towerBaseShift : 0;
-                const xOffset = mouseTransX + swayX + baseXOffset;
-                const yOffset = mouseTransY + swayY;
-
-                if (isFogLayer) {
-                    return;
-                }
-
-                // 3. Perspektivische Verformung NUR für den Mauszeiger und ~75% schwächer (vorher 4.5 / 1.5, jetzt 1.1 / 0.4)
-                const rotMultiplier = isTowerLayer ? 0.5 : 0.1; 
-                
-                const camX = (currentMouseX - centerX) / centerX;
-                const camY = (currentMouseY - centerY) / centerY;
-                
-                // Kein Tilt-Sway mehr, 3D-Kippen passiert ausschließlich beim Bewegen der Maus
-                const rotateY = (camX * 3.5) * rotMultiplier * motionScale;
-                const rotateX = -(camY * 3.5) * rotMultiplier * motionScale;
-
-                if (isTowerLayer) {
-                        // REINES 2D-TRANSLATE
-                        // Keine Perspektive, keine Rotation, keine Verzerrung.
-                        // Die grünen und gelben Pfeile aus deiner Skizze sind hiermit perfekt abgedeckt.
-
-                        // 1. Lineares Schwingen (Pendel-Effekt)
-                        // Wir lassen den Turm sanft auf der X-Achse hin und her schwingen.
-                        const swayForceX = 18; // Erhöhe diesen Wert, wenn der Turm stärker schwingen soll
-                        const swayForceY = 4;  // Leichtes vertikales Atmen
-                        
-                        const swayTransX = Math.sin(time * 0.4) * swayForceX * motionScale; 
-                        const swayTransY = Math.cos(time * 0.3) * swayForceY * motionScale;
-
-                        // 2. Maus-Einfluss
-                        // Reagiert auf die Maus, verschiebt das Bild aber nur als starre Fläche
-                        const mouseSpeedX = 0.04; // Wie stark der Turm der Maus folgt
-                        const mouseSpeedY = 0.04;
-                        
-                        const mouseTransX = (currentMouseX - centerX) * mouseSpeedX * motionScale;
-                        const mouseTransY = (currentMouseY - centerY) * mouseSpeedY * motionScale;
-
-                        // Offset addieren
-                        const xOffset = swayTransX + mouseTransX;
-                        const yOffset = swayTransY + mouseTransY;
-
-                        // Zuweisen (Nur scale und translate3d)
-                        layer.style.transform = `scale(${compactMotion ? 1.02 : 1.15}) translate3d(${xOffset}px, ${yOffset}px, 0)`;
-                    }
-
-                layer.style.transform = `perspective(1000px) scale(${compactMotion ? 1.02 : 1.15}) translate3d(${xOffset}px, ${yOffset}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            requestAnimationFrame(animateParallax);
-        }
-
-        // Start animation loop
-        if (!compactMotionQuery.matches) {
-            animateParallax();
-        }
-    </script>
-    <script>
         (function () {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (prefersReducedMotion) return;
@@ -980,6 +770,225 @@
                 }, 220);
             });
         })();
+    </script>
+
+    <!-- === INTEGRIERTE CSS-TILT & HOCHPERFORMANTE WEBGL-LOGIK === -->
+    <script>
+        const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
+        const pixiWrapper = document.getElementById('pixi-wrapper');
+        const pixiContainer = document.getElementById('pixi-canvas-container');
+
+        let currentMouseX = window.innerWidth / 2;
+        let currentMouseY = window.innerHeight / 2;
+        let targetMouseX = window.innerWidth / 2;
+        let targetMouseY = window.innerHeight / 2;
+
+        if (!compactMotionQuery.matches && typeof PIXI !== 'undefined') {
+            
+            // 1. Mouse Tracking Global
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            });
+
+            // 2. Globaler CSS-Tilt (Sanfte Neigung des gesamten Containers als Einheit)
+            function animateCSSTilt() {
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const time = Date.now() * 0.001;
+
+                const camX = (currentMouseX - centerX) / centerX;
+                const camY = (currentMouseY - centerY) / centerY;
+
+                // Subtile 3D-Neigung
+                const rotateY = (camX * 3.5) * 0.1;
+                const rotateX = -(camY * 3.5) * 0.1;
+
+                // Minimale 2D-Parallelverschiebung (Parallax-Effekt)
+                const swayX = Math.sin(time * 0.5) * 5;
+                const swayY = Math.cos(time * 0.4) * 3.5;
+                const transX = (currentMouseX - centerX) * -0.015 + swayX;
+                const transY = (currentMouseY - centerY) * -0.015 + swayY;
+
+                // scale(1.03) hält den Wald im Hintergrund wunderbar weit entfernt, reicht aber als Kanten-Puffer aus
+                pixiWrapper.style.transform = `perspective(1000px) scale(1.03) translate3d(${transX}px, ${transY}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                requestAnimationFrame(animateCSSTilt);
+            }
+            animateCSSTilt();
+
+            // 3. WebGL PixiJS für die inneren Layer
+            const pixiApp = new PIXI.Application({
+                resizeTo: pixiContainer,
+                backgroundAlpha: 0, // Transparent, damit CSS-Hintergrund durchscheint
+                resolution: window.devicePixelRatio || 1,
+                autoDensity: true
+            });
+            pixiContainer.appendChild(pixiApp.view);
+
+            const scene = new PIXI.Container();
+            pixiApp.stage.addChild(scene);
+
+            // FUNKTION ZUM LOKALEN PRELOADING MIT AKTIVIERTEM CORS-HEADER:
+            // Verhindert 'SecurityError: The operation is insecure' auf WebGL texImage2D
+            function loadCORSImage(src) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.crossOrigin = "anonymous"; // Teilt dem Server & Browser mit, CORS zu erlauben
+                    img.onload = () => resolve(img);
+                    img.onerror = (e) => reject(new Error(`Fehler beim Laden von: ${src}`));
+                    img.src = src;
+                });
+            }
+
+            // Sichere gehostete GitHub-Ressourcen
+            const githubPaths = {
+                base: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp',
+                clouds: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png',
+                fog: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp',
+                tower: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png'
+            };
+
+            // Alle Bilder parallel mit CORS-Header laden, dann erst an PixiJS Texturen übergeben
+            Promise.all(Object.entries(githubPaths).map(([key, val]) => 
+                loadCORSImage(val).then(img => [key, img])
+            )).then((loadedImages) => {
+                const assets = Object.fromEntries(loadedImages);
+
+                const baseTex = PIXI.Texture.from(assets.base);
+                const cloudsTex = PIXI.Texture.from(assets.clouds);
+                const fogTex = PIXI.Texture.from(assets.fog);
+                const towerTex = PIXI.Texture.from(assets.tower);
+
+                const W = towerTex.width;
+                const H = towerTex.height;
+
+                // --- LAYER SETUP ---
+                const base = new PIXI.Sprite(baseTex);
+                base.anchor.set(0.5);
+                scene.addChild(base);
+
+                const clouds = new PIXI.Sprite(cloudsTex);
+                clouds.anchor.set(0.5);
+                clouds.blendMode = PIXI.BLEND_MODES.SCREEN;
+                scene.addChild(clouds);
+
+                // Nebel Infinite Tiling
+                const fog = new PIXI.TilingSprite(fogTex, W * 2, H * 2);
+                fog.anchor.set(0.5);
+                fog.blendMode = PIXI.BLEND_MODES.SCREEN;
+                scene.addChild(fog);
+
+                const towerMesh = new PIXI.SimplePlane(towerTex, 20, 20);
+                towerMesh.x = -W / 2;
+                towerMesh.y = -H / 2;
+                scene.addChild(towerMesh);
+
+                const buffer = towerMesh.geometry.buffers[0];
+                const origVerts = new Float32Array(buffer.data);
+
+                // --- SMART SCALING (Verhindert unschönen Extra-Zoom) ---
+                function resizePixi() {
+                    const cW = pixiContainer.clientWidth;
+                    const cH = pixiContainer.clientHeight;
+                    
+                    // Wald (Base) Skalierung basierend auf Originalmaßen
+                    const baseScaleX = cW / baseTex.width;
+                    const baseScaleY = cH / baseTex.height;
+                    const baseScale = Math.max(baseScaleX, baseScaleY);
+                    base.scale.set(baseScale);
+                    base.x = cW / 2;
+                    base.y = cH / 2;
+
+                    // Wolken Skalierung
+                    const cloudsScaleX = cW / cloudsTex.width;
+                    const cloudsScaleY = cH / cloudsTex.height;
+                    const cloudsScale = Math.max(cloudsScaleX, cloudsScaleY);
+                    clouds.scale.set(cloudsScale);
+                    clouds.x = cW / 2;
+                    clouds.y = cH / 2;
+
+                    // Nebel Skalierung
+                    const fogScaleX = cW / fogTex.width;
+                    const fogScaleY = cH / fogTex.height;
+                    const fogScale = Math.max(fogScaleX, fogScaleY);
+                    fog.tileScale.set(fogScale);
+                    fog.width = cW * 1.5;
+                    fog.height = cH * 1.5;
+                    fog.x = cW / 2;
+                    fog.y = cH / 2;
+                    
+                    // Turm Skalierung (Matches background-position: 44% center)
+                    const towerScaleX = cW / W;
+                    const towerScaleY = cH / H;
+                    const towerScale = Math.max(towerScaleX, towerScaleY);
+                    towerMesh.scale.set(towerScale);
+                    towerMesh.x = (cW - W * towerScale) * 0.44;
+                    towerMesh.y = (cH - H * towerScale) * 0.50;
+
+                    scene.x = 0;
+                    scene.y = 0;
+                }
+                window.addEventListener('resize', resizePixi);
+                resizePixi();
+
+                // DEINE ABGESTIMMTEN WERTE FÜR DEN TURM-FUSS (Bodenverankerung)
+                const anchorPctX = 0.53;
+                const anchorPctY = 0.51;
+                const anchorLocalX = W * anchorPctX;
+                const anchorLocalY = H * anchorPctY;
+                const mousePower = 60; 
+
+                let pixiTime = 0;
+
+                // --- ANIMATIONS LOOP (WebGL) ---
+                pixiApp.ticker.add((delta) => {
+                    pixiTime += 0.02 * delta;
+
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    const mouseNormX = (currentMouseX - centerX) / centerX;
+                    const mouseNormY = (currentMouseY - centerY) / centerY;
+
+                    // Wolken bewegen sich extrem subtil (Faktor 0.005)
+                    clouds.x = -(mouseNormX * W * 0.005);
+                    clouds.y = -(mouseNormY * H * 0.005);
+
+                    // Nebel-Drift & sanfter Deckkraft-Schleier
+                    fog.tilePosition.x -= 0.4 * delta;
+                    fog.alpha = 0.5 + Math.sin(pixiTime * 0.25) * 0.3; 
+
+                    // Turm Elastic Sway & Maus-Einfluss
+                    const swayX = Math.sin(pixiTime) * 12;
+                    const swayY = Math.cos(pixiTime * 0.8) * 6;
+                    const moveX = swayX + (mouseNormX * mousePower);
+                    const moveY = swayY + (mouseNormY * mousePower);
+
+                    const maxDist = Math.max(W, H);
+                    const data = buffer.data;
+
+                    for (let i = 0; i < origVerts.length; i += 2) {
+                        const ox = origVerts[i];
+                        const oy = origVerts[i + 1];
+
+                        const dx = ox - anchorLocalX;
+                        const dy = oy - anchorLocalY;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+
+                        // Gewichtungskurve
+                        let weight = dist / (maxDist * 0.5);
+                        weight = Math.pow(weight, 1.8);
+                        weight = Math.min(weight, 1.5);
+
+                        data[i] = ox + (moveX * weight);
+                        data[i + 1] = oy + (moveY * weight);
+                    }
+                    buffer.update();
+                });
+            }).catch(err => {
+                console.error("CORS-Preloader failed to execute WebGL. Loading CSS Fallback.", err);
+            });
+        }
     </script>
 </body>
 </html>

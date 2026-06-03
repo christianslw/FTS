@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* |----------------------------|
+   |  Custom Styles for Global  |
+   |----------------------------| 
+*/
+
+/* Colors and Variables */
+@layer base {
+    :root {
+        --mint: #00d28a;
+    }
+    * { border-radius: 0px; }
+    body {
+        background-color: #f4f4f4;
+        color: #161616;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+    ::selection {
+        background-color: #00d28a;
+        color: #000000;
+    }
+    .focus-outline:focus-visible {
+            outline: 2px solid #00d28a;
+            outline-offset: 2px;
+    }
+}
+
+
+
+@layer components {
+    
+    /* --Buttons-- */
+
+    .btn-primary {
+        background-color: var(--mint);
+        color: black;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 0.3s ease;
+    }
+    
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ffffff;
+        z-index: -1;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary:hover { 
+        color: black; 
+    }
+
+    .btn-primary:hover::before { 
+        transform: scaleY(1); 
+    }
+    
+    .btn-secondary {
+        background-color: transparent;
+        color: #ffffff !important;
+        border: 1px solid #ffffff !important;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #ffffff;   
+        color: #000000 !important;
+    }
+
+    /* --Navbar-- */
+
+    .nav-solid {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-transparent {
+        background-color: transparent;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .lang-switch {
+        border-left-color: rgba(255, 255, 255, 0.25);
+        transition: border-color 0.2s ease;
+    }
+
+    .nav-main-link {
+        @apply text-white font-semibold text-sm tracking-widest py-2 focus-outline;
+    }
+
+    .nav-solid .lang-switch {
+        border-left-color: #e0e0e0;
+    }
+
+    .nav-link {
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--mint);;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}
+@layer utilities {
+    .bg-mint-gradient {
+        background: linear-gradient(to right, color-mix(in srgb, var(--mint), transparent 60%), transparent);
+    }   
+}

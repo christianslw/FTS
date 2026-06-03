@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turm Verzerrung - Proof of Concept</title>
+    
+    <!-- PixiJS für hochperformantes WebGL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    
+    <style>
+        /* Reset für sauberen Fullscreen ohne Scrollbalken */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: sans-serif;
+        }
+
+        #pixi-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        /* Debug / Control Panel */
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            z-index: 10;
+            min-width: 250px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #00d28a;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .value-display {
+            font-size: 11px;
+            color: #aaa;
+            float: right;
+        }
+        
+        h1 {
+            font-size: 16px;
+            margin: 0 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WebGL Canvas -->
+    <div id="pixi-container"></div>
+
+    <!-- UI zur perfekten Ausrichtung -->
+    <div id="controls">
+        <h1>Effekt Feinjustierung</h1>
+        
+        <div class="control-group">
+            <label>Ankerpunkt X (Links/Rechts) <span id="valX" class="value-display">0.50</span></label>
+            <input type="range" id="vpX" min="0.3" max="0.7" step="0.01" value="0.50">
+        </div>
+        
+        <div class="control-group">
+            <label>Ankerpunkt Y (Oben/Unten) <span id="valY" class="value-display">0.55</span></label>
+            <input type="range" id="vpY" min="0.3" max="0.8" step="0.01" value="0.55">
+        </div>
+
+        <div class="control-group">
+            <label>Maus Einfluss <span id="valMouse" class="value-display">50</span></label>
+            <input type="range" id="mouseStrength" min="0" max="150" step="1" value="50">
+        </div>
+
+        <div class="control-group" style="margin-bottom: 0;">
+            <label style="display: flex; align-items: center; cursor: pointer;">
+                <input type="checkbox" id="showDebug" style="margin-right: 8px;">
+                Zeige blauen Ankerpunkt (Debug)
+            </label>
+        </div>
+    </div>
+
+    <script>
+        // 1. PixiJS App initialisieren (Füllt den ganzen Bildschirm)
+        const container = document.getElementById('pixi-container');
+        const app = new PIXI.Application({
+            resizeTo: window,
+            backgroundColor: 0x000000,
+            resolution: window.devicePixelRatio || 1,
+            autoDensity: true
+        });
+        container.appendChild(app.view);
+
+        // Szene zentrieren wir später exakt in der Mitte
+        const scene = new PIXI.Container();
+        app.stage.addChild(scene);
+
+        // Assets URLs
+        const urls = {
+            base: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp',
+            clouds: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png',
+            fog: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp',
+            tower: 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png'
+        };
+
+        // UI Elemente binden
+        const vpXInput = document.getElementById('vpX');
+        const vpYInput = document.getElementById('vpY');
+        const mouseInput = document.getElementById('mouseStrength');
+        const showDebugInput = document.getElementById('showDebug');
+
+        // Maus-Tracking Variablen
+        let targetMouseX = 0;
+        let targetMouseY = 0;
+        let currentMouseX = 0;
+        let currentMouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            // Normalisiert von -1 (links/oben) bis 1 (rechts/unten)
+            targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            targetMouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        });
+
+        // 2. Texturen laden
+        PIXI.Assets.load([urls.base, urls.clouds, urls.fog, urls.tower]).then((textures) => {
+            
+            // Native Bildgröße des Turms als Referenz
+            const W = textures[urls.tower].width;
+            const H = textures[urls.tower].height;
+
+            // --- HINTERGRÜNDE ---
+            const base = new PIXI.Sprite(textures[urls.base]);
+            base.anchor.set(0.5); // Verankert in der Mitte der Szene
+            scene.addChild(base);
+
+            const clouds = new PIXI.Sprite(textures[urls.clouds]);
+            clouds.anchor.set(0.5);
+            clouds.blendMode = PIXI.BLEND_MODES.SCREEN;
+            scene.addChild(clouds);
+
+            const fog = new PIXI.Sprite(textures[urls.fog]);
+            fog.anchor.set(0.5);
+            fog.blendMode = PIXI.BLEND_MODES.SCREEN;
+            fog.alpha = 0.8;
+            scene.addChild(fog);
+
+            // --- TURM MESH ---
+            // 20x20 Gitter für seidenweiche Verzerrung
+            const towerMesh = new PIXI.SimplePlane(textures[urls.tower], 20, 20);
+            // SimplePlane hat kein "anchor", daher verschieben wir es manuell ins Zentrum
+            towerMesh.x = -W / 2;
+            towerMesh.y = -H / 2;
+            scene.addChild(towerMesh);
+
+            // --- DEBUG ANKERPUNKT (Der "Blaue Punkt" aus deiner Zeichnung) ---
+            const debugDot = new PIXI.Graphics();
+            debugDot.beginFill(0x3498db); // Blau
+            debugDot.drawCircle(0, 0, 15);
+            debugDot.endFill();
+            debugDot.visible = false; // Standardmäßig aus
+            scene.addChild(debugDot);
+
+            // Originale Gitterpunkte für die Berechnungen zwischenspeichern
+            const buffer = towerMesh.geometry.buffers[0];
+            const origVerts = new Float32Array(buffer.data);
+
+            // --- RESIZE LOGIK (Stellt sicher, dass nichts verschoben ist) ---
+            function resize() {
+                // Szene IMMER exakt in die Mitte des Bildschirms setzen
+                scene.x = window.innerWidth / 2;
+                scene.y = window.innerHeight / 2;
+
+                // Cover-Skalierung (wie CSS background-size: cover)
+                const scaleX = window.innerWidth / W;
+                const scaleY = window.innerHeight / H;
+                const scale = Math.max(scaleX, scaleY) * 1.15; // 15% Überhang, damit keine Ränder aufblitzen
+                scene.scale.set(scale);
+            }
+            window.addEventListener('resize', resize);
+            resize(); // Einmal initial aufrufen
+
+            // --- ANIMATIONS LOOP ---
+            let time = 0;
+
+            app.ticker.add((delta) => {
+                time += 0.02 * delta;
+
+                // Maus-Interpolation für smoothe Bewegungen
+                currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+                currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+                // UI Werte auslesen
+                const anchorPctX = parseFloat(vpXInput.value);
+                const anchorPctY = parseFloat(vpYInput.value);
+                const mousePower = parseFloat(mouseInput.value);
+
+                document.getElementById('valX').textContent = anchorPctX.toFixed(2);
+                document.getElementById('valY').textContent = anchorPctY.toFixed(2);
+                document.getElementById('valMouse').textContent = mousePower;
+
+                // Ankerpunkt in lokalen Mesh-Koordinaten (0 bis W, 0 bis H)
+                const anchorLocalX = W * anchorPctX;
+                const anchorLocalY = H * anchorPctY;
+
+                // Debug Dot positionieren
+                debugDot.visible = showDebugInput.checked;
+                if (debugDot.visible) {
+                    debugDot.x = towerMesh.x + anchorLocalX;
+                    debugDot.y = towerMesh.y + anchorLocalY;
+                }
+
+                // Hintergrund-Parallax (Sanft in die entgegengesetzte Richtung)
+                clouds.x = currentMouseX * -30;
+                clouds.y = currentMouseY * -30;
+                fog.x = currentMouseX * -15;
+                fog.y = currentMouseY * -15;
+
+                // Automatisches Atmen (Sway)
+                const swayX = Math.sin(time) * 10;
+                const swayY = Math.cos(time * 0.8) * 5;
+
+                // Zielverschiebung (Maus + Sway)
+                const moveX = swayX + (currentMouseX * mousePower);
+                const moveY = swayY + (currentMouseY * mousePower);
+
+                // Maximale Distanz vom Anker für die Gewichtung
+                const maxDist = Math.max(W, H);
+                const data = buffer.data;
+
+                // DAS GITTER VERBIEGEN
+                for (let i = 0; i < origVerts.length; i += 2) {
+                    const ox = origVerts[i];
+                    const oy = origVerts[i + 1];
+
+                    // Abstand dieses Punktes zum Anker
+                    const dx = ox - anchorLocalX;
+                    const dy = oy - anchorLocalY;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+
+                    // Gewichtung (Je weiter weg, desto mehr Bewegung)
+                    // Durch Math.pow() entsteht die elastische Biegung (0 am Anker, stark am Rand)
+                    let weight = dist / (maxDist * 0.5); 
+                    weight = Math.pow(weight, 1.8); 
+                    weight = Math.min(weight, 1.5); // Cap
+
+                    // Verschieben
+                    data[i] = ox + (moveX * weight);
+                    data[i + 1] = oy + (moveY * weight);
+                }
+
+                // Renderer zwingen, das Update zu zeichnen
+                buffer.update();
+            });
+        });
+    </script>
+</body>
+</html>
