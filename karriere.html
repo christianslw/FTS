@@ -39,6 +39,11 @@
     </script>
     
     <style>
+        :root {
+            --layout-max: 80rem;
+            --layout-gutter: clamp(1rem, 2.4vw, 2rem);
+        }
+
         body {
             background-color: #f4f4f4;
             color: #161616;
@@ -60,28 +65,115 @@
 
         .hero-container {
             position: relative;
-            width: 100vw;
-            height: 70vh;
-            min-height: 500px;
+            width: 100%;
+            height: min(85vh, 860px);
+            min-height: 560px;
             overflow: hidden;
             background-color: #000000;
         }
 
-        /* Using a strong industrial/climbing placeholder background for the career hero */
-        .layer-bg-karriere {
+        #main-nav > div,
+        section > div.max-w-7xl,
+        footer > div.max-w-7xl {
+            max-width: var(--layout-max) !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: var(--layout-gutter) !important;
+            padding-right: var(--layout-gutter) !important;
+        }
+
+        /* --- Neue Parallax-Klassen --- */
+        .parallax-layer {
             position: absolute;
-            inset: 0;
-            background-image: url('https://images.unsplash.com/photo-1541888081622-49818816c4fa?q=80&w=2070&auto=format&fit=crop');
+            top: -10%;
+            left: -10%;
+            width: 120%; /* Übergröße, damit Ränder beim Wackeln nicht sichtbar werden */
+            height: 120%;
+            will-change: transform;
+            transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .layer-4-wald {
+            background-image: url('res/karriere/4_BASE.webp');
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             z-index: 1;
         }
 
-        .layer-overlay {
+        .layer-3-wolken {
+            background-image: url('res/karriere/3_CLOUDS.png');
+            background-size: cover;
+            background-position: center center;
+            mix-blend-mode: screen; /* Entspricht 'Negativ multiplizieren' */
+            opacity: 1;
+            z-index: 3;
+        }
+
+        .layer-2-nebel {
+            background-image: url('res/karriere/2_FOG.webp');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            left: -35%;
+            width: 170%;
+            mix-blend-mode: screen;
+            --fog-max-opacity: 0.95;
+            opacity: 0;
+            z-index: 2;
+            will-change: transform;
+            animation: fog-drift-loop 18s linear infinite, fog-fade-loop 18s ease-in-out infinite;
+        }
+
+        .layer-2-nebel.layer-2-nebel-b {
+            --fog-max-opacity: 0.72;
+            animation-delay: -9s, -9s;
+        }
+
+        .layer-2-nebel-feather {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6); /* Slightly darker for text readability */
+            pointer-events: none;
             z-index: 2;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.55) 0%,
+                rgba(0, 0, 0, 0) 16%,
+                rgba(0, 0, 0, 0) 84%,
+                rgba(0, 0, 0, 0.55) 100%
+            );
+        }
+
+        @keyframes fog-drift-loop {
+            from { transform: scale(1.18) translate3d(0%, 0, 0); }
+            to { transform: scale(1.18) translate3d(-18%, 0, 0); }
+        }
+
+        @keyframes fog-fade-loop {
+            0%, 8% { opacity: 0; }
+            22%, 78% { opacity: var(--fog-max-opacity); }
+            92%, 100% { opacity: 0; }
+        }
+
+        .layer-overlay-dark {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5); /* Verdunkelt die Hintergründe leicht für lesbaren Text */
+            z-index: 4;
+        }
+
+        .layer-content {
+            z-index: 7;
+            display: flex;
+            align-items: center;
+        }
+
+        .layer-1-turm {
+            background-image: url('res/karriere/1_TOWER.png');
+            background-size: cover;
+            background-position: 44% center;
+            opacity: 1;
+            background-repeat: no-repeat;
+            z-index: 6;
         }
 
         .nav-solid {
@@ -92,6 +184,22 @@
         .nav-transparent {
             background-color: transparent;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lang-switch {
+            border-left-color: rgba(255, 255, 255, 0.25);
+            transition: border-color 0.2s ease;
+        }
+
+        .nav-main-link {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .nav-solid .lang-switch {
+            border-left-color: #e0e0e0;
         }
 
         .nav-link { position: relative; }
@@ -198,99 +306,204 @@
         .logo-svg path, .logo-svg polygon, .logo-svg rect, .logo-svg text {
             fill: currentColor !important;
         }
+
+        .mobile-quickstart {
+            display: none;
+        }
+
+        @media (max-width: 1279px) {
+            .hero-container {
+                min-height: 520px;
+            }
+
+            .layer-1-turm {
+                background-position: 50% center;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .hero-container {
+                height: auto;
+                min-height: 520px;
+            }
+
+            .parallax-layer {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .layer-content {
+                align-items: flex-end;
+            }
+
+            .layer-content .max-w-7xl {
+                margin-top: 0;
+                margin-bottom: 3rem;
+            }
+
+            .layer-1-turm {
+                background-position: center bottom;
+                background-size: auto 82%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #main-nav > div {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .hero-container {
+                display: none;
+            }
+
+            #mobile-menu {
+                top: 4.5rem;
+            }
+
+            .mobile-quickstart {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header id="main-nav" class="fixed top-0 w-full z-50 nav-transparent transition-colors duration-300">
-        <div class="max-w-7xl mx-3 px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <a href="index.html" class="text-white hover:text-mint-500 transition-colors z-50 focus-outline ml-16 sm:ml-20 lg:ml-28" id="nav-logo" aria-label="Home">
-                    <svg id="Logo_H" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 164.43" class="h-8 md:h-10 w-auto logo-svg">
-                        <style>.cls-1{letter-spacing:.03em}.cls-2{letter-spacing:.01em}.cls-3{letter-spacing:-.02em}.cls-4{letter-spacing:.04em}.cls-5{font-family:Inter-Medium,Inter;font-size:32px;font-weight:500}.cls-7{letter-spacing:.01em}</style>
-                        <g>
-                            <text class="cls-5" transform="translate(194.23 144.67)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="18.01" y="0">unkturmse</tspan><tspan class="cls-1" x="184.55" y="0">r</tspan><tspan class="cls-4" x="197.75" y="0">v</tspan><tspan class="cls-7" x="217.13" y="0">ice</tspan></text>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center h-20 w-full">
+                
+                <!-- Logo (Left) -->
+                <div class="flex-1 flex justify-start">
+                    <a href="index.html" class="text-white hover:text-mint-500 transition-colors z-50 focus-outline" id="nav-logo" aria-label="Home">
+                        <svg id="Logo_H" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 164.43" class="h-8 md:h-10 w-auto logo-svg">
+                            <style>.cls-1{letter-spacing:.03em}.cls-2{letter-spacing:.01em}.cls-3{letter-spacing:-.02em}.cls-4{letter-spacing:.04em}.cls-5{font-family:Inter-Medium,Inter;font-size:32px;font-weight:500}.cls-7{letter-spacing:.01em}</style>
                             <g>
-                                <path d="M220.14,59.18h55.91v17.96h-55.91v30.51h-23.72v-61.02c0-5.71,2.31-10.87,6.05-14.61,3.73-3.74,8.9-6.05,14.6-6.05h64.22l-10.53,20.66h-47.29c-1.84,0-3.33,1.49-3.33,3.33v9.22Z"/>
-                                <polygon points="368.98 25.97 358.46 46.63 279.5 46.63 290.02 25.97 368.98 25.97"/>
-                                <path d="M451.12,77.14v9.86c0,5.7-2.31,10.86-6.05,14.6s-8.9,6.05-14.6,6.05h-61.96v-20.65h55.56c1.84,0,3.33-1.49,3.33-3.33v-3.19c0-1.84-1.49-3.33-3.33-3.33h-34.91c-11.41,0-20.65-9.25-20.65-20.65v-9.86c0-5.71,2.31-10.87,6.05-14.61,3.74-3.74,8.91-6.05,14.61-6.05h59.53v20.66h-53.14c-1.84,0-3.33,1.49-3.33,3.33v3.19c0,1.84,1.49,3.33,3.33,3.33h34.91c11.4,0,20.65,9.24,20.65,20.65Z"/>
-                                <rect x="310.42" y="87" width="23.72" height="20.65"/>
-                                <rect x="310.42" y="46.63" width="23.72" height="61.02"/>
-                            </g>
-                            <g>
+                                <text class="cls-5" transform="translate(194.23 144.67)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="18.01" y="0">unkturmse</tspan><tspan class="cls-1" x="184.55" y="0">r</tspan><tspan class="cls-4" x="197.75" y="0">v</tspan><tspan class="cls-7" x="217.13" y="0">ice</tspan></text>
                                 <g>
-                                    <path d="M80.92,45.38c-7.81,0-15.06,2.54-20.93,6.83l6.73,7.28c4.07-2.7,8.96-4.28,14.2-4.28s10.13,1.58,14.2,4.28l6.73-7.28c-5.87-4.29-13.11-6.83-20.93-6.83ZM107.86,57.77l-6.72,7.28h0c3.43,4.38,5.49,9.89,5.49,15.87,0,6.91-2.74,13.19-7.18,17.81l7.1,6.78c6.14-6.39,9.91-15.06,9.91-24.59,0-8.84-3.24-16.93-8.6-23.16ZM55.21,80.92c0-5.99,2.06-11.49,5.49-15.87h0s-6.72-7.29-6.72-7.29c-5.36,6.23-8.6,14.32-8.6,23.16,0,9.53,3.78,18.2,9.91,24.59l7.1-6.79c-4.45-4.62-7.18-10.9-7.18-17.8Z"/>
-                                    <path d="M80.92,22.41c-13.82,0-26.54,4.82-36.57,12.86l6.69,7.25c8.25-6.44,18.62-10.28,29.87-10.28s21.63,3.84,29.87,10.28l6.69-7.25c-10.03-8.04-22.75-12.86-36.57-12.86ZM123.5,40.83l-6.68,7.25c7.95,8.67,12.79,20.2,12.79,32.85s-5.16,24.91-13.56,33.67l7.1,6.78c10.08-10.52,16.28-24.77,16.28-40.45s-6.06-29.61-15.93-40.1ZM32.24,80.92c0-12.65,4.84-24.18,12.79-32.85l-6.68-7.25c-9.87,10.48-15.93,24.59-15.93,40.1s6.2,29.93,16.28,40.45l7.1-6.79c-8.4-8.75-13.56-20.61-13.56-33.66Z"/>
-                                    <path d="M80.92,0c-19.68,0-37.74,7.06-51.78,18.79l6.67,7.22c12.28-10.11,28-16.19,45.11-16.19s32.83,6.08,45.11,16.19l6.67-7.22C118.66,7.06,100.6,0,80.92,0ZM138.72,24.34l-6.68,7.23c12.35,12.79,19.97,30.19,19.97,49.34s-7.53,36.37-19.77,49.14l7.1,6.78c13.93-14.54,22.5-34.25,22.5-55.92s-8.82-41.98-23.12-56.58ZM29.8,31.58l-6.68-7.23C8.82,38.94,0,58.92,0,80.92s8.57,41.38,22.49,55.92l7.11-6.78c-12.25-12.77-19.77-30.09-19.77-49.14s7.62-36.56,19.97-49.34Z"/>
+                                    <path d="M220.14,59.18h55.91v17.96h-55.91v30.51h-23.72v-61.02c0-5.71,2.31-10.87,6.05-14.61,3.73-3.74,8.9-6.05,14.6-6.05h64.22l-10.53,20.66h-47.29c-1.84,0-3.33,1.49-3.33,3.33v9.22Z"/>
+                                    <polygon points="368.98 25.97 358.46 46.63 279.5 46.63 290.02 25.97 368.98 25.97"/>
+                                    <path d="M451.12,77.14v9.86c0,5.7-2.31,10.86-6.05,14.6s-8.9,6.05-14.6,6.05h-61.96v-20.65h55.56c1.84,0,3.33-1.49,3.33-3.33v-3.19c0-1.84-1.49-3.33-3.33-3.33h-34.91c-11.41,0-20.65-9.25-20.65-20.65v-9.86c0-5.71,2.31-10.87,6.05-14.61,3.74-3.74,8.91-6.05,14.61-6.05h59.53v20.66h-53.14c-1.84,0-3.33,1.49-3.33,3.33v3.19c0,1.84,1.49,3.33,3.33,3.33h34.91c11.4,0,20.65,9.24,20.65,20.65Z"/>
+                                    <rect x="310.42" y="87" width="23.72" height="20.65"/>
+                                    <rect x="310.42" y="46.63" width="23.72" height="61.02"/>
                                 </g>
-                                <path d="M104.38,164.43h-46.93l1.57-5.6,2.66-9.47,3.4-12.11h0l2.65-9.47,3.56-12.66,2.66-9.46,4.09-14.56c-1.38-.39-2.65-1.05-3.75-1.92-.35-.28-.68-.58-.99-.9-1.85-1.91-2.98-4.5-2.98-7.36,0-1.57.34-3.06.96-4.4,1.17-2.57,3.34-4.59,6.02-5.55,1.12-.42,2.34-.64,3.61-.64s2.49.22,3.61.64c2.68.97,4.85,2.98,6.02,5.55.61,1.34.96,2.83.96,4.4,0,2.87-1.14,5.46-2.99,7.36-.31.32-.64.61-.98.89-1.1.88-2.37,1.55-3.76,1.93l4.1,14.56,2.65,9.46,3.56,12.66,2.66,9.47,3.4,12.11,2.66,9.47,1.57,5.6Z"/>
+                                <g>
+                                    <g>
+                                        <path d="M80.92,45.38c-7.81,0-15.06,2.54-20.93,6.83l6.73,7.28c4.07-2.7,8.96-4.28,14.2-4.28s10.13,1.58,14.2,4.28l6.73-7.28c-5.87-4.29-13.11-6.83-20.93-6.83ZM107.86,57.77l-6.72,7.28h0c3.43,4.38,5.49,9.89,5.49,15.87,0,6.91-2.74,13.19-7.18,17.81l7.1,6.78c6.14-6.39,9.91-15.06,9.91-24.59,0-8.84-3.24-16.93-8.6-23.16ZM55.21,80.92c0-5.99,2.06-11.49,5.49-15.87h0s-6.72-7.29-6.72-7.29c-5.36,6.23-8.6,14.32-8.6,23.16,0,9.53,3.78,18.2,9.91,24.59l7.1-6.79c-4.45-4.62-7.18-10.9-7.18-17.8Z"/>
+                                        <path d="M80.92,22.41c-13.82,0-26.54,4.82-36.57,12.86l6.69,7.25c8.25-6.44,18.62-10.28,29.87-10.28s21.63,3.84,29.87,10.28l6.69-7.25c-10.03-8.04-22.75-12.86-36.57-12.86ZM123.5,40.83l-6.68,7.25c7.95,8.67,12.79,20.2,12.79,32.85s-5.16,24.91-13.56,33.67l7.1,6.78c10.08-10.52,16.28-24.77,16.28-40.45s-6.06-29.61-15.93-40.1ZM32.24,80.92c0-12.65,4.84-24.18,12.79-32.85l-6.68-7.25c-9.87,10.48-15.93,24.59-15.93,40.1s6.2,29.93,16.28,40.45l7.1-6.79c-8.4-8.75-13.56-20.61-13.56-33.66Z"/>
+                                        <path d="M80.92,0c-19.68,0-37.74,7.06-51.78,18.79l6.67,7.22c12.28-10.11,28-16.19,45.11-16.19s32.83,6.08,45.11,16.19l6.67-7.22C118.66,7.06,100.6,0,80.92,0ZM138.72,24.34l-6.68,7.23c12.35,12.79,19.97,30.19,19.97,49.34s-7.53,36.37-19.77,49.14l7.1,6.78c13.93-14.54,22.5-34.25,22.5-55.92s-8.82-41.98-23.12-56.58ZM29.8,31.58l-6.68-7.23C8.82,38.94,0,58.92,0,80.92s8.57,41.38,22.49,55.92l7.11-6.78c-12.25-12.77-19.77-30.09-19.77-49.14s7.62-36.56,19.97-49.34Z"/>
+                                    </g>
+                                    <path d="M104.38,164.43h-46.93l1.57-5.6,2.66-9.47,3.4-12.11h0l2.65-9.47,3.56-12.66,2.66-9.46,4.09-14.56c-1.38-.39-2.65-1.05-3.75-1.92-.35-.28-.68-.58-.99-.9-1.85-1.91-2.98-4.5-2.98-7.36,0-1.57.34-3.06.96-4.4,1.17-2.57,3.34-4.59,6.02-5.55,1.12-.42,2.34-.64,3.61-.64s2.49.22,3.61.64c2.68.97,4.85,2.98,6.02,5.55.61,1.34.96,2.83.96,4.4,0,2.87-1.14,5.46-2.99,7.36-.31.32-.64.61-.98.89-1.1.88-2.37,1.55-3.76,1.93l4.1,14.56,2.65,9.46,3.56,12.66,2.66,9.47,3.4,12.11,2.66,9.47,1.57,5.6Z"/>
+                                </g>
                             </g>
-                        </g>
-                    </svg>
-                </a>
+                        </svg>
+                    </a>
+                </div>
 
-                <!-- Desktop Links -->
-                <div class="hidden md:flex items-center space-x-8" id="nav-links">
-                    <a href="index.html#kompetenzen" class="nav-link nav-dynamic text-white text-sm font-semibold uppercase tracking-widest py-2 focus-outline">Leistungen</a>
-                    <a href="index.html#unternehmen" class="nav-link nav-dynamic text-white text-sm font-semibold uppercase tracking-widest py-2 focus-outline">Unternehmen</a>
-                    <a href="index.html#referenzen" class="nav-link nav-dynamic text-white text-sm font-semibold uppercase tracking-widest py-2 focus-outline">Referenzen</a>
-                    <a href="#" class="nav-link nav-link-active nav-dynamic text-mint-500 text-sm font-semibold uppercase tracking-widest py-2 focus-outline">
+                <!-- Desktop Links (Center) -->
+                <div class="hidden lg:flex flex-none items-center justify-center space-x-6 xl:space-x-10">
+                    <a href="index.html#kompetenzen" class="nav-link nav-main-link nav-dynamic text-white py-2 focus-outline">Leistungen</a>
+                    <a href="index.html#unternehmen" class="nav-link nav-main-link nav-dynamic text-white py-2 focus-outline">Unternehmen</a>
+                    <a href="index.html#referenzen" class="nav-link nav-main-link nav-dynamic text-white py-2 focus-outline">Referenzen</a>
+                    <a href="#" class="nav-link nav-main-link nav-link-active nav-dynamic text-mint-500 py-2 focus-outline">
                         Karriere
                     </a>
-                    <div class="flex items-center gap-2 border-l border-white/25 pl-6">
-                        <a href="#" class="nav-dynamic text-white text-sm font-bold uppercase tracking-widest focus-outline">DE</a>
-                        <span class="nav-dynamic text-white/60 text-xs font-bold">/</span>
-                        <a href="#" class="nav-dynamic text-white/70 hover:text-white text-sm font-semibold uppercase tracking-widest transition-colors focus-outline">EN</a>
+                </div>
+
+                <!-- Right Elements (Lang & Action) -->
+                <div class="hidden md:flex flex-1 items-center justify-end space-x-4 xl:space-x-8">
+                    <div class="lang-switch flex items-center gap-2 border-l border-white/25 pl-4 xl:pl-6">
+                        <a href="#" class="nav-dynamic text-white text-base font-bold uppercase tracking-[0.12em] focus-outline">DE</a>
+                        <span class="nav-dynamic text-white/60 text-sm font-bold">/</span>
+                        <a href="#" class="nav-dynamic text-white/70 hover:text-white text-base font-semibold uppercase tracking-[0.12em] transition-colors focus-outline">EN</a>
                     </div>
-                    <a href="#bewerbung" class="btn-primary px-6 py-2 text-sm uppercase tracking-widest focus-outline">Bewerben</a>
+                    <a href="#bewerbung" class="btn-primary w-[140px] h-[48px] flex items-center justify-center text-sm font-bold uppercase tracking-widest focus-outline shadow-lg shadow-mint-500/20">Bewerben</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden text-white focus-outline p-2" id="mobile-btn" aria-label="Menü">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+                <div class="md:hidden flex-1 flex justify-end">
+                    <button class="text-white focus-outline p-2" id="mobile-btn" aria-label="Menü">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
         
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-flat-darker border-t border-flat-darkgray absolute w-full left-0 top-20">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-flat-gray absolute w-full left-0 top-20 shadow-xl">
             <div class="flex flex-col px-4 py-6 space-y-4">
-                <a href="index.html#kompetenzen" class="text-white text-sm uppercase tracking-widest pb-2 border-b border-flat-darkgray">Leistungen</a>
-                <a href="index.html#unternehmen" class="text-white text-sm uppercase tracking-widest pb-2 border-b border-flat-darkgray">Unternehmen</a>
-                <a href="index.html#referenzen" class="text-white text-sm uppercase tracking-widest pb-2 border-b border-flat-darkgray">Referenzen</a>
-                <a href="#" class="text-mint-500 text-sm uppercase tracking-widest pb-2 border-b border-flat-darkgray">Karriere</a>
-                <div class="flex items-center gap-4 pb-2 border-b border-flat-darkgray">
+                <a href="index.html#kompetenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Leistungen</a>
+                <a href="index.html#unternehmen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Unternehmen</a>
+                <a href="index.html#referenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Referenzen</a>
+                <a href="#" class="text-mint-500 text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Karriere</a>
+                <div class="flex items-center gap-4 pb-2 border-b border-flat-gray">
                     <a href="#" class="text-mint-500 text-sm font-bold uppercase tracking-widest focus-outline">DE</a>
-                    <a href="#" class="text-flat-gray hover:text-white text-sm font-semibold uppercase tracking-widest transition-colors focus-outline">EN</a>
+                    <a href="#" class="text-flat-darkgray hover:text-flat-black text-sm font-semibold uppercase tracking-widest transition-colors focus-outline">EN</a>
                 </div>
                 <a href="#bewerbung" class="text-mint-500 text-sm uppercase tracking-widest font-bold">Bewerben</a>
             </div>
         </div>
     </header>
 
-    <section class="hero-container" id="hero">
-        <div class="layer-bg-karriere"></div>
-        <div class="layer-overlay"></div>
+    <section class="mobile-quickstart bg-flat-darker text-white border-b border-flat-darkgray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-10">
+            <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.2em] mb-3">Karriere Kompakt</p>
+            <h1 class="text-3xl font-bold leading-tight mb-4">Arbeiten bei FTS</h1>
+            <p class="text-flat-gray text-sm leading-relaxed mb-6">Faire Konditionen, starkes Team und klare Entwicklungspfade. Kein unnötiger Schnickschnack auf mobil, nur die wichtigsten Infos und schnelle Bewerbung.</p>
+            <div class="grid grid-cols-1 gap-3 mb-6">
+                <a href="#stellen" class="border border-flat-darkgray p-4 bg-flat-black">
+                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Jetzt offen</p>
+                    <p class="text-white font-semibold">Stellenangebote ansehen</p>
+                </a>
+                <a href="#bewerbung" class="border border-flat-darkgray p-4 bg-flat-black">
+                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Direktstart</p>
+                    <p class="text-white font-semibold">Bewerbung in 60 Sekunden</p>
+                </a>
+            </div>
+            <a href="#bewerbung" class="btn-primary block px-5 py-3 text-center text-xs uppercase tracking-widest">Jetzt bewerben</a>
+        </div>
+    </section>
 
-        <div class="absolute inset-0 z-10 display flex items-center mt-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <section class="hero-container" id="hero">
+        <!-- Parallax Layer 4: Wald (Hintergrund) -->
+        <div class="parallax-layer layer-4-wald" data-speed="0.008" data-scroll="0.15"></div>
+        
+        <!-- Parallax Layer 3: Wolken (Negativ multipliziert) -->
+        <div class="parallax-layer layer-3-wolken" data-speed="0.022" data-scroll="0.25"></div>
+        
+        <!-- Parallax Layer 2: Nebel (Negativ multipliziert) -->
+        <div class="parallax-layer layer-2-nebel" data-speed="0.002" data-scroll="0.4"></div>
+        <div class="parallax-layer layer-2-nebel layer-2-nebel-b" data-speed="0.002" data-scroll="0.4" aria-hidden="true"></div>
+        <div class="layer-2-nebel-feather" aria-hidden="true"></div>
+
+        <!-- Overlay für Text-Lesbarkeit (Hinter dem Turm und Text) -->
+        <div class="parallax-layer layer-overlay-dark" data-speed="0.006" data-scroll="0.15"></div>
+
+        <!-- Content Layer (Text zwischen Nebel und Turm) -->
+        <div class="parallax-layer layer-content" data-speed="0.012" data-scroll="0.3">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 relative z-10">
                 <div class="max-w-3xl">
                     <p class="font-mono text-mint-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
                         Werde Teil des Teams
                     </p>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
-                         Bereit für deinen persönlichen Aufstieg?
+                        Bereit für deinen Aufstieg?
                     </h1>
                     <p class="text-flat-gray text-lg md:text-xl mb-10 leading-relaxed font-light max-w-2xl">
-                        Wir bauen die Infrastruktur von morgen. Werde Teil eines Teams, das in der Höhe zu Hause ist und auf das man sich blind verlassen kann.
+                        
                     </p>
-                    <a href="#stellen" class="inline-block btn-primary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline shadow-[0_0_20px_rgba(0,210,138,0.3)]">
+                    <!-- pointer-events-auto stellt sicher, dass der Button klickbar bleibt, auch wenn der Turm ihn visuell leicht überlappt -->
+                    <a href="#stellen" class="inline-block btn-primary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline shadow-[0_0_20px_rgba(0,210,138,0.3)] pointer-events-auto relative z-20">
                         Offene Stellen ansehen
                     </a>
                 </div>
             </div>
         </div>
+
+        <!-- Parallax Layer 1: Turm (Vordergrund, verdeckt ggf. den Text leicht für enorme Tiefe) -->
+        <div class="parallax-layer layer-1-turm pointer-events-none" data-speed="0.07" data-scroll="0.6"></div>
     </section>
 
     <!-- Why FTS Section -->
@@ -314,12 +527,12 @@
                 <div class="metro-tile p-8">
                     <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     <h3 class="text-lg font-bold text-flat-black mb-3">Modernes Equipment</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir investieren in Sicherheit und Werkzeug. Du arbeitest mit topaktueller, geprüfter Ausrüstung.</p>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir investieren in deine Sicherheit. Du arbeitest mit topaktueller, geprüfter Ausrüstung.</p>
                 </div>
                 <div class="metro-tile p-8">
                     <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     <h3 class="text-lg font-bold text-flat-black mb-3">Starker Zusammenhalt</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Ein familiäres Team, flache Hierarchien und Kollegen, auf die man sich in jeder Höhe verlassen kann.</p>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Ein familiäres Team, flache Hierarchien und Kollegen, auf die man sich auch in 50m Höhe verlassen kann.</p>
                 </div>
                 <div class="metro-tile p-8">
                     <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -512,7 +725,7 @@
                 <div class="md:col-span-2">
                     <h4 class="text-white font-mono font-bold mb-6 uppercase text-xs tracking-widest">Rechtliches</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="hover:text-mint-500 transition-colors focus-outline">Impressum</a></li>
+                        <li><a href="impressum.html" class="hover:text-mint-500 transition-colors focus-outline">Impressum</a></li>
                         <li><a href="#" class="hover:text-mint-500 transition-colors focus-outline">Datenschutz</a></li>
                         <li><a href="#" class="hover:text-mint-500 transition-colors focus-outline">AGB</a></li>
                     </ul>
@@ -534,7 +747,7 @@
 
         const nav = document.getElementById('main-nav');
         const navLogo = document.getElementById('nav-logo');
-        const navLinks = document.getElementById('nav-links').querySelectorAll('.nav-dynamic');
+        const navLinks = nav.querySelectorAll('.nav-dynamic');
         const mobileBtn = document.getElementById('mobile-btn');
 
         window.addEventListener('scroll', () => {
@@ -593,6 +806,131 @@
                 menu.classList.add('hidden');
             });
         });
+
+        // --- Advanced Parallax & Camera Sway Effect ---
+        const parallaxLayers = document.querySelectorAll('.parallax-layer');
+        const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
+        let currentMouseX = window.innerWidth / 2;
+        let currentMouseY = window.innerHeight / 2;
+        let targetMouseX = window.innerWidth / 2;
+        let targetMouseY = window.innerHeight / 2;
+
+        if (!compactMotionQuery.matches) {
+            // Tracke Mausposition
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            });
+        } else {
+            parallaxLayers.forEach((layer) => {
+                layer.style.transform = 'none';
+            });
+        }
+
+        function setBackgroundWithFallback(selector, localUrl, fallbackUrl) {
+            const probe = new Image();
+            probe.onload = () => {
+                document.querySelectorAll(selector).forEach((el) => {
+                    el.style.backgroundImage = `url('${localUrl}')`;
+                });
+            };
+            probe.onerror = () => {
+                document.querySelectorAll(selector).forEach((el) => {
+                    el.style.backgroundImage = `url('${fallbackUrl}')`;
+                });
+            };
+            probe.src = localUrl;
+        }
+
+        setBackgroundWithFallback('.layer-4-wald', 'res/karriere/4_BASE.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp');
+        setBackgroundWithFallback('.layer-3-wolken', 'res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
+        setBackgroundWithFallback('.layer-2-nebel', 'res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
+        setBackgroundWithFallback('.layer-1-turm', 'res/karriere/1_TOWER.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png');
+
+        function animateParallax() {
+            // Smoothe Maus-Interpolation
+            currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+            currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const time = Date.now() * 0.001; // Zeitstempel für den "Atmungs"-Effekt (Sway)
+            const compactMotion = compactMotionQuery.matches;
+            const towerBaseShift = compactMotion ? 0 : Math.min(window.innerWidth * 0.06, 84);
+            const motionScale = compactMotion ? 0.15 : 1;
+
+            parallaxLayers.forEach((layer, index) => {
+                const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
+                const isTowerLayer = layer.classList.contains('layer-1-turm');
+                const isCloudLayer = layer.classList.contains('layer-3-wolken');
+                const isFogLayer = layer.classList.contains('layer-2-nebel');
+                const isUnderTowerLayer = layer.classList.contains('layer-4-wald')
+                    || layer.classList.contains('layer-3-wolken')
+                    || layer.classList.contains('layer-2-nebel')
+                    || layer.classList.contains('layer-overlay-dark')
+                    || layer.classList.contains('layer-content');
+                const movementScale = isTowerLayer ? 1 : (isCloudLayer ? 0.4 : (isFogLayer ? 0.02 : (isUnderTowerLayer ? 0.12 : 0.25)));
+
+                // Ambient Camera Sway: Erzeugt ein langsames Schweben/Atmen wie bei einer Drohnenaufnahme
+                // Jeder Layer kriegt einen leicht anderen Phasenversatz (+ index) für mehr 3D-Gefühl
+                const swayX = Math.sin(time * 0.5 + index) * (speed * 150) * movementScale * motionScale;
+                const swayY = Math.cos(time * 0.4 + index) * (speed * 100) * movementScale * motionScale;
+
+                const baseXOffset = isTowerLayer ? towerBaseShift : 0;
+                const xOffset = ((currentMouseX - centerX) * speed * movementScale * motionScale) + swayX + baseXOffset;
+                const yOffset = ((currentMouseY - centerY) * speed * movementScale * motionScale) + swayY;
+
+                if (isFogLayer) {
+                    // Fog drift is handled via CSS keyframes, independent from camera shake/parallax.
+                    return;
+                }
+
+                // Scale 1.1 verhindert, dass bei starken Bewegungen die Ränder des Bildes sichtbar werden
+                layer.style.transform = `scale(${compactMotion ? 1.02 : 1.1}) translate3d(${xOffset}px, ${yOffset}px, 0)`;
+            });
+
+            requestAnimationFrame(animateParallax);
+        }
+
+        // Start animation loop
+        if (!compactMotionQuery.matches) {
+            animateParallax();
+        }
+    </script>
+    <script>
+        (function () {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                body { transition: opacity 260ms ease; }
+                body.page-leave { opacity: 0; }
+            `;
+            document.head.appendChild(style);
+
+            window.addEventListener('pageshow', () => {
+                document.body.classList.remove('page-leave');
+            });
+
+            document.addEventListener('click', (event) => {
+                const link = event.target.closest('a[href]');
+                if (!link) return;
+
+                const href = link.getAttribute('href') || '';
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+                if (link.hasAttribute('download') || link.target === '_blank') return;
+
+                const url = new URL(link.href, window.location.href);
+                if (url.origin !== window.location.origin) return;
+
+                event.preventDefault();
+                document.body.classList.add('page-leave');
+                setTimeout(() => {
+                    window.location.href = url.href;
+                }, 220);
+            });
+        })();
     </script>
 </body>
 </html>
