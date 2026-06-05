@@ -1,0 +1,154 @@
+---
+const { isKarriere } = Astro.props;
+---
+<header id="main-nav" class="fixed top-0 w-full z-50 transition-colors duration-300 nav-transparent">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center h-20 w-full">
+            
+            <!-- Logo (Left) -->
+            <div class="flex-1 flex justify-start">
+                <a href="/" class="text-white hover:text-mint-500 transition-colors z-50 focus-outline" id="nav-logo" aria-label="Home">
+                    <svg id="Logo_H" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 164.43" class="h-8 md:h-10 w-auto logo-svg">
+                        <style>.cls-1{letter-spacing:.03em}.cls-2{letter-spacing:.01em}.cls-3{letter-spacing:-.02em}.cls-4{letter-spacing:.04em}.cls-5{font-family:Inter-Medium,Inter;font-size:32px;font-weight:500}.cls-7{letter-spacing:.01em}</style>
+                        <g>
+                            <text class="cls-5" transform="translate(194.23 144.67)"><tspan class="cls-3" x="0" y="0">F</tspan><tspan class="cls-2" x="18.01" y="0">unkturmse</tspan><tspan class="cls-1" x="184.55" y="0">r</tspan><tspan class="cls-4" x="197.75" y="0">v</tspan><tspan class="cls-7" x="217.13" y="0">ice</tspan></text>
+                            <g>
+                                <path d="M220.14,59.18h55.91v17.96h-55.91v30.51h-23.72v-61.02c0-5.71,2.31-10.87,6.05-14.61,3.73-3.74,8.9-6.05,14.6-6.05h64.22l-10.53,20.66h-47.29c-1.84,0-3.33,1.49-3.33,3.33v9.22Z"/>
+                                <polygon points="368.98 25.97 358.46 46.63 279.5 46.63 290.02 25.97 368.98 25.97"/>
+                                <path d="M451.12,77.14v9.86c0,5.7-2.31,10.86-6.05,14.6s-8.9,6.05-14.6,6.05h-61.96v-20.65h55.56c1.84,0,3.33-1.49,3.33-3.33v-3.19c0-1.84-1.49-3.33-3.33-3.33h-34.91c-11.41,0-20.65-9.25-20.65-20.65v-9.86c0-5.71,2.31-10.87,6.05-14.61,3.74-3.74,8.91-6.05,14.61-6.05h59.53v20.66h-53.14c-1.84,0-3.33,1.49-3.33,3.33v3.19c0,1.84,1.49,3.33,3.33,3.33h34.91c11.4,0,20.65,9.24,20.65,20.65Z"/>
+                                <rect x="310.42" y="87" width="23.72" height="20.65"/>
+                                <rect x="310.42" y="46.63" width="23.72" height="61.02"/>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M80.92,45.38c-7.81,0-15.06,2.54-20.93,6.83l6.73,7.28c4.07-2.7,8.96-4.28,14.2-4.28s10.13,1.58,14.2,4.28l6.73-7.28c-5.87-4.29-13.11-6.83-20.93-6.83ZM107.86,57.77l-6.72,7.28h0c3.43,4.38,5.49,9.89,5.49,15.87,0,6.91-2.74,13.19-7.18,17.81l7.1,6.78c6.14-6.39,9.91-15.06,9.91-24.59,0-8.84-3.24-16.93-8.6-23.16ZM55.21,80.92c0-5.99,2.06-11.49,5.49-15.87h0s-6.72-7.29-6.72-7.29c-5.36,6.23-8.6,14.32-8.6,23.16,0,9.53,3.78,18.2,9.91,24.59l7.1-6.79c-4.45-4.62-7.18-10.9-7.18-17.8Z"/>
+                                    <path d="M80.92,22.41c-13.82,0-26.54,4.82-36.57,12.86l6.69,7.25c8.25-6.44,18.62-10.28,29.87-10.28s21.63,3.84,29.87,10.28l6.69-7.25c-10.03-8.04-22.75-12.86-36.57-12.86ZM123.5,40.83l-6.68,7.25c7.95,8.67,12.79,20.2,12.79,32.85s-5.16,24.91-13.56,33.67l7.1,6.78c10.08-10.52,16.28-24.77,16.28-40.45s-6.06-29.61-15.93-40.1ZM32.24,80.92c0-12.65,4.84-24.18,12.79-32.85l-6.68-7.25c-9.87,10.48-15.93,24.59-15.93,40.1s6.2,29.93,16.28,40.45l7.1-6.79c-8.4-8.75-13.56-20.61-13.56-33.66Z"/>
+                                    <path d="M80.92,0c-19.68,0-37.74,7.06-51.78,18.79l6.67,7.22c12.28-10.11,28-16.19,45.11-16.19s32.83,6.08,45.11,16.19l6.67-7.22C118.66,7.06,100.6,0,80.92,0ZM138.72,24.34l-6.68,7.23c12.35,12.79,19.97,30.19,19.97,49.34s-7.53,36.37-19.77,49.14l7.1,6.78c13.93-14.54,22.5-34.25,22.5-55.92s-8.82-41.98-23.12-56.58ZM29.8,31.58l-6.68-7.23C8.82,38.94,0,58.92,0,80.92s8.57,41.38,22.49,55.92l7.11-6.78c-12.25-12.77-19.77-30.09-19.77-49.14s7.62-36.56,19.97-49.34Z"/>
+                                </g>
+                                <path d="M104.38,164.43h-46.93l1.57-5.6,2.66-9.47,3.4-12.11h0l2.65-9.47,3.56-12.66,2.66-9.46,4.09-14.56c-1.38-.39-2.65-1.05-3.75-1.92-.35-.28-.68-.58-.99-.9-1.85-1.91-2.98-4.5-2.98-7.36,0-1.57.34-3.06.96-4.4,1.17-2.57,3.34-4.59,6.02-5.55,1.12-.42,2.34-.64,3.61-.64s2.49.22,3.61.64c2.68.97,4.85,2.98,6.02,5.55.61,1.34.96,2.83.96,4.4,0,2.87-1.14,5.46-2.99,7.36-.31.32-.64.61-.98.89-1.1.88-2.37,1.55-3.76,1.93l4.1,14.56,2.65,9.46,3.56,12.66,2.66,9.47,3.4,12.11,2.66,9.47,1.57,5.6Z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Desktop Links (Center) -->
+            <div class="hidden lg:flex flex-none items-center justify-center space-x-6 xl:space-x-10">
+                <a href="/#kompetenzen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Leistungen</a>
+                <a href="/#news" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Neuigkeiten</a>
+                <a href="/#unternehmen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Unternehmen</a>
+                <a href="/#referenzen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Referenzen</a>
+                <a href="/karriere" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline relative group">
+                    Karriere
+                    <span class="absolute top-2 -right-3 w-1.5 h-1.5 bg-mint-500 animate-slow-pulse" aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <!-- Right Elements (Lang & Action) -->
+            <div class="hidden md:flex flex-1 items-center justify-end space-x-4 xl:space-x-8">
+                <div class="lang-switch flex items-center gap-2 border-l border-white/25 pl-4 xl:pl-6">
+                    <a href="#" class="nav-dynamic text-white text-sm font-semibold tracking-widest uppercase focus-outline">DE</a>
+                    <span class="nav-dynamic text-white/60 text-sm font-bold">/</span>
+                    <a href="#" class="nav-dynamic text-white/70 hover:text-white text-sm font-semibold tracking-widest uppercase transition-colors focus-outline">EN</a>
+                </div>
+                {isKarriere ? (
+                    <a href="/karriere#bewerbung" class="btn-primary w-[160px] h-[38px] flex items-center justify-center text-sm font-bold uppercase tracking-widest focus-outline shadow-lg shadow-mint-500/20">Jetzt Bewerben</a>
+                ) : (
+                    <a href="/#kontakt" class="btn-primary w-[140px] h-[38px] flex items-center justify-center text-sm font-bold uppercase tracking-widest focus-outline shadow-lg shadow-mint-500/20">Kontakt</a>
+                )}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex-1 flex justify-end">
+                <button class="text-white focus-outline p-2" id="mobile-btn" aria-label="Menü">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-flat-gray absolute w-full left-0 top-20 shadow-xl">
+        <div class="flex flex-col px-4 py-6 space-y-4">
+            <a href="/#kompetenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Leistungen</a>
+            <a href="/#news" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Neuigkeiten</a>
+            <a href="/#unternehmen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Unternehmen</a>
+            <a href="/#referenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Referenzen</a>
+            <a href="/karriere" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray flex justify-between items-center relative">
+                Karriere
+                <span class="w-2 h-2 bg-mint-500 animate-slow-pulse"></span>
+            </a>
+            <a href="/impressum" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Impressum</a>
+            <div class="flex items-center gap-4 pb-2 border-b border-flat-gray">
+                <a href="#" class="text-mint-500 text-sm font-bold uppercase tracking-widest focus-outline">DE</a>
+                <a href="#" class="text-flat-darkgray hover:text-flat-black text-sm font-semibold uppercase tracking-widest transition-colors focus-outline">EN</a>
+            </div>
+            {isKarriere ? (
+                <a href="/karriere#bewerbung" class="text-mint-500 text-sm uppercase tracking-widest font-bold">Jetzt Bewerben</a>
+            ) : (
+                <a href="/#kontakt" class="text-mint-500 text-sm uppercase tracking-widest font-bold">Kontakt</a>
+            )}
+        </div>
+    </div>
+</header>
+<script>
+    // Flat Navigation Scroll Logic
+    const nav = document.getElementById('main-nav');
+    const navLogo = document.getElementById('nav-logo');
+    const navLinks = nav?.querySelectorAll('.nav-dynamic');
+    const mobileBtn = document.getElementById('mobile-btn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav?.classList.remove('nav-transparent');
+            nav?.classList.add('nav-solid');
+            
+            navLogo?.classList.remove('text-white');
+            navLogo?.classList.add('text-flat-black');
+            
+            mobileBtn?.classList.remove('text-white');
+            mobileBtn?.classList.add('text-flat-black');
+
+            navLinks?.forEach(link => {
+                const isLangDivider = link.tagName === 'SPAN';
+                link.classList.remove('text-white', 'text-white/60', 'text-white/70');
+                if (isLangDivider) {
+                    link.classList.add('text-flat-gray');
+                } else {
+                    link.classList.add('text-flat-black');
+                }
+            });
+        } else {
+            nav?.classList.add('nav-transparent');
+            nav?.classList.remove('nav-solid');
+            
+            navLogo?.classList.add('text-white');
+            navLogo?.classList.remove('text-flat-black');
+
+            mobileBtn?.classList.add('text-white');
+            mobileBtn?.classList.remove('text-flat-black');
+
+            navLinks?.forEach(link => {
+                const isLangDivider = link.tagName === 'SPAN';
+                const isLangEn = link.tagName === 'A' && link.textContent?.trim() === 'EN';
+
+                link.classList.remove('text-flat-black', 'text-flat-gray');
+                link.classList.add(isLangDivider ? 'text-white/60' : (isLangEn ? 'text-white/70' : 'text-white'));
+            });
+        }
+    });
+
+    // Mobile Menu Toggle
+    const btn = document.getElementById('mobile-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+    });
+    
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu?.classList.add('hidden');
+        });
+    });
+</script>

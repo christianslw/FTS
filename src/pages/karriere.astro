@@ -1,0 +1,586 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Karriere bei FTS | Funkturmservice GmbH" description="Werde Teil unseres Teams. Jobs in den Bereichen Telekommunikation, Stahlbau, Elektrotechnik und Industrieklettern." isKarriere={true}>
+    <!-- PixiJS für hochperformantes WebGL (Gitterverzerrung & Layer) -->
+    <Fragment slot="head">
+        <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    </Fragment>
+
+    <section class="mobile-quickstart bg-flat-darker text-white border-b border-flat-darkgray mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
+            <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.2em] mb-3">Karriere Kompakt</p>
+            <h1 class="text-3xl font-bold leading-tight mb-4">Arbeiten bei FTS</h1>
+            <p class="text-flat-gray text-sm leading-relaxed mb-6">Faire Konditionen, starkes Team und klare Entwicklungspfade. Kein unnötiger Schnickschnack auf mobil, nur die wichtigsten Infos und schnelle Bewerbung.</p>
+            <div class="grid grid-cols-1 gap-3 mb-6">
+                <a href="#stellen" class="border border-flat-darkgray p-4 bg-flat-black">
+                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Jetzt offen</p>
+                    <p class="text-white font-semibold">Stellenangebote ansehen</p>
+                </a>
+                <a href="#bewerbung" class="border border-flat-darkgray p-4 bg-flat-black">
+                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Direktstart</p>
+                    <p class="text-white font-semibold">Bewerbung in 60 Sekunden</p>
+                </a>
+            </div>
+            <a href="#bewerbung" class="btn-primary block px-5 py-3 text-center text-xs uppercase tracking-widest">Jetzt bewerben</a>
+        </div>
+    </section>
+
+    <!-- === HERO SECTION MIT INTEGRIERTEM PIXIJS & CSS TILT === -->
+    <section class="hero-container" id="hero">
+        <div class="parallax-layer layer-4-wald" data-speed="-0.015" data-scroll="0.15"></div>
+        <div class="parallax-layer layer-3-wolken" data-speed="-0.005" data-scroll="0.25"></div>
+        <div class="parallax-layer layer-2-nebel" data-speed="0.002" data-scroll="0.4"></div>
+        <div class="parallax-layer layer-2-nebel layer-2-nebel-b" data-speed="0.002" data-scroll="0.4" aria-hidden="true"></div>
+        <div class="layer-2-nebel-feather" aria-hidden="true"></div>
+
+        <div class="parallax-layer layer-overlay-dark" data-speed="0.006" data-scroll="0.15"></div>
+        <div class="parallax-layer layer-1-turm pointer-events-none" id="pixi-tower-container" data-speed="0.07" data-scroll="0.6"></div>
+
+        <div class="parallax-layer layer-content" data-speed="0.012" data-scroll="0.3">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 relative z-10 pointer-events-auto">
+                <div class="max-w-3xl">
+                    <p class="font-mono text-mint-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
+                        Werde Teil des Teams
+                    </p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
+                        Bereit für deinen Aufstieg?
+                    </h1>
+                    <a href="#stellen" class="inline-block btn-primary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline shadow-[0_0_20px_rgba(0,210,138,0.3)] pointer-events-auto relative z-20">
+                        Offene Stellen ansehen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why FTS Section -->
+    <section class="py-24 bg-flat-light border-b border-flat-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 border-l-4 border-mint-500 pl-6">
+                <p class="font-mono text-mint-600 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+                    Deine Vorteile
+                </p>
+                <h2 class="text-3xl md:text-4xl font-bold text-flat-black max-w-2xl leading-tight">
+                    Darauf kannst du dich bei uns verlassen.
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="metro-tile p-8">
+                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Top Konditionen</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Faire, überdurchschnittliche Vergütung, pünktliche Zahlung und Auslöse bei Montage-Einsätzen.</p>
+                </div>
+                <div class="metro-tile p-8">
+                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Modernes Equipment</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir investieren in deine Sicherheit. Du arbeitest mit topaktueller, geprüfter Ausrüstung.</p>
+                </div>
+                <div class="metro-tile p-8">
+                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Starker Zusammenhalt</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Ein familiäres Team, flache Hierarchien und Kollegen, auf die man sich auch in 50m Höhe verlassen kann.</p>
+                </div>
+                <div class="metro-tile p-8">
+                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Weiterbildung</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir fördern dich! SCC-Zertifizierungen, FISAT-Scheine und regelmäßige Fortbildungen zahlen wir.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section id="stellen" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-flat-gray pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-flat-black">Offene Positionen</h2>
+                    <p class="text-flat-darkgray mt-2">Nichts Passendes dabei? Wir freuen uns auch über Initiativbewerbungen.</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
+                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Montage</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-flat-black mb-2">Monteur für Stahl- und Antennenbau (m/w/d)</h3>
+                        <p class="text-sm text-flat-darkgray max-w-2xl">
+                            Du montierst Tragwerke, Systemtechnik und Steigwege direkt an Telekommunikations-Standorten.
+                        </p>
+                    </div>
+                    <div class="md:text-right">
+                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Monteur Stahl/Antennenbau'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                            Hier Bewerben
+                        </a>
+                    </div>
+                </div>
+
+                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
+                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Elektrotechnik</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-flat-black mb-2">Elektrofachkraft für Funk-Infrastruktur (m/w/d)</h3>
+                        <p class="text-sm text-flat-darkgray max-w-2xl">
+                            Zuständig für die normgerechte Installation von AC/DC Unterverteilungen, Erdungsanlagen und Blitzschutz auf unseren Baustellen.
+                        </p>
+                    </div>
+                    <div class="md:text-right">
+                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Elektrofachkraft'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                            Hier Bewerben
+                        </a>
+                    </div>
+                </div>
+
+                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit / Teilzeit</span>
+                            <span class="bg-mint-500 text-flat-black font-bold text-xs font-mono px-2 py-1 uppercase tracking-widest shadow-sm">Dringend</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-flat-black mb-2">Industriekletterer / FISAT (m/w/d)</h3>
+                        <p class="text-sm text-flat-darkgray max-w-2xl">
+                            Einsätze in schwer zugänglichen Bereichen. Du führst Montage-, Wartungs- und Reparaturarbeiten mittels Seilzugangstechnik (SZP) durch.
+                        </p>
+                    </div>
+                    <div class="md:text-right">
+                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Industriekletterer (FISAT)'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                            Hier Bewerben
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Application Form -->
+    <section id="bewerbung" class="py-24 bg-flat-darker text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Bewerbung in 60 Sekunden.</h2>
+                <p class="text-flat-gray">Kein langes Anschreiben nötig. Hinterlass uns einfach deine Kontaktdaten und wir melden uns bei dir.</p>
+            </div>
+
+            <div class="bg-flat-black border border-flat-darkgray p-8 md:p-12 shadow-2xl relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-mint-500"></div>
+
+                <form id="careerForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Vorname</label>
+                            <input type="text" class="flat-input bg-flat-darker border-flat-darkgray text-white focus:bg-flat-black focus:border-mint-500" required>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Nachname</label>
+                            <input type="text" class="flat-input bg-flat-darker border-flat-darkgray text-white focus:bg-flat-black focus:border-mint-500" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">E-Mail Adresse</label>
+                            <input type="email" class="flat-input bg-flat-darker border-flat-darkgray text-white focus:bg-flat-black focus:border-mint-500" required>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Telefonnummer</label>
+                            <input type="tel" class="flat-input bg-flat-darker border-flat-darkgray text-white focus:bg-flat-black focus:border-mint-500" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Für welchen Job interessierst du dich?</label>
+                        <select id="job-select" class="flat-input bg-flat-darker border-flat-darkgray text-white appearance-none focus:bg-flat-black focus:border-mint-500">
+                            <option value="" disabled selected>Bitte wählen...</option>
+                            <option value="Monteur Stahl/Antennenbau">Monteur Stahl- & Antennenbau (m/w/d)</option>
+                            <option value="Elektrofachkraft">Elektrofachkraft (m/w/d)</option>
+                            <option value="Industriekletterer (FISAT)">Industriekletterer / FISAT (m/w/d)</option>
+                            <option value="Initiativbewerbung">Initiativbewerbung / Etwas anderes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Kurzinfo (Optional)</label>
+                        <textarea rows="3" placeholder="Z.B. aktueller Beruf, Erfahrungen, frühester Starttermin..." class="flat-input bg-flat-darker border-flat-darkgray text-white resize-none focus:bg-flat-black focus:border-mint-500"></textarea>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="btn-primary w-full py-4 text-sm uppercase tracking-widest focus-outline font-bold">
+                            Abschicken
+                        </button>
+                    </div>
+                </form>
+
+                <div id="career-success" class="hidden h-[400px] flex-col items-center justify-center text-center p-8 bg-mint-500 text-flat-black">
+                    <h3 class="text-2xl font-bold mb-2">Stark!</h3>
+                    <p class="font-mono text-sm tracking-wide">Wir haben deine Daten erhalten und rufen dich in den nächsten Tagen an.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .hero-container {
+        position: relative;
+        width: 100%;
+        height: min(85vh, 860px);
+        min-height: 560px;
+        overflow: hidden;
+        background-color: var(--color-flat-black);
+    }
+    .parallax-layer {
+        position: absolute;
+        top: -5%;
+        left: -5%; 
+        width: 110%; 
+        height: 110%;
+        will-change: transform;
+        transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .layer-4-wald {
+        background-image: url('/res/karriere/4_BASE.webp');
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+    }
+    .layer-3-wolken {
+        background-image: url('/res/karriere/3_CLOUDS.png');
+        background-size: cover;
+        background-position: center center;
+        mix-blend-mode: screen; 
+        z-index: 3;
+    }
+    .layer-2-nebel {
+        background-image: url('/res/karriere/2_FOG.webp');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: repeat-x;
+        left: -35%;
+        width: 170%;
+        mix-blend-mode: screen;
+        --fog-max-opacity: 0.95;
+        opacity: 0;
+        z-index: 2;
+        will-change: transform;
+        animation: fog-drift-loop 18s linear infinite, fog-fade-loop 18s ease-in-out infinite;
+    }
+    .layer-2-nebel.layer-2-nebel-b {
+        --fog-max-opacity: 0.72;
+        animation-delay: -9s, -9s;
+    }
+    .layer-2-nebel-feather {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+        background: 
+            linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 15%, rgba(0, 0, 0, 0) 85%, rgba(0, 0, 0, 0.6) 100%),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 15%, rgba(0, 0, 0, 0) 85%, rgba(0, 0, 0, 0.6) 100%);
+    }
+    @keyframes fog-drift-loop {
+        from { transform: scale(1.18) translate3d(0%, 0, 0); }
+        to { transform: scale(1.18) translate3d(-18%, 0, 0); }
+    }
+    @keyframes fog-fade-loop {
+        0%, 8% { opacity: 0; }
+        22%, 78% { opacity: var(--fog-max-opacity); }
+        92%, 100% { opacity: 0; }
+    }
+    .layer-overlay-dark {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45); 
+        z-index: 4;
+    }
+    .layer-content {
+        z-index: 7;
+        display: flex;
+        align-items: center;
+    }
+    .layer-1-turm {
+        z-index: 6;
+    }
+    .layer-1-turm canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .mobile-quickstart {
+        display: none;
+    }
+
+    .job-box {
+        border: 1px solid var(--color-flat-gray);
+        background-color: var(--color-flat-white);
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    .job-box::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: 4px;
+        height: calc(100% + 2px);
+        background-color: var(--color-mint-500);
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform 0.2s ease;
+    }
+    .job-box:hover {
+        border-color: var(--color-flat-darker);
+        box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.05);
+    }
+    .job-box:hover::before {
+        transform: scaleY(1);
+    }
+    
+    @media (max-width: 1279px) { .hero-container { min-height: 520px; } }
+    @media (max-width: 1023px) {
+        .hero-container { height: auto; min-height: 520px; }
+        .parallax-layer { top: 0; left: 0; width: 100%; height: 100%; }
+        .layer-content { align-items: flex-end; }
+        .layer-content .max-w-7xl { margin-top: 0; margin-bottom: 3rem; }
+    }
+    @media (max-width: 767px) {
+        .hero-container { display: none; }
+        .mobile-quickstart { display: block; }
+    }
+</style>
+
+<script>
+    const form = document.getElementById('careerForm');
+    const successMsg = document.getElementById('career-success');
+    if (form && successMsg) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+            successMsg.classList.add('flex');
+        });
+    }
+
+    const parallaxLayers = document.querySelectorAll('.parallax-layer');
+    const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
+
+    let currentMouseX = window.innerWidth / 2;
+    let currentMouseY = window.innerHeight / 2;
+    let targetMouseX = window.innerWidth / 2;
+    let targetMouseY = window.innerHeight / 2;
+    let waldX = 0;
+    let waldY = 0;
+    let towerCSSX = 0;
+    let towerCSSY = 0;
+
+    if (!compactMotionQuery.matches) {
+        document.addEventListener('mousemove', (e) => {
+            targetMouseX = e.clientX;
+            targetMouseY = e.clientY;
+        });
+    } else {
+        parallaxLayers.forEach((layer) => {
+            layer.style.transform = 'none';
+        });
+    }
+
+    function setBackgroundWithFallback(selector, localUrl, fallbackUrl) {
+        const probe = new Image();
+        probe.onload = () => {
+            document.querySelectorAll(selector).forEach((el) => {
+                el.style.backgroundImage = `url('${localUrl}')`;
+            });
+        };
+        probe.onerror = () => {
+            document.querySelectorAll(selector).forEach((el) => {
+                el.style.backgroundImage = `url('${fallbackUrl}')`;
+            });
+        };
+        probe.src = localUrl;
+    }
+
+    setBackgroundWithFallback('.layer-4-wald', '/res/karriere/4_BASE.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp');
+    setBackgroundWithFallback('.layer-3-wolken', '/res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
+    setBackgroundWithFallback('.layer-2-nebel', '/res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
+
+    function animateParallax() {
+        currentMouseX += (targetMouseX - currentMouseX) * 0.018;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.018;
+
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const time = Date.now() * 0.001;
+        const compactMotion = compactMotionQuery.matches;
+        const motionScale = compactMotion ? 0.15 : 1;
+
+        const camX = (currentMouseX - centerX) / centerX;
+        const camY = (currentMouseY - centerY) / centerY;
+
+        parallaxLayers.forEach((layer, index) => {
+            const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
+            const isTowerLayer = layer.classList.contains('layer-1-turm');
+            const isCloudLayer = layer.classList.contains('layer-3-wolken');
+            const isFogLayer = layer.classList.contains('layer-2-nebel');
+            const isUnderTowerLayer = layer.classList.contains('layer-4-wald')
+                || layer.classList.contains('layer-3-wolken')
+                || layer.classList.contains('layer-2-nebel')
+                || layer.classList.contains('layer-overlay-dark')
+                || layer.classList.contains('layer-content');
+
+            const movementScale = isTowerLayer ? 1 : (isCloudLayer ? 0.15 : (isFogLayer ? 0.02 : (isUnderTowerLayer ? 0.12 : 0.25)));
+
+            const swayForceX = isTowerLayer ? 12 : 4;
+            const swayForceY = isTowerLayer ? 8 : 2.5;
+            const swayDirection = isTowerLayer ? 1 : -1;
+
+            const swayX = Math.sin(time * 0.5 + index) * swayForceX * swayDirection * motionScale;
+            const swayY = Math.cos(time * 0.4 + index) * swayForceY * swayDirection * motionScale;
+
+            const mouseTransSpeed = isTowerLayer ? 0.003 : speed * movementScale;
+            const mouseTransX = (currentMouseX - centerX) * mouseTransSpeed * motionScale * 8;
+            const mouseTransY = (currentMouseY - centerY) * mouseTransSpeed * motionScale * 8;
+
+            const xOffset = mouseTransX + swayX;
+            const yOffset = mouseTransY + swayY;
+
+            if (layer.classList.contains('layer-4-wald')) {
+                waldX = xOffset;
+                waldY = yOffset;
+            }
+            if (isTowerLayer) {
+                towerCSSX = xOffset;
+                towerCSSY = yOffset;
+            }
+
+            if (isFogLayer) return;
+
+            const rotMultiplier = isTowerLayer ? 0.05 : 0.15;
+            const rotateY = isCloudLayer ? 0 : (camX * 3.5) * rotMultiplier * motionScale;
+            const rotateX = isCloudLayer ? 0 : -(camY * 3.5) * rotMultiplier * motionScale;
+
+            layer.style.transform = `perspective(1000px) scale(${compactMotion ? 1.01 : 1.03}) translate3d(${xOffset}px, ${yOffset}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        requestAnimationFrame(animateParallax);
+    }
+
+    if (!compactMotionQuery.matches) {
+        animateParallax();
+    }
+
+    if (!compactMotionQuery.matches && typeof PIXI !== 'undefined') {
+        const towerContainer = document.getElementById('pixi-tower-container');
+        if (towerContainer) {
+            towerContainer.style.backgroundImage = 'none';
+
+            const pixiApp = new PIXI.Application({
+                resizeTo: towerContainer,
+                backgroundAlpha: 0,
+                resolution: window.devicePixelRatio || 1,
+                autoDensity: true
+            });
+            towerContainer.appendChild(pixiApp.view);
+
+            function loadImageWithFallback(localUrl, githubUrl) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = () => resolve(img);
+                    img.onerror = () => {
+                        const fallbackImg = new Image();
+                        fallbackImg.crossOrigin = 'anonymous';
+                        fallbackImg.onload = () => resolve(fallbackImg);
+                        fallbackImg.onerror = () => resolve(null);
+                        fallbackImg.src = githubUrl;
+                    };
+                    img.src = localUrl;
+                });
+            }
+
+            const localPath = '/res/karriere/1_TOWER.png';
+            const fallbackPath = 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png';
+
+            loadImageWithFallback(localPath, fallbackPath).then((loadedImg) => {
+                if (!loadedImg) return;
+
+                const texture = PIXI.Texture.from(loadedImg);
+                const W = texture.width;
+                const H = texture.height;
+                const towerMesh = new PIXI.SimplePlane(texture, 20, 20);
+                pixiApp.stage.addChild(towerMesh);
+
+                const buffer = towerMesh.geometry.buffers[0];
+                const origVerts = new Float32Array(buffer.data);
+
+                let towerScale = 1;
+                function resizePixi() {
+                    const cW = pixiApp.screen.width;
+                    const cH = pixiApp.screen.height;
+                    const scaleX = cW / W;
+                    const scaleY = cH / H;
+                    towerScale = Math.max(scaleX, scaleY);
+
+                    towerMesh.scale.set(towerScale);
+                    towerMesh.x = (cW - W * towerScale) * 0.44;
+                    towerMesh.y = (cH - H * towerScale) * 0.5;
+                }
+
+                window.addEventListener('resize', resizePixi);
+                resizePixi();
+
+                const anchorPctX = 0.53;
+                const anchorPctY = 0.51;
+                const anchorLocalX = W * anchorPctX;
+                const anchorLocalY = H * anchorPctY;
+                const mousePower = 60;
+                let pixiTime = 0;
+
+                pixiApp.ticker.add((delta) => {
+                    pixiTime += 0.02 * delta;
+
+                    const cW = pixiApp.screen.width;
+                    const cH = pixiApp.screen.height;
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    const mouseNormX = (currentMouseX - centerX) / centerX;
+                    const mouseNormY = (currentMouseY - centerY) / centerY;
+
+                    const swayX = Math.sin(pixiTime) * 12;
+                    const swayY = Math.cos(pixiTime * 0.8) * 6;
+                    const moveX = swayX + (mouseNormX * mousePower);
+                    const moveY = swayY + (mouseNormY * mousePower);
+
+                    const correctionX = waldX - towerCSSX;
+                    const correctionY = waldY - towerCSSY;
+
+                    towerMesh.x = (cW - W * towerScale) * 0.44 + correctionX;
+                    towerMesh.y = (cH - H * towerScale) * 0.5 + correctionY;
+
+                    const maxDist = Math.max(W, H);
+                    const data = buffer.data;
+
+                    for (let i = 0; i < origVerts.length; i += 2) {
+                        const ox = origVerts[i];
+                        const oy = origVerts[i + 1];
+
+                        const dx = ox - anchorLocalX;
+                        const dy = oy - anchorLocalY;
+                        const dist = Math.sqrt((dx * dx) + (dy * dy));
+                        const weight = (dist / maxDist) * 1.6;
+
+                        data[i] = ox + (moveX * weight);
+                        data[i + 1] = oy + (moveY * weight);
+                    }
+
+                    buffer.update();
+                });
+            }).catch(() => {
+                towerContainer.style.backgroundImage = "url('/res/karriere/1_TOWER.png')";
+            });
+        }
+    }
+</script>
