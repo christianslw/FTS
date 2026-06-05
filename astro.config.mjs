@@ -5,8 +5,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static', // Standard für Astro
-  base: '/fts/', // WICHTIG: Hier muss der exakte Name deines Repos stehen!
   vite: {
     plugins: [tailwindcss()]
   }
