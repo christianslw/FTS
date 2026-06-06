@@ -354,20 +354,12 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-    const form = document.getElementById('careerForm');
-    const successMsg = document.getElementById('career-success');
-    if (form && successMsg) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.style.display = 'none';
-            successMsg.classList.remove('hidden');
-            successMsg.classList.add('flex');
-        });
-    }
+    // --- 1. GLOBALE VARIABLEN FÜR SPA-CLEANUP ---
+    let pixiApp = null;
+    let animationFrameId = null;
+    let mouseMoveListener = null;
 
-    const parallaxLayers = document.querySelectorAll('.parallax-layer');
-    const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
-
+    // Parallax & Mouse Variablen
     let currentMouseX = window.innerWidth / 2;
     let currentMouseY = window.innerHeight / 2;
     let targetMouseX = window.innerWidth / 2;
@@ -377,210 +369,244 @@ import Layout from '../layouts/Layout.astro';
     let towerCSSX = 0;
     let towerCSSY = 0;
 
-    if (!compactMotionQuery.matches) {
-        document.addEventListener('mousemove', (e) => {
-            targetMouseX = e.clientX;
-            targetMouseY = e.clientY;
-        });
-    } else {
-        parallaxLayers.forEach((layer) => {
-            layer.style.transform = 'none';
-        });
-    }
-
-    function setBackgroundWithFallback(selector, localUrl, fallbackUrl) {
-        const probe = new Image();
-        probe.onload = () => {
-            document.querySelectorAll(selector).forEach((el) => {
-                el.style.backgroundImage = `url('${localUrl}')`;
-            });
-        };
-        probe.onerror = () => {
-            document.querySelectorAll(selector).forEach((el) => {
-                el.style.backgroundImage = `url('${fallbackUrl}')`;
-            });
-        };
-        probe.src = localUrl;
-    }
-
-    setBackgroundWithFallback('.layer-4-wald', '/res/karriere/4_BASE.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp');
-    setBackgroundWithFallback('.layer-3-wolken', '/res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
-    setBackgroundWithFallback('.layer-2-nebel', '/res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
-
-    function animateParallax() {
-        currentMouseX += (targetMouseX - currentMouseX) * 0.018;
-        currentMouseY += (targetMouseY - currentMouseY) * 0.018;
-
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const time = Date.now() * 0.001;
-        const compactMotion = compactMotionQuery.matches;
-        const motionScale = compactMotion ? 0.15 : 1;
-
-        const camX = (currentMouseX - centerX) / centerX;
-        const camY = (currentMouseY - centerY) / centerY;
-
-        parallaxLayers.forEach((layer, index) => {
-            const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
-            const isTowerLayer = layer.classList.contains('layer-1-turm');
-            const isCloudLayer = layer.classList.contains('layer-3-wolken');
-            const isFogLayer = layer.classList.contains('layer-2-nebel');
-            const isUnderTowerLayer = layer.classList.contains('layer-4-wald')
-                || layer.classList.contains('layer-3-wolken')
-                || layer.classList.contains('layer-2-nebel')
-                || layer.classList.contains('layer-overlay-dark')
-                || layer.classList.contains('layer-content');
-
-            const movementScale = isTowerLayer ? 1 : (isCloudLayer ? 0.15 : (isFogLayer ? 0.02 : (isUnderTowerLayer ? 0.12 : 0.25)));
-
-            const swayForceX = isTowerLayer ? 12 : 4;
-            const swayForceY = isTowerLayer ? 8 : 2.5;
-            const swayDirection = isTowerLayer ? 1 : -1;
-
-            const swayX = Math.sin(time * 0.5 + index) * swayForceX * swayDirection * motionScale;
-            const swayY = Math.cos(time * 0.4 + index) * swayForceY * swayDirection * motionScale;
-
-            const mouseTransSpeed = isTowerLayer ? 0.003 : speed * movementScale;
-            const mouseTransX = (currentMouseX - centerX) * mouseTransSpeed * motionScale * 8;
-            const mouseTransY = (currentMouseY - centerY) * mouseTransSpeed * motionScale * 8;
-
-            const xOffset = mouseTransX + swayX;
-            const yOffset = mouseTransY + swayY;
-
-            if (layer.classList.contains('layer-4-wald')) {
-                waldX = xOffset;
-                waldY = yOffset;
-            }
-            if (isTowerLayer) {
-                towerCSSX = xOffset;
-                towerCSSY = yOffset;
-            }
-
-            if (isFogLayer) return;
-
-            const rotMultiplier = isTowerLayer ? 0.05 : 0.15;
-            const rotateY = isCloudLayer ? 0 : (camX * 3.5) * rotMultiplier * motionScale;
-            const rotateX = isCloudLayer ? 0 : -(camY * 3.5) * rotMultiplier * motionScale;
-
-            layer.style.transform = `perspective(1000px) scale(${compactMotion ? 1.01 : 1.03}) translate3d(${xOffset}px, ${yOffset}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        requestAnimationFrame(animateParallax);
-    }
-
-    if (!compactMotionQuery.matches) {
-        animateParallax();
-    }
-
-    if (!compactMotionQuery.matches && typeof PIXI !== 'undefined') {
-        const towerContainer = document.getElementById('pixi-tower-container');
-        if (towerContainer) {
-            towerContainer.style.backgroundImage = 'none';
-
-            const pixiApp = new PIXI.Application({
-                resizeTo: towerContainer,
-                backgroundAlpha: 0,
-                resolution: window.devicePixelRatio || 1,
-                autoDensity: true
-            });
-            towerContainer.appendChild(pixiApp.view);
-
-            function loadImageWithFallback(localUrl, githubUrl) {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = () => resolve(img);
-                    img.onerror = () => {
-                        const fallbackImg = new Image();
-                        fallbackImg.crossOrigin = 'anonymous';
-                        fallbackImg.onload = () => resolve(fallbackImg);
-                        fallbackImg.onerror = () => resolve(null);
-                        fallbackImg.src = githubUrl;
-                    };
-                    img.src = localUrl;
-                });
-            }
-
-            const localPath = '/res/karriere/1_TOWER.png';
-            const fallbackPath = 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png';
-
-            loadImageWithFallback(localPath, fallbackPath).then((loadedImg) => {
-                if (!loadedImg) return;
-
-                const texture = PIXI.Texture.from(loadedImg);
-                const W = texture.width;
-                const H = texture.height;
-                const towerMesh = new PIXI.SimplePlane(texture, 20, 20);
-                pixiApp.stage.addChild(towerMesh);
-
-                const buffer = towerMesh.geometry.buffers[0];
-                const origVerts = new Float32Array(buffer.data);
-
-                let towerScale = 1;
-                function resizePixi() {
-                    const cW = pixiApp.screen.width;
-                    const cH = pixiApp.screen.height;
-                    const scaleX = cW / W;
-                    const scaleY = cH / H;
-                    towerScale = Math.max(scaleX, scaleY);
-
-                    towerMesh.scale.set(towerScale);
-                    towerMesh.x = (cW - W * towerScale) * 0.44;
-                    towerMesh.y = (cH - H * towerScale) * 0.5;
-                }
-
-                window.addEventListener('resize', resizePixi);
-                resizePixi();
-
-                const anchorPctX = 0.53;
-                const anchorPctY = 0.51;
-                const anchorLocalX = W * anchorPctX;
-                const anchorLocalY = H * anchorPctY;
-                const mousePower = 60;
-                let pixiTime = 0;
-
-                pixiApp.ticker.add((delta) => {
-                    pixiTime += 0.02 * delta;
-
-                    const cW = pixiApp.screen.width;
-                    const cH = pixiApp.screen.height;
-                    const centerX = window.innerWidth / 2;
-                    const centerY = window.innerHeight / 2;
-                    const mouseNormX = (currentMouseX - centerX) / centerX;
-                    const mouseNormY = (currentMouseY - centerY) / centerY;
-
-                    const swayX = Math.sin(pixiTime) * 12;
-                    const swayY = Math.cos(pixiTime * 0.8) * 6;
-                    const moveX = swayX + (mouseNormX * mousePower);
-                    const moveY = swayY + (mouseNormY * mousePower);
-
-                    const correctionX = waldX - towerCSSX;
-                    const correctionY = waldY - towerCSSY;
-
-                    towerMesh.x = (cW - W * towerScale) * 0.44 + correctionX;
-                    towerMesh.y = (cH - H * towerScale) * 0.5 + correctionY;
-
-                    const maxDist = Math.max(W, H);
-                    const data = buffer.data;
-
-                    for (let i = 0; i < origVerts.length; i += 2) {
-                        const ox = origVerts[i];
-                        const oy = origVerts[i + 1];
-
-                        const dx = ox - anchorLocalX;
-                        const dy = oy - anchorLocalY;
-                        const dist = Math.sqrt((dx * dx) + (dy * dy));
-                        const weight = (dist / maxDist) * 1.6;
-
-                        data[i] = ox + (moveX * weight);
-                        data[i + 1] = oy + (moveY * weight);
-                    }
-
-                    buffer.update();
-                });
-            }).catch(() => {
-                towerContainer.style.backgroundImage = "url('/res/karriere/1_TOWER.png')";
+    function initKarriere() {
+        // --- 2. FORMULAR LOGIK ---
+        const form = document.getElementById('careerForm');
+        const successMsg = document.getElementById('career-success');
+        if (form && successMsg) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                form.style.display = 'none';
+                successMsg.classList.remove('hidden');
+                successMsg.classList.add('flex');
             });
         }
+
+        // --- 3. PARALLAX & MAUS SETUP ---
+        const parallaxLayers = document.querySelectorAll('.parallax-layer');
+        const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
+
+        // Alten Maus-Listener entfernen (wichtig bei SPA-Wechsel!)
+        if (mouseMoveListener) {
+            document.removeEventListener('mousemove', mouseMoveListener);
+        }
+
+        if (!compactMotionQuery.matches) {
+            mouseMoveListener = (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            };
+            document.addEventListener('mousemove', mouseMoveListener);
+        } else {
+            parallaxLayers.forEach((layer) => {
+                layer.style.transform = 'none';
+            });
+        }
+
+        function setBackgroundWithFallback(selector, localUrl, fallbackUrl) {
+            const probe = new Image();
+            probe.onload = () => {
+                document.querySelectorAll(selector).forEach(el => el.style.backgroundImage = `url('${localUrl}')`);
+            };
+            probe.onerror = () => {
+                document.querySelectorAll(selector).forEach(el => el.style.backgroundImage = `url('${fallbackUrl}')`);
+            };
+            probe.src = localUrl;
+        }
+
+        setBackgroundWithFallback('.layer-4-wald', '/res/karriere/4_BASE.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/4_BASE.webp');
+        setBackgroundWithFallback('.layer-3-wolken', '/res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
+        setBackgroundWithFallback('.layer-2-nebel', '/res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
+
+        // --- 4. ANIMATIONS LOOP ---
+        function animateParallax() {
+            currentMouseX += (targetMouseX - currentMouseX) * 0.018;
+            currentMouseY += (targetMouseY - currentMouseY) * 0.018;
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const time = Date.now() * 0.001;
+            const compactMotion = compactMotionQuery.matches;
+            const motionScale = compactMotion ? 0.15 : 1;
+            const camX = (currentMouseX - centerX) / centerX;
+            const camY = (currentMouseY - centerY) / centerY;
+
+            parallaxLayers.forEach((layer, index) => {
+                const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
+                const isTowerLayer = layer.classList.contains('layer-1-turm');
+                const isCloudLayer = layer.classList.contains('layer-3-wolken');
+                const isFogLayer = layer.classList.contains('layer-2-nebel');
+                const isUnderTowerLayer = layer.classList.contains('layer-4-wald') || layer.classList.contains('layer-3-wolken') || layer.classList.contains('layer-2-nebel') || layer.classList.contains('layer-overlay-dark') || layer.classList.contains('layer-content');
+
+                const movementScale = isTowerLayer ? 1 : (isCloudLayer ? 0.15 : (isFogLayer ? 0.02 : (isUnderTowerLayer ? 0.12 : 0.25)));
+                const swayForceX = isTowerLayer ? 12 : 4;
+                const swayForceY = isTowerLayer ? 8 : 2.5;
+                const swayDirection = isTowerLayer ? 1 : -1;
+
+                const swayX = Math.sin(time * 0.5 + index) * swayForceX * swayDirection * motionScale;
+                const swayY = Math.cos(time * 0.4 + index) * swayForceY * swayDirection * motionScale;
+
+                const mouseTransSpeed = isTowerLayer ? 0.003 : speed * movementScale;
+                const mouseTransX = (currentMouseX - centerX) * mouseTransSpeed * motionScale * 8;
+                const mouseTransY = (currentMouseY - centerY) * mouseTransSpeed * motionScale * 8;
+
+                const xOffset = mouseTransX + swayX;
+                const yOffset = mouseTransY + swayY;
+
+                if (layer.classList.contains('layer-4-wald')) { waldX = xOffset; waldY = yOffset; }
+                if (isTowerLayer) { towerCSSX = xOffset; towerCSSY = yOffset; }
+                if (isFogLayer) return;
+
+                const rotMultiplier = isTowerLayer ? 0.05 : 0.15;
+                const rotateY = isCloudLayer ? 0 : (camX * 3.5) * rotMultiplier * motionScale;
+                const rotateX = isCloudLayer ? 0 : -(camY * 3.5) * rotMultiplier * motionScale;
+
+                layer.style.transform = `perspective(1000px) scale(${compactMotion ? 1.01 : 1.03}) translate3d(${xOffset}px, ${yOffset}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            animationFrameId = requestAnimationFrame(animateParallax);
+        }
+
+        // Starte Animation (und kille alte Schleife, falls vorhanden)
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        if (!compactMotionQuery.matches) {
+            animateParallax();
+        }
+
+        // --- 5. PIXI JS SETUP ---
+        if (!compactMotionQuery.matches) {
+            const tryInitPixi = () => {
+                // Warten, falls das CDN-Script noch lädt
+                if (typeof window.PIXI === 'undefined') {
+                    setTimeout(tryInitPixi, 100);
+                    return;
+                }
+
+                const towerContainer = document.getElementById('pixi-tower-container');
+                if (!towerContainer) return;
+
+                // Altes Pixi-Canvas entfernen, falls vorhanden
+                if (pixiApp) {
+                    try { pixiApp.destroy(true, { children: true, texture: true, baseTexture: true }); } catch(e) {}
+                    pixiApp = null;
+                }
+                
+                towerContainer.innerHTML = '';
+                towerContainer.style.backgroundImage = 'none';
+
+                pixiApp = new window.PIXI.Application({
+                    resizeTo: towerContainer,
+                    backgroundAlpha: 0,
+                    resolution: window.devicePixelRatio || 1,
+                    autoDensity: true
+                });
+                towerContainer.appendChild(pixiApp.view);
+
+                function loadImageWithFallback(localUrl, githubUrl) {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.crossOrigin = 'anonymous';
+                        img.onload = () => resolve(img);
+                        img.onerror = () => {
+                            const fallbackImg = new Image();
+                            fallbackImg.crossOrigin = 'anonymous';
+                            fallbackImg.onload = () => resolve(fallbackImg);
+                            fallbackImg.onerror = () => resolve(null);
+                            fallbackImg.src = githubUrl;
+                        };
+                        img.src = localUrl;
+                    });
+                }
+
+                loadImageWithFallback('/res/karriere/1_TOWER.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png').then((loadedImg) => {
+                    // WICHTIG: Abbruch, falls der Nutzer während des Ladens die Seite gewechselt hat!
+                    if (!loadedImg || !pixiApp || !document.getElementById('pixi-tower-container')) return;
+
+                    const texture = window.PIXI.Texture.from(loadedImg);
+                    const W = texture.width;
+                    const H = texture.height;
+                    const towerMesh = new window.PIXI.SimplePlane(texture, 20, 20);
+                    pixiApp.stage.addChild(towerMesh);
+
+                    const buffer = towerMesh.geometry.buffers[0];
+                    const origVerts = new Float32Array(buffer.data);
+
+                    let towerScale = 1;
+                    function resizePixi() {
+                        if (!pixiApp || !pixiApp.screen) return;
+                        const cW = pixiApp.screen.width;
+                        const cH = pixiApp.screen.height;
+                        const scaleX = cW / W;
+                        const scaleY = cH / H;
+                        towerScale = Math.max(scaleX, scaleY);
+                        towerMesh.scale.set(towerScale);
+                        towerMesh.x = (cW - W * towerScale) * 0.44;
+                        towerMesh.y = (cH - H * towerScale) * 0.5;
+                    }
+
+                    window.addEventListener('resize', resizePixi);
+                    resizePixi();
+
+                    const anchorLocalX = W * 0.53;
+                    const anchorLocalY = H * 0.51;
+                    const mousePower = 60;
+                    let pixiTime = 0;
+
+                    pixiApp.ticker.add((delta) => {
+                        pixiTime += 0.02 * delta;
+
+                        const cW = pixiApp.screen.width;
+                        const cH = pixiApp.screen.height;
+                        const centerX = window.innerWidth / 2;
+                        const centerY = window.innerHeight / 2;
+                        const mouseNormX = (currentMouseX - centerX) / centerX;
+                        const mouseNormY = (currentMouseY - centerY) / centerY;
+
+                        const moveX = (Math.sin(pixiTime) * 12) + (mouseNormX * mousePower);
+                        const moveY = (Math.cos(pixiTime * 0.8) * 6) + (mouseNormY * mousePower);
+
+                        towerMesh.x = (cW - W * towerScale) * 0.44 + (waldX - towerCSSX);
+                        towerMesh.y = (cH - H * towerScale) * 0.5 + (waldY - towerCSSY);
+
+                        const maxDist = Math.max(W, H);
+                        const data = buffer.data;
+
+                        for (let i = 0; i < origVerts.length; i += 2) {
+                            const ox = origVerts[i];
+                            const oy = origVerts[i + 1];
+                            const dx = ox - anchorLocalX;
+                            const dy = oy - anchorLocalY;
+                            const weight = (Math.sqrt((dx * dx) + (dy * dy)) / maxDist) * 1.6;
+                            data[i] = ox + (moveX * weight);
+                            data[i + 1] = oy + (moveY * weight);
+                        }
+                        buffer.update();
+                    });
+                }).catch(() => {
+                    if (towerContainer) towerContainer.style.backgroundImage = "url('/res/karriere/1_TOWER.png')";
+                });
+            };
+            tryInitPixi();
+        }
     }
+
+    // Beim Laden triggern
+    document.addEventListener('astro:page-load', initKarriere);
+
+    // --- 6. CLEANUP VOR DEM SEITENWECHSEL ---
+    // Verhindert Memory-Leaks und CPU-Spikes, wenn man die Seite wechselt!
+    document.addEventListener('astro:before-swap', () => {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+        if (mouseMoveListener) {
+            document.removeEventListener('mousemove', mouseMoveListener);
+            mouseMoveListener = null;
+        }
+        if (pixiApp) {
+            try { pixiApp.destroy(true, { children: true, texture: true, baseTexture: true }); } catch(e) {}
+            pixiApp = null;
+        }
+    });
 </script>

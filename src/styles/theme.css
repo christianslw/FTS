@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @theme {
   /* Fonts */
   --font-sans: "Inter", sans-serif;
@@ -111,6 +110,7 @@
   .main-nav {
     padding-left: 300px !important;
   }
+
   .nav-main-link {
     color: var(--color-flat-white);
     font-weight: 700;
@@ -125,10 +125,20 @@
     border-left-color: var(--color-flat-gray);
   }
 
+  /* <<< HIER GENAU EINFÜGEN >>> */
+  /* Header Scroll Colors */
+  .nav-solid #nav-logo,
+  .nav-solid #mobile-btn,
+  .nav-solid .nav-dynamic {
+      color: var(--color-flat-black) !important;
+  }
+  .nav-solid .lang-switch span.nav-dynamic {
+      color: var(--color-flat-gray) !important;
+  }
+
   .nav-link {
     position: relative;
   }
-
   .nav-link::after {
     content: '';
     position: absolute;
@@ -160,13 +170,14 @@
     font-family: var(--font-sans);
     transition: all 0.2s ease;
   }
+
   .flat-input:focus {
     outline: none;
     background-color: var(--color-flat-white);
     border-color: var(--color-flat-darker);
     box-shadow: inset 4px 0 0 0 var(--color-mint-500);
   }
-  
+
   .metro-tile {
     background-color: var(--color-flat-white);
     border: 1px solid var(--color-flat-gray);
@@ -187,7 +198,8 @@
   }
   .metro-tile:hover {
     background-color: var(--color-flat-light);
-    border-color: var(--color-flat-darkgray);
+    border-color: var(--color-flat-darker);
+    box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.05);
   }
   .metro-tile:hover::before {
     transform: scaleY(1);

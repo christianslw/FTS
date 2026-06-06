@@ -1,0 +1,93 @@
+---
+// src/pages/datenschutz.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Datenschutzerklärung | FTS">
+  <main class="container privacy-page">
+    <div class="content-wrapper">
+      <h1>Datenschutzerklärung</h1>
+
+      <!-- Hier kommen evtl. noch allgemeine Datenschutz-Infos hin -->
+
+      <section class="dsgvo-section">
+        <h2>DSGVO Kontaktformular</h2>
+        <p>
+          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre 
+          Angaben aus dem Anfrageformular, inklusive der von Ihnen dort 
+          angegebenen Kontaktdaten, zwecks Bearbeitung der Anfrage und für den 
+          Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir 
+          nicht ohne Ihre Einwilligung weiter.
+        </p>
+
+        <p>
+          Die Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt 
+          somit ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 
+          lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu 
+          reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit 
+          der bis zum Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom 
+          Widerruf unberührt.
+        </p>
+
+        <p>
+          Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie
+          uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung 
+          widerrufen oder der Zweck für die Datenspeicherung entfällt (z.B. nach 
+          abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche 
+          Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.
+        </p>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .privacy-page {
+    padding: 4rem 1rem;
+    min-height: 60vh;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--bg-color, #ffffff);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-color, #1a202c);
+    border-bottom: 2px solid var(--primary-color, #3182ce);
+    padding-bottom: 0.5rem;
+  }
+
+  .dsgvo-section {
+    margin-top: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color, #2d3748);
+  }
+
+  p {
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: var(--text-color, #4a5568);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
