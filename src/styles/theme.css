@@ -5,13 +5,26 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Colors */
-  --color-mint-500: #37dcc6;
+
+ 
+  /*   --color-mint-500: #37dcc6;
   --color-mint-502: #00d28a;
   --color-mint-600: #00b377;
   --color-mint-700: #009966;
   --color-mint-800: #007a55;
-  --color-mint-900: #005c44;
-  
+  --color-mint-900: #005c44; */
+  --color-mint-50: #f0fdfa;
+  --color-mint-100: #cbfcf1;
+  --color-mint-200: #96f9e5;
+  --color-mint-300: #5aeed6;
+  --color-mint-400: #28d9c2;
+  --color-mint-500: #0fbda9;
+  --color-mint-600: #09988b;
+  --color-mint-700: #0c7970;
+  --color-mint-800: #0f605a;
+  --color-mint-900: #11504b;
+  --color-mint-950: #03302f;
+
   --color-flat-white: #ffffff;
   --color-flat-light: #f4f4f4;
   --color-flat-gray: #e0e0e0;
@@ -27,7 +40,7 @@
   :root {
     --layout-max: 80rem;
     --layout-gutter: clamp(1rem, 2.4vw, 2rem);
-    --mint: #00d28a;
+    /* --mint: #00d28a; */
   }
   
   * { 

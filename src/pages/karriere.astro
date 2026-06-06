@@ -62,31 +62,87 @@ import Layout from '../layouts/Layout.astro';
                 <p class="font-mono text-mint-600 text-xs font-bold uppercase tracking-[0.2em] mb-4">
                     Deine Vorteile
                 </p>
-                <h2 class="text-3xl md:text-4xl font-bold text-flat-black max-w-2xl leading-tight">
+                <h2 class="text-3xl md:text-4xl font-bold text-flat-black max-w-2xl leading-tight mb-4">
                     Darauf kannst du dich bei uns freuen.
                 </h2>
+                <p class="text-flat-darkgray max-w-2xl">
+                    Du suchst ein neues, attraktives Arbeitsumfeld in einem jungen, innovativen und zukunftsfähigen Team? Worauf wartest Du? Werde Teil unserer Mannschaft!
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="metro-tile p-8">
-                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Top Konditionen</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Faire, überdurchschnittliche Vergütung, pünktliche Zahlung und Auslöse bei Montage-Einsätzen.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tile 1: 4-Tage-Woche -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">4-Tage-Woche</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        Entspannte Arbeitszeiten aufgeteilt von <strong>Montag bis Donnerstag</strong>. Jedes Wochenende hat bei uns standardmäßig 3 Tage Erholung von Freitag bis Sonntag.
+                    </p>
                 </div>
-                <div class="metro-tile p-8">
-                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Modernes Equipment</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir investieren in deine Sicherheit. Du arbeitest mit topaktueller, geprüfter Ausrüstung.</p>
+
+                <!-- Tile 2: Übertarifliche Bezahlung -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">Top Konditionen</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        <strong>Übertarifliche Bezahlung</strong>, zusätzliche steuerfreie Auslöse bei Montage-Einsätzen sowie absolut pünktliche und zuverlässige Gehaltsabrechnungen.
+                    </p>
                 </div>
-                <div class="metro-tile p-8">
-                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Starker Zusammenhalt</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Ein familiäres Team, flache Hierarchien und Kollegen, auf die man sich auch in 50m Höhe verlassen kann.</p>
+
+                <!-- Tile 3: Sicherheit & Ausrüstung -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">Sicherheit & Kleidung</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        Komplette Arbeitskleidung wird gestellt. Unser zertifizierter Arbeits- und Gesundheitsschutz steht bei uns zum Schutz deines Lebens weit über dem gesetzlichen Maß.
+                    </p>
                 </div>
-                <div class="metro-tile p-8">
-                    <svg class="w-8 h-8 text-mint-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    <h3 class="text-lg font-bold text-flat-black mb-3 mt-4">Weiterbildung</h3>
-                    <p class="text-flat-darkgray text-sm leading-relaxed">Wir fördern dich! SCC-Zertifizierungen, FISAT-Scheine und regelmäßige Fortbildungen zahlen wir.</p>
+
+                <!-- Tile 4: Weiterbildung & Zertifikate -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479L12 21l-6.83-3.943a12.083 12.083 0 01.665-6.479L12 14z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">Zertifizierte Weiterbildung</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        Wir fördern dich und deine Qualifikationen! Zertifizierungen, Schulungen und individuelle Entwicklungsmöglichkeiten zahlen wir.
+                    </p>
+                </div>
+
+                <!-- Tile 5: Zusammenhalt & Einarbeitung -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">Starker Zusammenhalt</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        Garantiert keine Langeweile! Dich erwartet eine begleitete, strukturierte Einarbeitung in ein familiäres und lockeres Team mit flachen Hierarchien auf Augenhöhe.
+                    </p>
+                </div>
+
+                <!-- Tile 6: Modernstes Equipment -->
+                <div class="metro-tile p-8 border border-flat-gray bg-white relative overflow-hidden group hover:border-mint-500 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-mint-500/5 rounded-full translate-x-8 -translate-y-8 group-hover:scale-125 transition-transform duration-300"></div>
+                    <svg class="w-8 h-8 text-mint-500 mb-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a2 2 0 01-2 2H3a2 2 0 01-2-2V4a2 2 0 114 0v1a2 2 0 002 2h4a2 2 0 002-2V4z"></path>
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-flat-black mb-3 mt-4 relative z-10">Werkzeuge & Technik</h3>
+                    <p class="text-flat-darkgray text-sm leading-relaxed relative z-10">
+                        Wir stellen dir gut ausgerüstete Fahrzeuge, bewährtes Spezialwerkzeug für Kletterarbeiten und erstklassige Messgeräte zur Verfügung – alles für ein reibungsloses Arbeiten.
+                    </p>
                 </div>
             </div>
         </div>
@@ -102,60 +158,109 @@ import Layout from '../layouts/Layout.astro';
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
-                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Montage</span>
+            <div class="space-y-6">
+                
+                <!-- Job 1: Elektriker / Mechatroniker -->
+                <div class="job-box p-6 md:p-8 flex flex-col gap-6">
+                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-6">
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
+                                <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Elektrotechnik</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-flat-black mb-2">Elektriker / Mechatroniker (m/w/d)</h3>
+                            <p class="text-sm text-flat-darkgray max-w-2xl">
+                                Zuständig für die normgerechte Installation von AC/DC Unterverteilungen, Erdungsanlagen und Blitzschutz auf unseren Baustellen in der Funk-Infrastruktur.
+                            </p>
                         </div>
-                        <h3 class="text-xl font-bold text-flat-black mb-2">Monteur für Stahl- und Antennenbau (m/w/d)</h3>
-                        <p class="text-sm text-flat-darkgray max-w-2xl">
-                            Du montierst Tragwerke, Systemtechnik und Steigwege direkt an Telekommunikations-Standorten.
-                        </p>
+                        <div class="md:text-right shrink-0">
+                            <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Elektriker/Mechatroniker'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                                Hier Bewerben
+                            </a>
+                        </div>
                     </div>
-                    <div class="md:text-right">
-                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Monteur Stahl/Antennenbau'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
-                            Hier Bewerben
-                        </a>
+                    <div class="grid md:grid-cols-2 gap-6 mt-2 pt-6 border-t border-flat-gray">
+                        <div>
+                            <h4 class="font-bold text-flat-black mb-3 text-sm uppercase tracking-wider">Dein Aufgabengebiet</h4>
+                            <ul class="list-disc pl-5 text-sm text-flat-darkgray space-y-2">
+                                <li>Allgemeine Elektrotechnik im Bereich Installation</li>
+                                <li>Höhenarbeiten an Telekommunikations-Standorten</li>
+                                <li>Unterstützung bei der Antennenmontage</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-flat-black mb-3 text-sm uppercase tracking-wider">Dein Profil</h4>
+                            <ul class="list-disc pl-5 text-sm text-flat-darkgray space-y-2">
+                                <li>Abgeschlossene Ausbildung zum Elektriker (w/m/d) oder vergleichbare Qualifikation</li>
+                                <li>Höhentauglichkeit & Einsatzbereitschaft</li>
+                                <li>Zuverlässigkeit, Genauigkeit und Verantwortungsbewusstsein</li>
+                                <li>Führerschein Klasse B (BE von Vorteil)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
-                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Elektrotechnik</span>
+                <!-- Job 2: Monteur Stahl- und Antennenbau -->
+                <div class="job-box p-6 md:p-8 flex flex-col gap-6">
+                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-6">
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit</span>
+                                <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Montage</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-flat-black mb-2">Monteur für Stahl- und Antennenbau (m/w/d)</h3>
+                            <p class="text-sm text-flat-darkgray max-w-2xl">
+                                Du montierst Tragwerke, Systemtechnik und Steigwege direkt an Telekommunikations-Standorten.
+                            </p>
                         </div>
-                        <h3 class="text-xl font-bold text-flat-black mb-2">Elektrofachkraft für Funk-Infrastruktur (m/w/d)</h3>
-                        <p class="text-sm text-flat-darkgray max-w-2xl">
-                            Zuständig für die normgerechte Installation von AC/DC Unterverteilungen, Erdungsanlagen und Blitzschutz auf unseren Baustellen.
-                        </p>
+                        <div class="md:text-right shrink-0">
+                            <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Monteur Stahl/Antennenbau'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                                Hier Bewerben
+                            </a>
+                        </div>
                     </div>
-                    <div class="md:text-right">
-                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Elektrofachkraft'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
-                            Hier Bewerben
-                        </a>
+                    <div class="grid md:grid-cols-2 gap-6 mt-2 pt-6 border-t border-flat-gray">
+                        <div>
+                            <h4 class="font-bold text-flat-black mb-3 text-sm uppercase tracking-wider">Dein Aufgabengebiet</h4>
+                            <ul class="list-disc pl-5 text-sm text-flat-darkgray space-y-2">
+                                <li>Antennenmontage und Installation von Systemtechnik</li>
+                                <li>Montage von Stahlbau-Tragwerken und Steigwegen</li>
+                                <li>Sicheres Arbeiten in der Höhe</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-flat-black mb-3 text-sm uppercase tracking-wider">Dein Profil</h4>
+                            <ul class="list-disc pl-5 text-sm text-flat-darkgray space-y-2">
+                                <li>Handwerkliches Geschick, idealerweise Ausbildung im Metallbau/Handwerk</li>
+                                <li>Absolute Höhentauglichkeit und Teamfähigkeit</li>
+                                <li>Engagement und hohe Einsatzbereitschaft</li>
+                                <li>Führerschein Klasse B (BE von Vorteil)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="job-box p-6 md:p-8 flex flex-col md:flex-row justify-between md:items-center gap-6">
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit / Teilzeit</span>
-                            <span class="bg-mint-500 text-flat-black font-bold text-xs font-mono px-2 py-1 uppercase tracking-widest shadow-sm">Dringend</span>
+                <!-- Job 3: Industriekletterer -->
+                <div class="job-box p-6 md:p-8 flex flex-col gap-6">
+                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-6">
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-flat-light border border-flat-gray text-xs font-mono px-2 py-1 uppercase tracking-widest text-flat-darkgray">Vollzeit / Teilzeit</span>
+                                <span class="bg-mint-500 text-flat-black font-bold text-xs font-mono px-2 py-1 uppercase tracking-widest shadow-sm">Dringend</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-flat-black mb-2">Industriekletterer / FISAT (m/w/d)</h3>
+                            <p class="text-sm text-flat-darkgray max-w-2xl">
+                                Einsätze in schwer zugänglichen Bereichen. Du führst Montage-, Wartungs- und Reparaturarbeiten mittels Seilzugangstechnik (SZP) durch.
+                            </p>
                         </div>
-                        <h3 class="text-xl font-bold text-flat-black mb-2">Industriekletterer / FISAT (m/w/d)</h3>
-                        <p class="text-sm text-flat-darkgray max-w-2xl">
-                            Einsätze in schwer zugänglichen Bereichen. Du führst Montage-, Wartungs- und Reparaturarbeiten mittels Seilzugangstechnik (SZP) durch.
-                        </p>
-                    </div>
-                    <div class="md:text-right">
-                        <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Industriekletterer (FISAT)'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
-                            Hier Bewerben
-                        </a>
+                        <div class="md:text-right shrink-0">
+                            <a href="#bewerbung" onclick="const s = document.getElementById('job-select'); if (s) { s.value = 'Industriekletterer (FISAT)'; }" class="inline-block btn-secondary bg-flat-black text-white hover:bg-mint-500 hover:text-flat-black hover:border-mint-500 px-6 py-3 text-sm uppercase tracking-widest focus-outline whitespace-nowrap">
+                                Hier Bewerben
+                            </a>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -196,8 +301,8 @@ import Layout from '../layouts/Layout.astro';
                         <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Für welchen Job interessierst du dich?</label>
                         <select id="job-select" class="flat-input bg-flat-darker border-flat-darkgray text-white appearance-none focus:bg-flat-black focus:border-mint-500">
                             <option value="" disabled selected>Bitte wählen...</option>
+                            <option value="Elektriker/Mechatroniker">Elektriker / Mechatroniker (m/w/d)</option>
                             <option value="Monteur Stahl/Antennenbau">Monteur Stahl- & Antennenbau (m/w/d)</option>
-                            <option value="Elektrofachkraft">Elektrofachkraft (m/w/d)</option>
                             <option value="Industriekletterer (FISAT)">Industriekletterer / FISAT (m/w/d)</option>
                             <option value="Initiativbewerbung">Initiativbewerbung / Etwas anderes</option>
                         </select>
@@ -538,7 +643,7 @@ import Layout from '../layouts/Layout.astro';
                         const cH = pixiApp.screen.height;
                         const scaleX = cW / W;
                         const scaleY = cH / H;
-                        towerScale = Math.max(scaleX, scaleY);
+                        const towerScale = Math.max(scaleX, scaleY);
                         towerMesh.scale.set(towerScale);
                         towerMesh.x = (cW - W * towerScale) * 0.44;
                         towerMesh.y = (cH - H * towerScale) * 0.5;
