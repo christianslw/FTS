@@ -6,24 +6,13 @@ import FtsMap from '../components/FtsMap.astro';
 
 <Layout title="FTS - Funkturmservice GmbH | Telekommunikationsinfrastruktur">
     <!-- Map Quick Start (Mobile) -->
-    <section class="mobile-quickstart bg-flat-darker text-white border-b border-flat-darkgray mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
-            <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.2em] mb-3">Schnellzugriff</p>
-            <h1 class="text-3xl font-bold leading-tight mb-4">FTS Funkturmservice</h1>
-            <p class="text-flat-gray text-sm leading-relaxed mb-6">Stahlbau, Elektrotechnik und Steigwege fuer kritische Infrastruktur. Schnell erreichbar, bundesweit einsatzbereit.</p>
-            <div class="grid grid-cols-1 gap-3 mb-6">
-                <a href="tel:+4963279794027" class="border border-flat-darkgray p-4 bg-flat-black">
-                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Telefon</p>
-                    <p class="text-white font-semibold">{kontaktdaten.telefon}</p>
-                </a>
-                <a href="mailto:info@funkturmservice.de" class="border border-flat-darkgray p-4 bg-flat-black">
-                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">E-Mail</p>
-                    <p class="text-white font-semibold break-all">{kontaktdaten.email}</p>
-                </a>
-            </div>
+    <section class="md:hidden mobile-quickstart bg-white mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-xl font-bold leading-tight mb-2 text-flat-darker">FTS Funkturmservice</h1>
+            <p class="text-flat-darkgray text-sm leading-relaxed mb-8">Stahlbau, Elektrotechnik und Steigwege für kritische Infrastruktur.</p>
             <div class="flex flex-col gap-3">
-                <a href="#leistungen" class="btn-primary px-5 py-3 text-center text-xs uppercase tracking-widest">Leistungen</a>
-                <a href="#kontakt" class="border border-white/40 px-5 py-3 text-center text-xs uppercase tracking-widest">Kontakt</a>
+                <a href="#kontakt" class="bg-flat-black text-white px-5 py-3 text-center text-xs uppercase tracking-widest font-semibold">Kontakt</a>
+                <a href="#leistungen" class="border border-flat-black text-flat-darker px-5 py-3 text-center text-xs uppercase tracking-widest font-semibold">Leistungen</a>
             </div>
         </div>
     </section>
@@ -85,7 +74,7 @@ import FtsMap from '../components/FtsMap.astro';
     </section>
 
     <!-- Partner Logos -->
-    <section id="referenzen" class="logo-marquee relative z-20">
+    <section id="referenzen" class="hidden md:block logo-marquee relative z-20">
         <div class="logo-track py-3" aria-label="Partner und Kunden Logos">
             <div class="logo-item"><img src="/res/partner/BR.svg" alt="BR" /></div>
             <div class="logo-item"><img src="/res/partner/DFMG.svg" alt="DFMG" /></div>
@@ -95,24 +84,6 @@ import FtsMap from '../components/FtsMap.astro';
         </div>
     </section>
 
-    <!-- Stats -->
-    <section class="bg-flat-darker border-b border-flat-darkgray relative z-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-flat-darkgray border-l border-r border-flat-darkgray">
-                {[
-                    { number: "10+", label: "Jahre Erfahrung" },
-                    { number: "2000+", label: "Projekte" },
-                    { number: "100%", label: " Zertifiziert" }
-                ].map((stat, i) => (
-                    <div class="p-6 md:p-8 flex flex-col justify-center">
-                        <span class="font-mono text-mint-500 text-xs tracking-widest mb-2">[ 0{i + 1} ]</span>
-                        <p class="text-3xl font-bold text-white mb-1">{stat.number}</p>
-                        <p class="text-xs text-flat-gray uppercase tracking-widest font-mono">{stat.label}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
 
     <!-- Services -->
     <section id="leistungen" class="py-24 bg-flat-light">
@@ -190,25 +161,39 @@ import FtsMap from '../components/FtsMap.astro';
                 </div>
             </div>
 
-            <div class="bg-flat-darker text-white border-t-4 border-mint-500 grid lg:grid-cols-2 shadow-xl">
-                <div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-flat-darkgray">
-                    <h3 class="text-2xl font-bold mb-6 text-white leading-snug">Qualität trifft auf ein starkes Netzwerk.</h3>
-                    <p class="text-flat-gray font-light leading-relaxed mb-6">Wir setzen bei all unseren Montagen, im Stahlbau und in der Elektrotechnik stets auf <strong>qualitativ hochwertiges Material</strong> und arbeiten eng mit unseren verlässlichen Lieferanten zusammen.</p>
-                    <div class="bg-flat-black border border-flat-darkgray p-6">
-                        <p class="text-sm text-flat-gray font-mono">
+            <div class="hidden md:grid bg-flat-white text-flat-black border-t-4 border-mint-500 lg:grid-cols-2 shadow-xl">
+                <div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-flat-gray bg-flat-white">
+                    <h3 class="text-2xl font-bold mb-6 text-flat-black leading-snug">Qualität trifft auf ein starkes Netzwerk.</h3>
+                    <p class="text-flat-darkgray font-light leading-relaxed mb-6">Wir setzen bei all unseren Montagen, im Stahlbau und in der Elektrotechnik stets auf <strong>qualitativ hochwertiges Material</strong> und arbeiten eng mit unseren verlässlichen Lieferanten zusammen.</p>
+                    <div class="bg-flat-light border border-flat-gray p-6 rounded-3xl">
+                        <p class="text-sm text-flat-darkgray font-mono">
                             <span class="text-mint-500 font-bold block mb-2 uppercase tracking-widest">Sonderanfragen</span>
                             Sollte Ihr Anliegen in unserer Matrix nicht explizit aufgeführt sein, fragen Sie gerne nach. Entweder können wir Ihnen direkt weiterhelfen oder vermitteln Ihnen gerne eines unserer spezialisierten Partnerunternehmen.
                         </p>
                     </div>
                 </div>
 
-                <div class="p-8 md:p-12 lg:p-16">
-                    <p class="font-mono text-mint-500 text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-flat-darkgray pb-4">Stichpunkte // Gesamtkatalog</p>
+                <div class="p-8 md:p-12 lg:p-16 bg-flat-white">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                        <div class="rounded-3xl border border-flat-gray bg-flat-light p-6 text-center">
+                            <p class="text-4xl font-bold text-flat-black">10+</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-flat-darkgray mt-3 font-semibold">Jahre Erfahrung</p>
+                        </div>
+                        <div class="rounded-3xl border border-flat-gray bg-flat-light p-6 text-center">
+                            <p class="text-4xl font-bold text-flat-black">2000+</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-flat-darkgray mt-3 font-semibold">Projekte</p>
+                        </div>
+                        <div class="rounded-3xl border border-flat-gray bg-flat-light p-6 text-center">
+                            <p class="text-4xl font-bold text-flat-black">100%</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-flat-darkgray mt-3 font-semibold">Zertifiziert</p>
+                        </div>
+                    </div>
+                    <p class="font-mono text-mint-500 text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-flat-gray pb-4">Stichpunkte // Gesamtkatalog</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                        {['Absturzsicherung','Anschlageinrichtung','Antennenbau','Betriebsfunk','Blitzschutzmontagen','Brandmeldeanlagen','Elektrotechnik','Flughindernisbefeuerungen','Höhenarbeit','Industrieklettern','Industriemontagen','Kabelzug','Metallbau / Stahlbau','Mobilfunk','Ortsfeste Leitern','Richtfunk','Steigschutzanlagen / -wartung','Rundfunk'].map((item) => (
-                            <div class={`flex items-start gap-3 ${item === 'Steigschutzanlagen / -wartung' ? 'sm:col-span-2' : ''}`}>
+                        {['Absturzsicherung','Anschlageinrichtung','Antennenbau','Betriebsfunk','Blitzschutzmontagen','Brandmeldeanlagen','Elektrotechnik','Flughindernisbefeuerungen','Höhenarbeit','Industrieklettern','Industriemontagen','Kabelzug','Metallbau / Stahlbau','Mobilfunk','Ortsfeste Leitern','Rundfunk','Richtfunk','Steigschutzanlagen / -wartung'].map((item) => (
+                            <div class="flex items-start gap-3">
                                 <div class="w-1.5 h-1.5 bg-mint-500 mt-2 flex-shrink-0"></div>
-                                <span class="text-sm font-light text-flat-gray">{item}</span>
+                                <span class="text-sm font-light text-flat-darkgray">{item}</span>
                             </div>
                         ))}
                     </div>
@@ -218,7 +203,7 @@ import FtsMap from '../components/FtsMap.astro';
     </section>
 
     <!-- Company History -->
-    <section id="unternehmen" class="border-t border-b border-flat-gray bg-flat-white">
+    <section id=\"unternehmen\" class=\"hidden md:block border-t border-b border-flat-gray bg-flat-white\">
         <div class="flex flex-col lg:flex-row">
             <div class="w-full lg:w-1/2 p-8 sm:p-12 lg:p-24 flex items-center">
                 <div class="max-w-xl">
@@ -250,11 +235,11 @@ import FtsMap from '../components/FtsMap.astro';
                     </div>
                 </div>
             </div>
-            <div class="w-full lg:w-1/2 bg-flat-darker border-l border-flat-darkgray p-8 sm:p-12 lg:p-24 flex flex-col justify-center text-white relative overflow-hidden">
-                <div class="relative z-10 border border-flat-darkgray bg-flat-black p-10 md:p-12 shadow-2xl">
-                    <h3 class="text-2xl font-bold mb-4">Unser wertvollstes Kapital.</h3>
-                    <p class="text-flat-gray font-light leading-relaxed mb-6">Die Basis für unseren Erfolg sind unsere verantwortungsbewussten, gut ausgebildeten und engagierten Mitarbeiter.</p>
-                    <a href="/karriere" class="mt-8 inline-block btn-primary px-6 py-3 text-sm uppercase tracking-widest focus-outline w-full text-center group">Werde Teil des Teams</a>
+            <div class="w-full lg:w-1/2 border-l border-flat-gray p-8 sm:p-12 lg:p-24 flex flex-col justify-center text-flat-black relative overflow-hidden">
+                <div class="relative z-10 border-2 border-mint-500 p-10 md:p-12 shadow-sm bg-transparent">
+                    <h3 class="text-2xl font-bold mb-4 text-flat-black">Unser wertvollstes Kapital.</h3>
+                    <p class="text-flat-black font-light leading-relaxed mb-6">Die Basis für unseren Erfolg sind unsere verantwortungsbewussten, gut ausgebildeten und engagierten Mitarbeiter.</p>
+                    <a href="/karriere" class="mt-8 inline-block btn-primary btn-primary-on-light px-6 py-3 text-sm uppercase tracking-widest focus-outline w-full text-center group">Werde Teil des Teams</a>
                 </div>
             </div>
         </div>
@@ -313,7 +298,7 @@ import FtsMap from '../components/FtsMap.astro';
 
                 <!-- Form Column -->
                 <div class="lg:col-span-7 p-10 lg:p-16 relative">
-                    <form id="contactForm" class="space-y-6" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); document.getElementById('form-success').classList.remove('hidden'); this.style.display='none';">
+                    <form id="contactForm" class="space-y-6" method="POST" enctype="multipart/form-data">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block font-mono text-xs text-flat-darkgray uppercase tracking-widest mb-2">Vorname</label>
@@ -351,11 +336,36 @@ import FtsMap from '../components/FtsMap.astro';
                         </div>
 
                         <div class="pt-4">
-                            <button type="submit" class="btn-primary w-full py-4 text-sm uppercase tracking-widest focus-outline">
+                            <button id="contactSubmitBtn" type="submit" class="btn-primary btn-primary-on-light btn-invalid w-full py-4 text-sm uppercase tracking-widest focus-outline">
                                 Anfrage übermitteln
                             </button>
                         </div>
                     </form>
+                    <script is:inline>
+                        const contactForm = document.getElementById('contactForm');
+                        const submitButton = document.getElementById('contactSubmitBtn');
+                        const requiredFields = Array.from(contactForm.querySelectorAll('input[required], textarea[required], select[required]'));
+
+                        const updateButtonState = () => {
+                            const allValid = requiredFields.every((field) => field.checkValidity());
+                            submitButton.classList.toggle('btn-invalid', !allValid);
+                        };
+
+                        contactForm.addEventListener('input', updateButtonState);
+                        contactForm.addEventListener('change', updateButtonState);
+                        updateButtonState();
+
+                        contactForm.addEventListener('submit', (event) => {
+                            if (!requiredFields.every((field) => field.checkValidity())) {
+                                event.preventDefault();
+                                submitButton.focus();
+                            } else {
+                                event.preventDefault();
+                                document.getElementById('form-success').classList.remove('hidden');
+                                contactForm.style.display = 'none';
+                            }
+                        });
+                    </script>
 
                     <div id="form-success" class="hidden h-full flex flex-col items-center justify-center text-center p-8 bg-mint-500 text-flat-black border border-flat-darkgray">
                         <svg class="w-16 h-16 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="square" stroke-linejoin="miter" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

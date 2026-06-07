@@ -8,22 +8,15 @@ import Layout from '../layouts/Layout.astro';
         <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
     </Fragment>
 
-    <section class="mobile-quickstart bg-flat-darker text-white border-b border-flat-darkgray mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
-            <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.2em] mb-3">Karriere Kompakt</p>
-            <h1 class="text-3xl font-bold leading-tight mb-4">Arbeiten bei FTS</h1>
-            <p class="text-flat-gray text-sm leading-relaxed mb-6">Faire Konditionen, starkes Team und klare Entwicklungspfade. Kein unnötiger Schnickschnack auf mobil, nur die wichtigsten Infos und schnelle Bewerbung.</p>
-            <div class="grid grid-cols-1 gap-3 mb-6">
-                <a href="#stellen" class="border border-flat-darkgray p-4 bg-flat-black">
-                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Jetzt offen</p>
-                    <p class="text-white font-semibold">Stellenangebote ansehen</p>
-                </a>
-                <a href="#bewerbung" class="border border-flat-darkgray p-4 bg-flat-black">
-                    <p class="font-mono text-xs text-mint-500 uppercase tracking-widest mb-1">Direktstart</p>
-                    <p class="text-white font-semibold">Bewirb dich jetzt</p>
-                </a>
+    <section class="mobile-quickstart bg-white text-flat-darker mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
+            <h1 class="text-2xl font-bold leading-tight mb-3">Arbeiten bei FTS</h1>
+            <p class="text-flat-darkgray text-sm leading-relaxed mb-6">Faire Konditionen, starkes Team und klare Entwicklungspfade.</p>
+            <div class="flex flex-col gap-2 mb-6">
+                <a href="#stellen" class="text-mint-500 font-semibold text-sm">Offene Stellen</a>
+                <a href="#bewerbung" class="text-mint-500 font-semibold text-sm">Jetzt bewerben</a>
             </div>
-            <a href="#bewerbung" class="btn-primary block px-5 py-3 text-center text-xs uppercase tracking-widest">Jetzt bewerben</a>
+            <a href="#bewerbung" class="btn-primary block px-5 py-3 text-center text-xs uppercase tracking-widest">Bewerbung starten</a>
         </div>
     </section>
 
@@ -332,7 +325,7 @@ import Layout from '../layouts/Layout.astro';
                         </select>
                     </div>
                     <div>
-                        <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Kurzinfo (Optional)</label>
+                        <label class="block font-mono text-xs text-flat-gray uppercase tracking-widest mb-2">Kurzinfo</label>
                         <textarea rows="3" placeholder="Z.B. aktueller Beruf, Erfahrungen, frühester Starttermin..." class="flat-input bg-flat-darker border-flat-darkgray text-white resize-none focus:bg-flat-black focus:border-mint-500"></textarea>
                     </div>
                     <div>

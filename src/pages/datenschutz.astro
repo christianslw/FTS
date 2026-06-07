@@ -43,25 +43,25 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   .privacy-page {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
     min-height: 60vh;
+    background: white;
   }
 
   .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--bg-color, #ffffff);
-    padding: 3rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background: white;
+    padding: 2rem 1.5rem;
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 2rem;
-    color: var(--text-color, #1a202c);
-    border-bottom: 2px solid var(--primary-color, #3182ce);
-    padding-bottom: 0.5rem;
+    color: var(--color-flat-darker);
+    border-bottom: 1px solid var(--color-flat-gray);
+    padding-bottom: 1rem;
+    font-family: "Inter", sans-serif;
   }
 
   .dsgvo-section {
@@ -69,25 +69,39 @@ import Layout from '../layouts/Layout.astro';
   }
 
   h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color, #2d3748);
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-flat-darker);
+    font-family: "Inter", sans-serif;
   }
 
   p {
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-    color: var(--text-color, #4a5568);
-    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--color-flat-darkgray);
+    font-size: 0.95rem;
   }
 
   @media (max-width: 640px) {
+    .privacy-page {
+      padding: 1.5rem 1rem;
+    }
+
     .content-wrapper {
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
     }
     
     h1 {
-      font-size: 2rem;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 0.9rem;
     }
   }
 </style>

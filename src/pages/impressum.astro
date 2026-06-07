@@ -5,21 +5,20 @@ import FtsMap from '../components/FtsMap.astro';
 ---
 
 <Layout title="Impressum | FTS GmbH" description="Impressum der FTS GmbH mit Kontaktdaten und Kartenansicht des Unternehmensstandorts.">
-    <section class="bg-flat-darker text-white border-b border-flat-darkgray">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-30">
-            <p class="font-mono text-xs uppercase tracking-[0.2em] text-mint-500 mb-6">Rechtliche Angaben</p>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Impressum</h1>
-            <p class="text-flat-gray max-w-2xl">Alle Pflichtangaben gemäß §5 TMG sowie Kontakt- und Standortinformationen der FTS GmbH.</p>
+    <section class="bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <h1 class="text-2xl md:text-4xl font-bold mb-3 text-flat-darker">Impressum</h1>
+            <p class="text-flat-darkgray max-w-2xl text-sm">Alle Pflichtangaben gemäß §5 TMG sowie Kontakt- und Standortinformationen der FTS GmbH.</p>
         </div>
     </section>
 
-    <section class="py-16">
+    <section class="py-12 md:py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-5 metro-tile p-8">
-                <h2 class="text-2xl font-bold mb-8">Anbieterkennzeichnung</h2>
-                <div class="space-y-6 text-sm leading-relaxed">
+            <div class="lg:col-span-5 bg-white p-6 md:p-8">
+                <h2 class="text-xl md:text-2xl font-bold mb-6 text-flat-darker">Anbieterkennzeichnung</h2>
+                <div class="space-y-4 text-sm leading-relaxed">
                             <div>
-                                <p class="text-flat-darkgray mb-1 tracking-widest text-xs uppercase">Adresse</p>
+                                <p class="text-flat-darkgray mb-1 tracking-widest text-xs uppercase font-semibold">Adresse</p>
                                 <a href="https://www.google.com/maps/dir/?api=1&destination=Theodor-Heuss-Straße+79a,+67435+Neustadt+an+der+Weinstraße" target="_blank" rel="noopener noreferrer" class="text-flat-darker hover:text-mint-500 transition-colors block focus-outline" aria-label="Route in Google Maps öffnen">
                                     {kontaktdaten.name} <br>
                                     {kontaktdaten.strasse} <br>
@@ -27,32 +26,31 @@ import FtsMap from '../components/FtsMap.astro';
                                 </a>
                             </div>
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Kontakt</p>
-                        <p class="text-flat-darker">
+                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray font-semibold mb-1">Kontakt</p>
+                        <p class="text-flat-darker text-sm">
                             Telefon: <a class="hover:text-mint-600 transition-colors" href={`tel:${kontaktdaten.telefon}`}>{kontaktdaten.telefon}</a><br>
                             Telefax: {kontaktdaten.fax}<br>
                             E-Mail: <a class="hover:text-mint-600 transition-colors" href={`mailto:${kontaktdaten.email}`}>{kontaktdaten.email}</a>
                         </p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Vertretungsberechtigt</p>
+                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray font-semibold mb-1">Vertretungsberechtigt</p>
                         <p class="text-flat-darker">Geschäftsführung: Thomas Schiessl, Olaf Kühn</p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Registereintrag</p>
+                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray font-semibold mb-1">Registereintrag</p>
                         <p class="text-flat-darker"> Handelsregister: HRB 67570 <br> Registergericht: Amtsgericht Ludwigshafen/Rhein</p>
                     </div>
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Umsatzsteuer</p>
+                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray font-semibold mb-1">Umsatzsteuer</p>
                         <p class="text-flat-darker">DE305209467 gemäß §27a UStG</p>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-7">
-                <div class="metro-tile p-6 mb-6">
-                    <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray">Standortkarte</p>
-                    <h2 class="text-2xl font-bold mt-2">FTS Hauptsitz</h2>
+                <div class="bg-white p-6 md:p-8 mb-6">
+                    <h2 class="text-xl md:text-2xl font-bold text-flat-darker">FTS Hauptsitz</h2>
                 </div>
                 <FtsMap />
             </div>
