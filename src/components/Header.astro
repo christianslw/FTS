@@ -34,8 +34,8 @@ const { isKarriere } = Astro.props;
 
             <!-- Desktop Links (Center) -->
             <div class="hidden lg:flex flex-none items-center justify-center space-x-6 xl:space-x-10">
-                <a href="/#kompetenzen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Leistungen</a>
-                <a href="/#news" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Neuigkeiten</a>
+                <a href="/#leistungen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Leistungen</a>
+                <a href="/#neuigkeiten" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Neuigkeiten</a>
                 <a href="/#unternehmen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Über uns</a>
                 <a href="/#referenzen" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline">Referenzen</a>
                 <a href="/karriere" class="nav-link nav-main-link nav-dynamic text-white font-semibold text-sm tracking-widest py-2 focus-outline relative group">
@@ -70,8 +70,8 @@ const { isKarriere } = Astro.props;
     <!-- Mobile Menu Dropdown -->
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-flat-gray absolute w-full left-0 top-20 shadow-xl">
         <div class="flex flex-col px-4 py-6 space-y-4">
-            <a href="/#kompetenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Leistungen</a>
-            <a href="/#news" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Neuigkeiten</a>
+            <a href="/#leistungen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Leistungen</a>
+            <a href="/#neuigkeiten" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Neuigkeiten</a>
             <a href="/#unternehmen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Unternehmen</a>
             <a href="/#referenzen" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray">Referenzen</a>
             <a href="/karriere" class="text-flat-black text-sm uppercase tracking-widest pb-2 border-b border-flat-gray flex justify-between items-center relative">
@@ -101,7 +101,6 @@ const { isKarriere } = Astro.props;
 
         if (!nav) return;
 
-        // SEHR EFFIZIENT: Tauscht nur noch eine Klasse auf dem Eltern-Element!
         const checkScroll = () => {
             if (window.scrollY > 50) {
                 nav.classList.add('nav-solid');
@@ -112,19 +111,17 @@ const { isKarriere } = Astro.props;
             }
         };
 
-        // 1. Sofort prüfen beim Laden
         checkScroll();
 
-        // 2. Alten Listener wegschmeißen (wichtig für den Astro ClientRouter)
+        // scrrap old listener
         if (activeScrollListener) {
             window.removeEventListener('scroll', activeScrollListener);
         }
 
-        // 3. Neuen Listener setzen
+        // set new listener
         activeScrollListener = checkScroll;
         window.addEventListener('scroll', activeScrollListener);
 
-        // 4. Mobile Menü Logik
         mobileBtn?.addEventListener('click', () => {
             menu?.classList.toggle('hidden');
         });

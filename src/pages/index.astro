@@ -22,7 +22,7 @@ import FtsMap from '../components/FtsMap.astro';
                 </a>
             </div>
             <div class="flex flex-col gap-3">
-                <a href="#kompetenzen" class="btn-primary px-5 py-3 text-center text-xs uppercase tracking-widest">Leistungen</a>
+                <a href="#leistungen" class="btn-primary px-5 py-3 text-center text-xs uppercase tracking-widest">Leistungen</a>
                 <a href="#kontakt" class="border border-white/40 px-5 py-3 text-center text-xs uppercase tracking-widest">Kontakt</a>
             </div>
         </div>
@@ -49,7 +49,7 @@ import FtsMap from '../components/FtsMap.astro';
 
                     <div class="flex flex-col sm:flex-row sm:justify-start gap-4 mb-8">
                         <a href="#kontakt" class="btn-primary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline">Projekt anfragen</a>
-                        <a href="#kompetenzen" class="btn-secondary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline">Unsere Leistungen</a>
+                        <a href="#leistungen" class="btn-secondary px-8 py-4 text-center text-sm uppercase tracking-widest focus-outline">Unsere Leistungen</a>
                     </div>
                     <a href="https://share.google/puTXKW3B0RQkpm7PO" target="_blank" rel="noreferrer" class="inline-flex items-center gap-3 text-sm text-white/90 hover:text-mint-500 mb-8 focus-outline">
                         <span class="inline-flex items-center gap-1 [&>svg]:filter [&>svg]:drop-shadow-[0_0_6px_currentColor]">
@@ -102,7 +102,7 @@ import FtsMap from '../components/FtsMap.astro';
                 {[
                     { number: "10+", label: "Jahre Erfahrung" },
                     { number: "2000+", label: "Projekte" },
-                    { number: "100%", label: "SCC Zertifiziert" }
+                    { number: "100%", label: " Zertifiziert" }
                 ].map((stat, i) => (
                     <div class="p-6 md:p-8 flex flex-col justify-center">
                         <span class="font-mono text-mint-500 text-xs tracking-widest mb-2">[ 0{i + 1} ]</span>
@@ -110,17 +110,12 @@ import FtsMap from '../components/FtsMap.astro';
                         <p class="text-xs text-flat-gray uppercase tracking-widest font-mono">{stat.label}</p>
                     </div>
                 ))}
-                <div class="p-6 md:p-8 flex flex-col justify-center bg-mint-500 group transition-colors hover:bg-flat-black">
-                    <span class="font-mono text-flat-black group-hover:text-mint-500 text-xs tracking-widest mb-2 transition-colors">[ 04 ]</span>
-                    <p class="text-3xl font-bold text-flat-black group-hover:text-white mb-1 transition-colors">365</p>
-                    <p class="text-xs text-flat-darker group-hover:text-mint-500 uppercase tracking-widest font-mono transition-colors">Tage Service</p>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Services -->
-    <section id="kompetenzen" class="py-24 bg-flat-light">
+    <section id="leistungen" class="py-24 bg-flat-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-16 border-l-4 border-mint-500 pl-6">
                 <p class="font-mono text-mint-600 text-xs font-bold uppercase tracking-[0.2em] mb-4">Matrix // Leistungsspektrum</p>
@@ -210,7 +205,7 @@ import FtsMap from '../components/FtsMap.astro';
                 <div class="p-8 md:p-12 lg:p-16">
                     <p class="font-mono text-mint-500 text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-flat-darkgray pb-4">Stichpunkte // Gesamtkatalog</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                        {['Absturzsicherung','Anschlageinrichtung','Antennenbau','Betriebsfunk','Blitzschutzmontagen','Brandmeldeanlagen','Elektrotechnik','Flughindernisbefeuerungen','Höhenarbeit','Industrieklettern','Industriemontagen','Kabelzug','Metallbau / Stahlbau','Mobilfunk','Ortsfeste Leitern','Richtfunk','Steigschutzanlagen / -wartung'].map((item) => (
+                        {['Absturzsicherung','Anschlageinrichtung','Antennenbau','Betriebsfunk','Blitzschutzmontagen','Brandmeldeanlagen','Elektrotechnik','Flughindernisbefeuerungen','Höhenarbeit','Industrieklettern','Industriemontagen','Kabelzug','Metallbau / Stahlbau','Mobilfunk','Ortsfeste Leitern','Richtfunk','Steigschutzanlagen / -wartung','Rundfunk'].map((item) => (
                             <div class={`flex items-start gap-3 ${item === 'Steigschutzanlagen / -wartung' ? 'sm:col-span-2' : ''}`}>
                                 <div class="w-1.5 h-1.5 bg-mint-500 mt-2 flex-shrink-0"></div>
                                 <span class="text-sm font-light text-flat-gray">{item}</span>

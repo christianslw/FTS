@@ -110,7 +110,7 @@
     transform: scaleY(1); 
   }
 
-  /* Primary button on bright surfaces: hover inverts to black instead of white */
+  /* Primary button on bright surfaces */
   .btn-primary-on-light::before {
     background-color: var(--color-flat-black);
   }
@@ -195,7 +195,18 @@
     border-left-color: var(--color-flat-gray);
   }
 
-  /* <<< HIER GENAU EINFÜGEN >>> */
+  .nav-solid .btn-primary {
+    color: var(--color-flat-white);
+  }
+
+  .nav-solid .btn-primary::before {
+    background-color: var(--color-flat-black);
+  }
+
+  .nav-solid .btn-primary:hover {
+    color: var(--color-flat-white);
+  }
+
   /* Header Scroll Colors */
   .nav-solid #nav-logo:hover {
     color: var(--color-mint-500) !important;

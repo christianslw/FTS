@@ -43,26 +43,47 @@ const complementaryScale = [
 ---
 
 <Layout title="FTS Brand Board | Styleguide" description="Komplette Markenrichtlinie mit Farben, Typografie, Komponenten und Interaktion fuers FTS Projekt.">
-  <section class="pt-32 pb-24 bg-flat-darker text-white border-b border-flat-darkgray">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.24em] mb-4">Brand Board // FTS</p>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">Styleguide fuer Interface, Marke und Bewegung.</h1>
-      <p class="max-w-3xl text-flat-gray text-base sm:text-lg leading-relaxed mb-10">
-        Diese Seite dokumentiert die realen Design-Tokens und UI-Bausteine aus dem Projekt.
-        Alle Beispiele orientieren sich an den Klassen und Variablen aus dem aktuellen Frontend.
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="border border-flat-darkgray bg-flat-black p-5">
-          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Positionierung</p>
-          <p class="text-sm text-flat-gray">Technisch, praezise, industriell.</p>
+  <section class="relative overflow-hidden pt-32 pb-28 bg-flat-darker text-white border-b border-flat-darkgray">
+    <div class="hero-glow"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] items-start">
+        <div class="space-y-6">
+          <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.24em] mb-1">Brand Board // FTS</p>
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight tracking-tight max-w-3xl">Styleguide für Interface, Marke und Bewegung.</h1>
+          <p class="max-w-3xl text-flat-gray text-base sm:text-lg leading-relaxed">
+            Diese Seite dokumentiert die realen Design-Tokens und UI-Bausteine aus dem Projekt. Alle Beispiele orientieren sich an den Klassen und Variablen aus dem aktuellen Frontend.
+          </p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-sm border border-flat-darkgray bg-flat-black p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]">
+              <p class="font-mono text-[11px] uppercase tracking-[0.3em] text-mint-500 mb-2">Positionierung</p>
+              <p class="text-sm text-flat-gray">Technisch, präzise, industriell.</p>
+            </div>
+            <div class="rounded-sm border border-flat-darkgray bg-flat-black p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]">
+              <p class="font-mono text-[11px] uppercase tracking-[0.3em] text-mint-500 mb-2">Look</p>
+              <p class="text-sm text-flat-gray">Hoher Kontrast, Mint-Akzent, strenge Geometrie.</p>
+            </div>
+          </div>
         </div>
-        <div class="border border-flat-darkgray bg-flat-black p-5">
-          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Look</p>
-          <p class="text-sm text-flat-gray">High-contrast blocks mit Mint-Akzent.</p>
-        </div>
-        <div class="border border-flat-darkgray bg-flat-black p-5">
-          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Tonality</p>
-          <p class="text-sm text-flat-gray">Sicher, klar, direkt, belastbar.</p>
+
+        <div class="relative rounded-3xl border border-flat-darkgray bg-flat-black p-8 shadow-[0_40px_120px_rgba(0,0,0,0.35)]">
+          <div class="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-mint-500/20 to-transparent"></div>
+          <div class="relative space-y-4">
+            <p class="font-mono text-xs uppercase tracking-[0.28em] text-flat-gray">Design System Snapshot</p>
+            <div class="grid gap-3 text-sm text-flat-gray">
+              <div class="rounded-sm bg-flat-darker/80 p-4 border border-flat-darkgray">
+                <span class="block text-mint-500 mb-1 uppercase tracking-[0.2em] text-[11px]">Primärfarbe</span>
+                <strong class="text-white">Mint 500</strong>
+              </div>
+              <div class="rounded-sm bg-flat-darker/80 p-4 border border-flat-darkgray">
+                <span class="block text-signal-400 mb-1 uppercase tracking-[0.2em] text-[11px]">Sekundär</span>
+                <strong class="text-white">Signal Rot</strong>
+              </div>
+              <div class="rounded-sm bg-flat-darker/80 p-4 border border-flat-darkgray">
+                <span class="block text-mint-500 mb-1 uppercase tracking-[0.2em] text-[11px]">Typographie</span>
+                <strong class="text-white">Inter + JetBrains Mono</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -85,21 +106,18 @@ const complementaryScale = [
                 <div class="logo-frame">
                   <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
               </div>
               <div class="logo-tile logo-tone-light text-flat-black">
                 <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Horizontal / Schwarz</p>
                 <div class="logo-frame">
                   <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
               </div>
               <div class="logo-tile logo-tone-dark text-white">
-                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Horizontal / Weiss</p>
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Horizontal / Weiß</p>
                 <div class="logo-frame">
                   <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-white">inline-svg + currentColor</p>
               </div>
             </div>
 
@@ -109,39 +127,27 @@ const complementaryScale = [
                 <div class="logo-frame">
                   <LogoVertical className="h-32 w-auto logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
               </div>
               <div class="logo-tile logo-tone-light text-flat-black">
                 <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Vertikal / Schwarz</p>
                 <div class="logo-frame">
                   <LogoVertical className="h-32 w-auto logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
               </div>
               <div class="logo-tile logo-tone-dark text-white">
-                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Vertikal / Weiss</p>
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Vertikal / Weiß</p>
                 <div class="logo-frame">
                   <LogoVertical className="h-32 w-auto logo-svg" />
                 </div>
-                <p class="font-mono text-[11px] mt-3 text-white">inline-svg + currentColor</p>
               </div>
             </div>
           </div>
-        </article>
-
-        <article class="border border-flat-gray bg-white p-6">
-          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Hero Bildsprache</p>
-          <div class="grid grid-cols-2 gap-3 mb-4">
-            <img src="/res/BG_BG.webp" alt="FTS Hintergrundebene" class="w-full h-20 object-cover border border-flat-gray" loading="lazy" />
-            <img src="/res/BG_FG.png" alt="FTS Vordergrundebene" class="w-full h-20 object-cover border border-flat-gray" loading="lazy" />
-          </div>
-          <p class="text-xs text-flat-darkgray">Layered landscape visuals with technical depth.</p>
         </article>
       </div>
 
       <div class="mb-12 border-l-4 border-mint-500 pl-5">
         <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">02 // Farbwelt</p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Mint-Skala, Sekundaerfarbe und Flat-Neutrals</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Primär, Sekundär und Flat-Neutrals</h2>
       </div>
 
       <h3 class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Primary Scale</h3>
@@ -226,46 +232,40 @@ const complementaryScale = [
         <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Buttons, Tiles und Form Inputs</h2>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8 mb-8">
-        <article class="border border-flat-gray bg-white p-8">
-          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-5">Buttons: Solid + Outline auf hell und dunkel</p>
-          <div class="flex flex-wrap gap-4 items-center">
-            <button class="btn-primary btn-primary-on-dark px-6 py-3 text-sm uppercase tracking-widest focus-outline">Primary (Dark BG)</button>
-            <button class="btn-primary btn-primary-on-light px-6 py-3 text-sm uppercase tracking-widest focus-outline">Primary (Light BG)</button>
-            <a href="#" class="text-mint-600 hover:text-mint-700 text-sm font-semibold uppercase tracking-wider">Text Link</a>
-          </div>
+      <div class="grid lg:grid-cols-[1.7fr_1fr] gap-8 mb-8">
+        <article class="relative overflow-hidden rounded-2xl border border-flat-gray bg-white p-8 shadow-[0_25px_80px_rgba(0,0,0,0.08)]">
+          <div class="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-mint-500/20 to-transparent"></div>
+          <div class="relative grid gap-8">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-5">Buttons: Primary und Outline auf passenden Hintergründen</p>
+              <div class="grid gap-6 lg:grid-cols-2">
+                <div class="button-stage light">
+                  <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-flat-darkgray mb-4">Heller Hintergrund</p>
+                  <div class="button-sample">
+                    <button class="btn-primary btn-primary-on-light px-6 py-4 text-sm uppercase tracking-widest">Primary</button>
+                    <button class="btn-outline-light px-6 py-4 text-sm uppercase tracking-widest">Outline</button>
+                    <a href="#" class="text-mint-600 hover:text-mint-700 text-sm font-semibold uppercase tracking-wider">Text Link</a>
+                  </div>
+                </div>
 
-          <div class="grid sm:grid-cols-2 gap-4 mt-6">
-            <div class="border border-flat-gray p-4 bg-flat-light">
-              <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-3">Heller Hintergrund</p>
-              <div class="flex flex-wrap gap-3">
-                <button class="btn-primary btn-primary-on-light px-5 py-3 text-xs uppercase tracking-widest">Solid Mint</button>
-                <button class="bg-flat-black text-white border border-flat-black px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-darker">Solid Schwarz</button>
-                <button class="bg-flat-white text-flat-black border border-flat-black px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-gray">Solid Weiss</button>
-                <button class="btn-outline-light px-5 py-3 text-xs uppercase tracking-widest">Outline</button>
+                <div class="button-stage dark">
+                  <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-flat-gray mb-4">Dunkler Hintergrund</p>
+                  <div class="button-sample">
+                    <button class="btn-primary btn-primary-on-dark px-6 py-4 text-sm uppercase tracking-widest">Primary</button>
+                    <button class="btn-outline-dark px-6 py-4 text-sm uppercase tracking-widest">Outline</button>
+                    <a href="#" class="text-flat-white hover:text-mint-300 text-sm font-semibold uppercase tracking-wider">Text Link</a>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="border border-flat-darkgray p-4 bg-flat-darker">
-              <p class="font-mono text-xs uppercase tracking-widest text-flat-gray mb-3">Dunkler Hintergrund</p>
-              <div class="flex flex-wrap gap-3">
-                <button class="btn-primary btn-primary-on-dark px-5 py-3 text-xs uppercase tracking-widest">Solid Mint</button>
-                <button class="bg-flat-black text-white border border-flat-gray px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-darkgray">Solid Schwarz</button>
-                <button class="bg-flat-white text-flat-black border border-flat-white px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-light">Solid Weiss</button>
-                <button class="btn-outline-dark px-5 py-3 text-xs uppercase tracking-widest">Outline</button>
-              </div>
+            <div class="rounded-sm border border-flat-gray bg-flat-light p-6">
+              <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Button Guidelines</p>
+              <ul class="space-y-3 text-sm text-flat-darker">
+                <li>Primary buttons are the main call to action and should stay mint on both light and dark surfaces.</li>
+                <li>Outline buttons are secondary actions, ideal for filters, navigation and low-priority controls.</li>
+                <li>Text links are for supportive actions, not for the main conversion path.</li>
+              </ul>
             </div>
-          </div>
-
-          <div class="mt-5 border border-flat-gray bg-flat-light p-4">
-            <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Relevante CSS Eigenschaften</p>
-            <pre class="text-xs text-flat-darker whitespace-pre-wrap">button &#123;
-  background-color: var(--token-color);
-  color: var(--token-contrast);
-  border: 1px solid var(--token-color);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-&#125;</pre>
           </div>
         </article>
 
@@ -352,7 +352,6 @@ const complementaryScale = [
   }
 
   .logo-frame {
-    border: 1px solid var(--color-flat-gray);
     min-height: 120px;
     display: flex;
     align-items: center;
@@ -360,8 +359,44 @@ const complementaryScale = [
     padding: 0.75rem;
   }
 
-  .logo-tone-dark .logo-frame {
-    border-color: var(--color-flat-darkgray);
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at top right, rgba(15,189,169,0.25), transparent 28%), radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12), transparent 18%);
+    opacity: 0.85;
+  }
+
+  .button-stage {
+    display: grid;
+    gap: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-flat-gray);
+    padding: 1.5rem;
+    min-height: 240px;
+  }
+
+  .button-stage.light {
+    background-color: var(--color-flat-white);
+  }
+
+  .button-stage.dark {
     background-color: var(--color-flat-darker);
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .button-stage.dark p {
+    color: var(--color-flat-gray);
+  }
+
+  .button-sample {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .button-sample button,
+  .button-sample a {
+    min-width: 10rem;
   }
 </style>

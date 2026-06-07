@@ -460,12 +460,11 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-    // --- 1. GLOBALE VARIABLEN FÜR SPA-CLEANUP ---
     let pixiApp = null;
     let animationFrameId = null;
     let mouseMoveListener = null;
 
-    // Parallax & Mouse Variablen
+    // parallax variables
     let currentMouseX = window.innerWidth / 2;
     let currentMouseY = window.innerHeight / 2;
     let targetMouseX = window.innerWidth / 2;
@@ -476,7 +475,6 @@ import Layout from '../layouts/Layout.astro';
     let towerCSSY = 0;
 
     function initKarriere() {
-        // --- 2. FORMULAR LOGIK ---
         const form = document.getElementById('careerForm');
         const successMsg = document.getElementById('career-success');
         if (form && successMsg) {
@@ -488,11 +486,9 @@ import Layout from '../layouts/Layout.astro';
             });
         }
 
-        // --- 3. PARALLAX & MAUS SETUP ---
         const parallaxLayers = document.querySelectorAll('.parallax-layer');
         const compactMotionQuery = window.matchMedia('(max-width: 1024px), (prefers-reduced-motion: reduce)');
 
-        // Alten Maus-Listener entfernen (wichtig bei SPA-Wechsel!)
         if (mouseMoveListener) {
             document.removeEventListener('mousemove', mouseMoveListener);
         }
@@ -524,7 +520,7 @@ import Layout from '../layouts/Layout.astro';
         setBackgroundWithFallback('.layer-3-wolken', '/res/karriere/3_CLOUDS.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/3_CLOUDS.png');
         setBackgroundWithFallback('.layer-2-nebel', '/res/karriere/2_FOG.webp', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/2_FOG.webp');
 
-        // --- 4. ANIMATIONS LOOP ---
+        // --- ANIMATIONS LOOP ---
         function animateParallax() {
             currentMouseX += (targetMouseX - currentMouseX) * 0.018;
             currentMouseY += (targetMouseY - currentMouseY) * 0.018;
@@ -573,16 +569,14 @@ import Layout from '../layouts/Layout.astro';
             animationFrameId = requestAnimationFrame(animateParallax);
         }
 
-        // Starte Animation (und kille alte Schleife, falls vorhanden)
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         if (!compactMotionQuery.matches) {
             animateParallax();
         }
 
-        // --- 5. PIXI JS SETUP ---
+        // --- PIXI JS SETUP ---
         if (!compactMotionQuery.matches) {
             const tryInitPixi = () => {
-                // Warten, falls das CDN-Script noch lädt
                 if (typeof window.PIXI === 'undefined') {
                     setTimeout(tryInitPixi, 100);
                     return;
@@ -591,7 +585,6 @@ import Layout from '../layouts/Layout.astro';
                 const towerContainer = document.getElementById('pixi-tower-container');
                 if (!towerContainer) return;
 
-                // Altes Pixi-Canvas entfernen, falls vorhanden
                 if (pixiApp) {
                     try { pixiApp.destroy(true, { children: true, texture: true, baseTexture: true }); } catch(e) {}
                     pixiApp = null;
@@ -625,7 +618,6 @@ import Layout from '../layouts/Layout.astro';
                 }
 
                 loadImageWithFallback('/res/karriere/1_TOWER.png', 'https://raw.githubusercontent.com/christianslw/FTS/main/res/karriere/1_TOWER.png').then((loadedImg) => {
-                    // WICHTIG: Abbruch, falls der Nutzer während des Ladens die Seite gewechselt hat!
                     if (!loadedImg || !pixiApp || !document.getElementById('pixi-tower-container')) return;
 
                     const texture = window.PIXI.Texture.from(loadedImg);
@@ -696,11 +688,9 @@ import Layout from '../layouts/Layout.astro';
         }
     }
 
-    // Beim Laden triggern
     document.addEventListener('astro:page-load', initKarriere);
 
-    // --- 6. CLEANUP VOR DEM SEITENWECHSEL ---
-    // Verhindert Memory-Leaks und CPU-Spikes, wenn man die Seite wechselt!
+    // --- Cleanup---
     document.addEventListener('astro:before-swap', () => {
         if (animationFrameId) {
             cancelAnimationFrame(animationFrameId);

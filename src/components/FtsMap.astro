@@ -12,11 +12,27 @@ const { id = 'contactLocationMap', lat = 49.3215235, lon = 8.18986 } = Astro.pro
 
 <script>
     (function () {
+        const ftsMaps = window.__ftsMaps || (window.__ftsMaps = {});
+
+        function cleanupMap(elementId) {
+            const map = ftsMaps[elementId];
+            if (map && typeof map.remove === 'function') {
+                try {
+                    map.remove();
+                } catch (e) {
+                    console.warn('Failed to remove Leaflet map:', e);
+                }
+            }
+            delete ftsMaps[elementId];
+        }
+
         function initFtsMap(elementId, lat, lon) {
             if (!window.L) return false;
             const L = window.L;
             const mapNode = document.getElementById(elementId);
             if (!mapNode) return true;
+
+            cleanupMap(elementId);
 
             const map = L.map(elementId, { zoomControl: true, scrollWheelZoom: false }).setView([lat, lon], 15);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -33,10 +49,11 @@ const { id = 'contactLocationMap', lat = 49.3215235, lon = 8.18986 } = Astro.pro
             });
 
             L.marker([lat, lon], { icon: markerIcon }).addTo(map).bindPopup('FTS GmbH');
+            ftsMaps[elementId] = map;
             return true;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function findMapElement() {
             const scriptEl = document.currentScript || document.scripts[document.scripts.length - 1];
             let el = null;
             if (scriptEl && scriptEl.previousElementSibling && scriptEl.previousElementSibling.classList.contains('fts-map')) {
@@ -44,6 +61,11 @@ const { id = 'contactLocationMap', lat = 49.3215235, lon = 8.18986 } = Astro.pro
             } else {
                 el = document.querySelector('.fts-map[data-lat][data-lon]');
             }
+            return el;
+        }
+
+        function handleMapInit() {
+            const el = findMapElement();
             if (!el) return;
 
             if (!el.id) {
@@ -59,6 +81,14 @@ const { id = 'contactLocationMap', lat = 49.3215235, lon = 8.18986 } = Astro.pro
             }
 
             tryInit();
-        });
+        }
+
+        function cleanupAllMaps() {
+            Object.keys(ftsMaps).forEach(cleanupMap);
+        }
+
+        document.addEventListener('DOMContentLoaded', handleMapInit);
+        document.addEventListener('astro:page-load', handleMapInit);
+        document.addEventListener('astro:before-swap', cleanupAllMaps);
     })();
 </script>
