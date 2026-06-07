@@ -1,0 +1,367 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LogoHorizontal from '../components/LogoHorizontal.astro';
+import LogoVertical from '../components/LogoVertical.astro';
+
+const mintScale = [
+  { token: 'mint-50', hex: '#f0fdfa', className: 'bg-mint-50 text-flat-black' },
+  { token: 'mint-100', hex: '#cbfcf1', className: 'bg-mint-100 text-flat-black' },
+  { token: 'mint-200', hex: '#96f9e5', className: 'bg-mint-200 text-flat-black' },
+  { token: 'mint-300', hex: '#5aeed6', className: 'bg-mint-300 text-flat-black' },
+  { token: 'mint-400', hex: '#28d9c2', className: 'bg-mint-400 text-flat-black' },
+  { token: 'mint-500', hex: '#0fbda9', className: 'bg-mint-500 text-flat-black' },
+  { token: 'mint-600', hex: '#09988b', className: 'bg-mint-600 text-white' },
+  { token: 'mint-700', hex: '#0c7970', className: 'bg-mint-700 text-white' },
+  { token: 'mint-800', hex: '#0f605a', className: 'bg-mint-800 text-white' },
+  { token: 'mint-900', hex: '#11504b', className: 'bg-mint-900 text-white' },
+  { token: 'mint-950', hex: '#03302f', className: 'bg-mint-950 text-white' }
+];
+
+const neutralScale = [
+  { token: 'flat-white', hex: '#ffffff', className: 'bg-flat-white text-flat-black border border-flat-gray' },
+  { token: 'flat-light', hex: '#f4f4f4', className: 'bg-flat-light text-flat-black border border-flat-gray' },
+  { token: 'flat-gray', hex: '#e0e0e0', className: 'bg-flat-gray text-flat-black border border-flat-gray' },
+  { token: 'flat-darkgray', hex: '#393939', className: 'bg-flat-darkgray text-white border border-flat-darkgray' },
+  { token: 'flat-darker', hex: '#161616', className: 'bg-flat-darker text-white border border-flat-darker' },
+  { token: 'flat-black', hex: '#000000', className: 'bg-flat-black text-white border border-flat-black' }
+];
+
+const complementaryScale = [
+  { token: 'signal-50', hex: '#fff1f3', className: 'bg-[#fff1f3] text-flat-black', cssVar: '--color-signal-50' },
+  { token: 'signal-100', hex: '#ffe1e6', className: 'bg-[#ffe1e6] text-flat-black', cssVar: '--color-signal-100' },
+  { token: 'signal-200', hex: '#ffc8d1', className: 'bg-[#ffc8d1] text-flat-black', cssVar: '--color-signal-200' },
+  { token: 'signal-300', hex: '#ff9fb0', className: 'bg-[#ff9fb0] text-flat-black', cssVar: '--color-signal-300' },
+  { token: 'signal-400', hex: '#ff6f8d', className: 'bg-[#ff6f8d] text-flat-black', cssVar: '--color-signal-400' },
+  { token: 'signal-500', hex: '#bd0f23', className: 'bg-[#bd0f23] text-white', cssVar: '--color-signal-500' },
+  { token: 'signal-600', hex: '#a50f25', className: 'bg-[#a50f25] text-white', cssVar: '--color-signal-600' },
+  { token: 'signal-700', hex: '#8a1127', className: 'bg-[#8a1127] text-white', cssVar: '--color-signal-700' },
+  { token: 'signal-800', hex: '#711227', className: 'bg-[#711227] text-white', cssVar: '--color-signal-800' },
+  { token: 'signal-900', hex: '#5f1125', className: 'bg-[#5f1125] text-white', cssVar: '--color-signal-900' },
+  { token: 'signal-950', hex: '#360712', className: 'bg-[#360712] text-white', cssVar: '--color-signal-950' }
+];
+
+---
+
+<Layout title="FTS Brand Board | Styleguide" description="Komplette Markenrichtlinie mit Farben, Typografie, Komponenten und Interaktion fuers FTS Projekt.">
+  <section class="pt-32 pb-24 bg-flat-darker text-white border-b border-flat-darkgray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.24em] mb-4">Brand Board // FTS</p>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">Styleguide fuer Interface, Marke und Bewegung.</h1>
+      <p class="max-w-3xl text-flat-gray text-base sm:text-lg leading-relaxed mb-10">
+        Diese Seite dokumentiert die realen Design-Tokens und UI-Bausteine aus dem Projekt.
+        Alle Beispiele orientieren sich an den Klassen und Variablen aus dem aktuellen Frontend.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="border border-flat-darkgray bg-flat-black p-5">
+          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Positionierung</p>
+          <p class="text-sm text-flat-gray">Technisch, praezise, industriell.</p>
+        </div>
+        <div class="border border-flat-darkgray bg-flat-black p-5">
+          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Look</p>
+          <p class="text-sm text-flat-gray">High-contrast blocks mit Mint-Akzent.</p>
+        </div>
+        <div class="border border-flat-darkgray bg-flat-black p-5">
+          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-1">Tonality</p>
+          <p class="text-sm text-flat-gray">Sicher, klar, direkt, belastbar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-flat-light border-b border-flat-gray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 border-l-4 border-mint-500 pl-5">
+        <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">01 // Markenassets</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Logo-Varianten und Bildwelt</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <article class="border border-flat-gray bg-white p-6 lg:col-span-2">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Logo Varianten in drei Farben</p>
+          <div class="space-y-4">
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="logo-tile logo-tone-light text-mint-500">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Horizontal / Mint-500</p>
+                <div class="logo-frame">
+                  <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
+              </div>
+              <div class="logo-tile logo-tone-light text-flat-black">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Horizontal / Schwarz</p>
+                <div class="logo-frame">
+                  <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
+              </div>
+              <div class="logo-tile logo-tone-dark text-white">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Horizontal / Weiss</p>
+                <div class="logo-frame">
+                  <LogoHorizontal className="w-full h-auto max-w-75 logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-white">inline-svg + currentColor</p>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="logo-tile logo-tone-light text-mint-500">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Vertikal / Mint-500</p>
+                <div class="logo-frame">
+                  <LogoVertical className="h-32 w-auto logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
+              </div>
+              <div class="logo-tile logo-tone-light text-flat-black">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-flat-black">Vertikal / Schwarz</p>
+                <div class="logo-frame">
+                  <LogoVertical className="h-32 w-auto logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-flat-black">inline-svg + currentColor</p>
+              </div>
+              <div class="logo-tile logo-tone-dark text-white">
+                <p class="font-mono text-xs uppercase tracking-widest mb-3 text-white">Vertikal / Weiss</p>
+                <div class="logo-frame">
+                  <LogoVertical className="h-32 w-auto logo-svg" />
+                </div>
+                <p class="font-mono text-[11px] mt-3 text-white">inline-svg + currentColor</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="border border-flat-gray bg-white p-6">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Hero Bildsprache</p>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <img src="/res/BG_BG.webp" alt="FTS Hintergrundebene" class="w-full h-20 object-cover border border-flat-gray" loading="lazy" />
+            <img src="/res/BG_FG.png" alt="FTS Vordergrundebene" class="w-full h-20 object-cover border border-flat-gray" loading="lazy" />
+          </div>
+          <p class="text-xs text-flat-darkgray">Layered landscape visuals with technical depth.</p>
+        </article>
+      </div>
+
+      <div class="mb-12 border-l-4 border-mint-500 pl-5">
+        <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">02 // Farbwelt</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Mint-Skala, Sekundaerfarbe und Flat-Neutrals</h2>
+      </div>
+
+      <h3 class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Primary Scale</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
+        {mintScale.map((item) => (
+          <article class="border border-flat-gray bg-white">
+            <div class={`h-24 p-3 flex items-end ${item.className}`}>
+              <p class="font-mono text-xs uppercase tracking-widest">{item.token}</p>
+            </div>
+            <div class="p-3 border-t border-flat-gray">
+              <p class="font-mono text-[11px] tracking-wider text-flat-darkgray">{item.hex}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <h3 class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Neutral Scale</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {neutralScale.map((item) => (
+          <article class="border border-flat-gray bg-white">
+            <div class={`h-24 p-3 flex items-end ${item.className}`}>
+              <p class="font-mono text-xs uppercase tracking-widest">{item.token}</p>
+            </div>
+            <div class="p-3 border-t border-flat-gray">
+              <p class="font-mono text-[11px] tracking-wider text-flat-darkgray">{item.hex}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <h3 class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mt-12 mb-4">Complementary Secondary Scale</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {complementaryScale.map((item) => (
+          <article class="border border-flat-gray bg-white">
+            <div class={`h-24 p-3 flex items-end ${item.className}`}>
+              <p class="font-mono text-xs uppercase tracking-widest">{item.token}</p>
+            </div>
+            <div class="p-3 border-t border-flat-gray">
+              <p class="font-mono text-[11px] tracking-wider text-flat-darkgray">{item.hex}</p>
+              <p class="font-mono text-[11px] tracking-wider text-flat-darkgray mt-1">{item.cssVar}: {item.hex};</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white border-b border-flat-gray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 border-l-4 border-mint-500 pl-5">
+        <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">03 // Typografie</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Inter + JetBrains Mono</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <article class="border border-flat-gray p-8 bg-flat-light">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-4">Sans / Inter</p>
+          <h3 class="text-5xl font-bold text-flat-black mb-3">Aa</h3>
+          <p class="text-flat-darker text-base leading-relaxed mb-6">Primare Schrift fuer Headlines, Fliesstext und UI-Komponenten.</p>
+          <p class="text-4xl font-bold text-flat-black">H1 Hero</p>
+          <p class="text-3xl font-bold text-flat-black mt-2">H2 Section</p>
+          <p class="text-xl font-semibold text-flat-black mt-2">H3 Card Title</p>
+          <p class="text-sm text-flat-darkgray mt-3">Body / 16px / 150% line-height</p>
+        </article>
+
+        <article class="border border-flat-gray p-8 bg-flat-darker text-white">
+          <p class="font-mono text-xs uppercase tracking-widest text-mint-500 mb-4">Mono / JetBrains Mono</p>
+          <h3 class="font-mono text-5xl font-bold mb-3">01</h3>
+          <p class="font-mono text-flat-gray text-sm leading-relaxed mb-6">Labeling, Meta-Information, Stat-Codes, Navigations-Tagging.</p>
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-mint-500">Section Label</p>
+          <p class="font-mono text-sm text-white mt-2">[ token_name ]</p>
+          <p class="font-mono text-xs text-flat-gray mt-3">Use uppercase + spacing for signal hierarchy.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-flat-light border-b border-flat-gray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 border-l-4 border-mint-500 pl-5">
+        <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">04 // Komponenten</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Buttons, Tiles und Form Inputs</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <article class="border border-flat-gray bg-white p-8">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-5">Buttons: Solid + Outline auf hell und dunkel</p>
+          <div class="flex flex-wrap gap-4 items-center">
+            <button class="btn-primary btn-primary-on-dark px-6 py-3 text-sm uppercase tracking-widest focus-outline">Primary (Dark BG)</button>
+            <button class="btn-primary btn-primary-on-light px-6 py-3 text-sm uppercase tracking-widest focus-outline">Primary (Light BG)</button>
+            <a href="#" class="text-mint-600 hover:text-mint-700 text-sm font-semibold uppercase tracking-wider">Text Link</a>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-6">
+            <div class="border border-flat-gray p-4 bg-flat-light">
+              <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-3">Heller Hintergrund</p>
+              <div class="flex flex-wrap gap-3">
+                <button class="btn-primary btn-primary-on-light px-5 py-3 text-xs uppercase tracking-widest">Solid Mint</button>
+                <button class="bg-flat-black text-white border border-flat-black px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-darker">Solid Schwarz</button>
+                <button class="bg-flat-white text-flat-black border border-flat-black px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-gray">Solid Weiss</button>
+                <button class="btn-outline-light px-5 py-3 text-xs uppercase tracking-widest">Outline</button>
+              </div>
+            </div>
+            <div class="border border-flat-darkgray p-4 bg-flat-darker">
+              <p class="font-mono text-xs uppercase tracking-widest text-flat-gray mb-3">Dunkler Hintergrund</p>
+              <div class="flex flex-wrap gap-3">
+                <button class="btn-primary btn-primary-on-dark px-5 py-3 text-xs uppercase tracking-widest">Solid Mint</button>
+                <button class="bg-flat-black text-white border border-flat-gray px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-darkgray">Solid Schwarz</button>
+                <button class="bg-flat-white text-flat-black border border-flat-white px-5 py-3 text-xs uppercase tracking-widest hover:bg-flat-light">Solid Weiss</button>
+                <button class="btn-outline-dark px-5 py-3 text-xs uppercase tracking-widest">Outline</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 border border-flat-gray bg-flat-light p-4">
+            <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Relevante CSS Eigenschaften</p>
+            <pre class="text-xs text-flat-darker whitespace-pre-wrap">button &#123;
+  background-color: var(--token-color);
+  color: var(--token-contrast);
+  border: 1px solid var(--token-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+&#125;</pre>
+          </div>
+        </article>
+
+        <article class="border border-flat-gray bg-white p-8">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-5">Forms</p>
+          <div class="space-y-4">
+            <input type="text" class="flat-input" placeholder="Name" />
+            <input type="email" class="flat-input" placeholder="E-Mail" />
+            <textarea class="flat-input resize-none" rows="3" placeholder="Nachricht"></textarea>
+          </div>
+          <p class="font-mono text-[11px] text-flat-darkgray mt-6">Left inset accent appears on focus.</p>
+        </article>
+      </div>
+
+      <article class="metro-tile p-8">
+        <div class="flex justify-between items-start mb-8">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray">Component Card</p>
+          <span class="font-mono text-xs text-flat-gray">07</span>
+        </div>
+        <h3 class="text-2xl font-bold text-flat-black mb-3">Metro Tile Pattern</h3>
+        <p class="text-flat-darkgray text-sm leading-relaxed max-w-3xl">
+          Kachel mit linker Mint-Aktivkante, klarer Border-Logik und leichtem Offset-Shadow beim Hover.
+          Der Stil wirkt technisch, strukturiert und passt zum industriellen Markencharakter.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white border-b border-flat-gray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 border-l-4 border-mint-500 pl-5">
+        <p class="font-mono text-mint-600 text-xs uppercase tracking-[0.2em] mb-2">05 // Motion & Rules</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-flat-black">Interaktion und Systemprinzipien</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="border border-flat-gray p-6 bg-flat-light">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-3">Motion</p>
+          <ul class="space-y-2 text-sm text-flat-darker">
+            <li>Transitions: 0.2s bis 0.3s fuer Hover und State Changes.</li>
+            <li>Signal animation: slow pulse fuer kleine Statusindikatoren.</li>
+            <li>Parallax and fog layers in hero areas fuer technische Tiefe.</li>
+          </ul>
+        </article>
+
+        <article class="border border-flat-gray p-6 bg-flat-light">
+          <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-3">Rules</p>
+          <ul class="space-y-2 text-sm text-flat-darker">
+            <li>No rounded corners: global square geometry across UI.</li>
+            <li>Strong contrast first, mint only as directional accent.</li>
+            <li>Use mono labels for metadata and uppercase utilities.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-flat-darker text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="border border-flat-darkgray bg-flat-black p-8 md:p-10">
+        <p class="font-mono text-mint-500 text-xs uppercase tracking-[0.2em] mb-3">Quick Reference</p>
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4">Brand Stack Summary</h2>
+        <p class="text-flat-gray text-sm leading-relaxed mb-6 max-w-3xl">
+          Colors: Mint scale + Flat neutrals. Typography: Inter and JetBrains Mono.
+          Components: btn-primary, btn-secondary, metro-tile, flat-input, focus-outline.
+          Layout language: square edges, bold sections, technical hierarchy.
+        </p>
+        <a href="/#kontakt" class="btn-primary inline-block px-6 py-3 text-sm uppercase tracking-widest focus-outline">Projektbesprechung starten</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .logo-tile {
+    border: 1px solid var(--color-flat-gray);
+    background-color: var(--color-flat-light);
+    padding: 1rem;
+  }
+
+  .logo-tile.logo-tone-dark {
+    border-color: var(--color-flat-darkgray);
+    background-color: var(--color-flat-black);
+  }
+
+  .logo-frame {
+    border: 1px solid var(--color-flat-gray);
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .logo-tone-dark .logo-frame {
+    border-color: var(--color-flat-darkgray);
+    background-color: var(--color-flat-darker);
+  }
+</style>

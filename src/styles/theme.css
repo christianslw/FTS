@@ -12,8 +12,10 @@
   --color-mint-600: #00b377;
   --color-mint-700: #009966;
   --color-mint-800: #007a55;
+  #bd0f7a pink complementary
+  #bd0f23 red complementary
   --color-mint-900: #005c44; */
-  --color-mint-50: #f0fdfa;
+  --color-mint-50:  #f0fdfa;
   --color-mint-100: #cbfcf1;
   --color-mint-200: #96f9e5;
   --color-mint-300: #5aeed6;
@@ -24,6 +26,18 @@
   --color-mint-800: #0f605a;
   --color-mint-900: #11504b;
   --color-mint-950: #03302f;
+
+  --color-signal-50: #fff1f3;
+  --color-signal-100: #ffe1e6;
+  --color-signal-200: #ffc8d1;
+  --color-signal-300: #ff9fb0;
+  --color-signal-400: #ff6f8d;
+  --color-signal-500: #bd0f23;
+  --color-signal-600: #a50f25;
+  --color-signal-700: #8a1127;
+  --color-signal-800: #711227;
+  --color-signal-900: #5f1125;
+  --color-signal-950: #360712;
 
   --color-flat-white: #ffffff;
   --color-flat-light: #f4f4f4;
@@ -95,6 +109,49 @@
   .btn-primary:hover::before { 
     transform: scaleY(1); 
   }
+
+  /* Primary button on bright surfaces: hover inverts to black instead of white */
+  .btn-primary-on-light::before {
+    background-color: var(--color-flat-black);
+  }
+
+  .btn-primary-on-light:hover {
+    color: var(--color-flat-white);
+  }
+
+  .btn-primary-on-dark::before {
+    background-color: var(--color-flat-white);
+  }
+
+  .btn-primary-on-dark:hover {
+    color: var(--color-flat-black);
+  }
+
+  .btn-outline-dark {
+    background-color: transparent;
+    color: var(--color-flat-white) !important;
+    border: 1px solid var(--color-flat-white) !important;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-outline-dark:hover {
+    background-color: var(--color-flat-white);
+    color: var(--color-flat-black) !important;
+  }
+
+  .btn-outline-light {
+    background-color: transparent;
+    color: var(--color-flat-black) !important;
+    border: 1px solid var(--color-flat-black) !important;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-outline-light:hover {
+    background-color: var(--color-flat-black);
+    color: var(--color-flat-white) !important;
+  }
   
   .btn-secondary {
     background-color: transparent;
@@ -140,6 +197,9 @@
 
   /* <<< HIER GENAU EINFÜGEN >>> */
   /* Header Scroll Colors */
+  .nav-solid #nav-logo:hover {
+    color: var(--color-mint-500) !important;
+  }
   .nav-solid #nav-logo,
   .nav-solid #mobile-btn,
   .nav-solid .nav-dynamic {

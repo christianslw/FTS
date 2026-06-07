@@ -1,0 +1,64 @@
+---
+const { id = 'contactLocationMap', lat = 49.3215235, lon = 8.18986 } = Astro.props;
+---
+
+<div id={id} class="fts-map" aria-label="Karte mit dem Unternehmensstandort" data-lat={lat} data-lon={lon}></div>
+
+<style>
+    * { z-index: 0; }
+    .fts-map { width: 100%; min-height: 240px; height: 450px; }
+    .fts-marker { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fff, #fff 20%, transparent 21%), linear-gradient(#00d28a,#00a86b); box-shadow: 0 0 10px rgba(0,0,0,0.35); }
+</style>
+
+<script>
+    (function () {
+        function initFtsMap(elementId, lat, lon) {
+            if (!window.L) return false;
+            const L = window.L;
+            const mapNode = document.getElementById(elementId);
+            if (!mapNode) return true;
+
+            const map = L.map(elementId, { zoomControl: true, scrollWheelZoom: false }).setView([lat, lon], 15);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap-Mitwirkende &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+
+            const markerIcon = L.divIcon({
+                html: '<span class="fts-marker" aria-hidden="true"></span>',
+                className: '',
+                iconSize: [22, 22],
+                iconAnchor: [11, 22]
+            });
+
+            L.marker([lat, lon], { icon: markerIcon }).addTo(map).bindPopup('FTS GmbH');
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const scriptEl = document.currentScript || document.scripts[document.scripts.length - 1];
+            let el = null;
+            if (scriptEl && scriptEl.previousElementSibling && scriptEl.previousElementSibling.classList.contains('fts-map')) {
+                el = scriptEl.previousElementSibling;
+            } else {
+                el = document.querySelector('.fts-map[data-lat][data-lon]');
+            }
+            if (!el) return;
+
+            if (!el.id) {
+                el.id = 'fts-map-' + Math.random().toString(36).slice(2, 9);
+            }
+
+            const lat = parseFloat(el.dataset.lat) || 49.3215235;
+            const lon = parseFloat(el.dataset.lon) || 8.18986;
+
+            function tryInit() {
+                if (initFtsMap(el.id, lat, lon)) return;
+                setTimeout(tryInit, 100);
+            }
+
+            tryInit();
+        });
+    })();
+</script>

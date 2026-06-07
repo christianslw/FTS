@@ -1,13 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import kontaktdaten from '../../kontaktdaten.json';
+import FtsMap from '../components/FtsMap.astro';
 ---
 
 <Layout title="Impressum | FTS GmbH" description="Impressum der FTS GmbH mit Kontaktdaten und Kartenansicht des Unternehmensstandorts.">
-    <section class="bg-flat-darker text-white border-b border-flat-darkgray mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section class="bg-flat-darker text-white border-b border-flat-darkgray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-30">
             <p class="font-mono text-xs uppercase tracking-[0.2em] text-mint-500 mb-6">Rechtliche Angaben</p>
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Impressum</h1>
-            <p class="text-flat-gray max-w-2xl">Alle Pflichtangaben gemäß Paragraph 5 TMG sowie Kontakt- und Standortinformationen der FTS GmbH.</p>
+            <p class="text-flat-gray max-w-2xl">Alle Pflichtangaben gemäß §5 TMG sowie Kontakt- und Standortinformationen der FTS GmbH.</p>
         </div>
     </section>
 
@@ -16,27 +18,33 @@ import Layout from '../layouts/Layout.astro';
             <div class="lg:col-span-5 metro-tile p-8">
                 <h2 class="text-2xl font-bold mb-8">Anbieterkennzeichnung</h2>
                 <div class="space-y-6 text-sm leading-relaxed">
-                    <div>
-                        <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Unternehmen</p>
-                        <p class="text-flat-darker">FTS GmbH<br>Theodor-Heuss-Strasse 79a<br>67435 Neustadt an der Weinstrasse</p>
-                    </div>
+                            <div>
+                                <p class="text-flat-darkgray mb-1 tracking-widest text-xs uppercase">Adresse</p>
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=Theodor-Heuss-Straße+79a,+67435+Neustadt+an+der+Weinstraße" target="_blank" rel="noopener noreferrer" class="text-flat-darker hover:text-mint-500 transition-colors block focus-outline" aria-label="Route in Google Maps öffnen">
+                                    {kontaktdaten.name} <br>
+                                    {kontaktdaten.strasse} <br>
+                                    {kontaktdaten.ort}
+                                </a>
+                            </div>
                     <div>
                         <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Kontakt</p>
-                        <p class="text-flat-darker">Telefon: <a class="hover:text-mint-600 transition-colors" href="tel:+4963279794027">06327 979 40 27</a><br>
-                        Telefax: 06327 979 38 27<br>
-                        E-Mail: <a class="hover:text-mint-600 transition-colors" href="mailto:info@funkturmservice.de">info@funkturmservice.de</a></p>
+                        <p class="text-flat-darker">
+                            Telefon: <a class="hover:text-mint-600 transition-colors" href={`tel:${kontaktdaten.telefon}`}>{kontaktdaten.telefon}</a><br>
+                            Telefax: {kontaktdaten.fax}<br>
+                            E-Mail: <a class="hover:text-mint-600 transition-colors" href={`mailto:${kontaktdaten.email}`}>{kontaktdaten.email}</a>
+                        </p>
                     </div>
                     <div>
                         <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Vertretungsberechtigt</p>
-                        <p class="text-flat-darker">Geschaeftsfuehrung: Bitte entsprechend der offiziellen Handelsregisterangaben ergänzen.</p>
+                        <p class="text-flat-darker">Geschäftsführung: Thomas Schiessl, Olaf Kühn</p>
                     </div>
                     <div>
                         <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Registereintrag</p>
-                        <p class="text-flat-darker">Registergericht und Handelsregisternummer bitte ergänzen.</p>
+                        <p class="text-flat-darker"> Handelsregister: HRB 67570 <br> Registergericht: Amtsgericht Ludwigshafen/Rhein</p>
                     </div>
                     <div>
                         <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray mb-2">Umsatzsteuer</p>
-                        <p class="text-flat-darker">Umsatzsteuer-Identifikationsnummer gemäß Paragraph 27a UStG bitte ergaenzen.</p>
+                        <p class="text-flat-darker">DE305209467 gemäß §27a UStG</p>
                     </div>
                 </div>
             </div>
@@ -45,48 +53,9 @@ import Layout from '../layouts/Layout.astro';
                 <div class="metro-tile p-6 mb-6">
                     <p class="font-mono text-xs uppercase tracking-widest text-flat-darkgray">Standortkarte</p>
                     <h2 class="text-2xl font-bold mt-2">FTS Hauptsitz</h2>
-                    <p class="text-sm mt-2 text-flat-darkgray">Minimalistischer Kartenstil mit Attribution fuer die kommerzielle Nutzung im Unternehmenskontext.</p>
                 </div>
-                <div id="impressumMap" class="fts-map" style="height: 360px;"></div>
+                <FtsMap />
             </div>
         </div>
     </section>
 </Layout>
-
-<script>
-    function renderFeatureMap() {
-        if (!window.L) return;
-        const L = window.L;
-
-        const mapContainer = document.getElementById('impressumMap');
-        if (!mapContainer) return;
-
-        const lat = 49.3215235;
-        const lon = 8.18986;
-
-        const map = L.map('impressumMap', {
-            zoomControl: true,
-            scrollWheelZoom: false
-        }).setView([lat, lon], 15);
-
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap-Mitwirkende &copy; CARTO',
-            subdomains: 'abcd',
-            maxZoom: 20
-        }).addTo(map);
-
-        const markerIcon = L.divIcon({
-            html: '<span class="fts-marker" aria-hidden="true"></span>',
-            className: '',
-            iconSize: [22, 22],
-            iconAnchor: [11, 22]
-        });
-
-        L.marker([lat, lon], { icon: markerIcon })
-            .addTo(map)
-            .bindPopup('FTS GmbH<br>Theodor-Heuss-Strasse 79a<br>67435 Neustadt an der Weinstrasse')
-            .openPopup();
-    }
-
-    document.addEventListener('DOMContentLoaded', renderFeatureMap);
-</script>
